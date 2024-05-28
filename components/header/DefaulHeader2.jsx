@@ -1,15 +1,28 @@
 "use client";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 import HeaderNavContent from "./HeaderNavContent";
 import Image from "next/image";
 import LoginPopup from "../common/form/login/LoginPopup";
+import { useSelector, useDispatch } from "react-redux";
+import { handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
+import { useRouter } from "next/navigation";
+import useAuth from "@/utils/useAuth";
 
-
-
-const DefaulHeader2 = ({show,handleClose,handleShow}) => {
+const DefaulHeader2 = () => {
   const [navbar, setNavbar] = useState(false);
+  const router = useRouter()
+  const { show } = useSelector((state) => state.loginPopup);
+  const { isLoggedIn } = useAuth()
+  const dispatch = useDispatch()
+
+  const handleShow = () => {
+    if (isLoggedIn) {
+      router.push('/employers-dashboard/dashboard')
+    }
+    else { dispatch(handleShowModal()) }
+  }
 
   const changeBackground = () => {
     if (window.scrollY >= 10) {
@@ -28,9 +41,8 @@ const DefaulHeader2 = ({show,handleClose,handleShow}) => {
   return (
     // <!-- Main Header-->
     <header
-      className={`main-header  ${
-        navbar ? "fixed-header animated slideInDown" : ""
-      }`}
+      className={`main-header  ${navbar ? "fixed-header animated slideInDown" : ""
+        }`}
     >
       {/* <!-- Main box --> */}
       <div className="main-box">
@@ -70,7 +82,7 @@ const DefaulHeader2 = ({show,handleClose,handleShow}) => {
             >
               Login
             </button>
-            <LoginPopup show={show} handleClose={handleClose} handleShow={handleShow}/>
+            <LoginPopup show={show} />
 
             <Link
               href="/employers-dashboard/post-jobs"

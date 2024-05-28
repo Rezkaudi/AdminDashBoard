@@ -7,17 +7,20 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Api from "@/utils/Api";
 import { toast } from "react-toastify";
+import useToken from "@/utils/useToken";
+
 
 const WidgetContentBox = () => {
 
   const [candidatesData, setCandidatesData] = useState(null)
+  const { token } = useToken()
 
   const getAllApplicant = async () => {
     try {
       const response = await fetch(`${Api}/admin/users?pageNumber=1&pageSize=50`, {
         method: 'GET',
         headers: {
-          'auth': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzI0MDc1ODI2LCJpYXQiOjE3MTYyOTk4MjZ9.CuyFMKIKutE3hpDIU3UrqYy62t2AAOmVFSmfW4tHaok`,
+          'auth': token,
           // Add other necessary headers here
         },
       });
@@ -43,7 +46,7 @@ const WidgetContentBox = () => {
       const response = await fetch(`${Api}/admin/users/${id}`, {
         method: 'DELETE',
         headers: {
-          'Auth': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzI0MDc1ODI2LCJpYXQiOjE3MTYyOTk4MjZ9.CuyFMKIKutE3hpDIU3UrqYy62t2AAOmVFSmfW4tHaok`, // Replace YOUR_AUTH_TOKEN_HERE with your actual auth token
+          'Auth': token, // Replace YOUR_AUTH_TOKEN_HERE with your actual auth token
           // Add any other necessary headers here
         },
       });
@@ -61,7 +64,7 @@ const WidgetContentBox = () => {
     } catch (error) {
       toast.error("network error");
     }
-    
+
   };
 
 

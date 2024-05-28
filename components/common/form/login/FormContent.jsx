@@ -5,11 +5,21 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Api from "@/utils/Api";
+import useAuth from "@/utils/useAuth";
+import { useDispatch } from "react-redux";
+import { handleCloseModal } from "@/mainData/loginPopup/loginPopupSlice";
+// import { menuToggle ,popUpToggle} from "@/features/toggle/toggleSlice";
 
 // pages/_app.js or pages/_app.tsx
 
-const FormContent = ({handleClose}) => {
+const FormContent = () => {
   const router = useRouter();
+  const { login } = useAuth();
+  const dispatch = useDispatch()
+  const handleClose = () => dispatch(handleCloseModal())
+  // const { menu} = useSelector((state) => state.toggle);
+  // const { show } = useSelector((state) => state.loginPopup);
+
 
   const [adminData, setAdminData] = useState({
     email: "",
@@ -19,6 +29,7 @@ const FormContent = ({handleClose}) => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
+
     setAdminData({
       ...adminData,
       [e.target.name]: e.target.value,
@@ -26,7 +37,7 @@ const FormContent = ({handleClose}) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     setLoading(true);
     try {
       const response = await fetch(`${Api}/admin/auth/login`, {
@@ -41,10 +52,11 @@ const FormContent = ({handleClose}) => {
 
       // Assuming the server responds with a status indicating success
       if (response.ok) {
-        router.push("/employers-dashboard/all-applicants");
+        login(data.data.accessToken)
+        router.push("/employers-dashboard/dashboard");
         toast.success(data.message);
         handleClose()
-        
+
 
       } else {
         toast.error(data.message);

@@ -6,6 +6,7 @@ import { isActiveLink } from "../../utils/linkActiveChecker";
 
 import { useDispatch, useSelector } from "react-redux";
 import { menuToggle } from "../../features/toggle/toggleSlice";
+import { handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
 import { usePathname } from "next/navigation";
 
 const DashboardEmployerSidebar = () => {
@@ -16,6 +17,8 @@ const DashboardEmployerSidebar = () => {
     // menu togggle handler
     const menuToggleHandler = () => {
         dispatch(menuToggle());
+        dispatch(handleShowModal(false))
+        console.log("kjhkjh");
     };
 
     return (

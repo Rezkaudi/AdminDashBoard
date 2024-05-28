@@ -14,23 +14,31 @@ import Hero1 from "../hero/hero-1";
 import JobCategorie1 from "../job-categories/JobCategorie1";
 import JobFeatured1 from "../job-featured/JobFeatured1";
 import Testimonial from "../testimonial/Testimonial";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { handleCloseModal, handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
+import { useEffect } from "react";
 
 const index = () => {
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const { show } = useSelector(state => state.loginPopup);
+  const dispatch = useDispatch()
+
+  const handleClose = () => dispatch(handleCloseModal());
+  const handleShow = () => dispatch(handleShowModal());
+
+  useEffect(() => {
+    handleClose()
+  }, [])
 
   return (
     <>
-      <LoginPopup show={show} handleClose={handleClose} handleShow={handleShow}/>
+      {/* <LoginPopup show={show} handleClose={handleClose} handleShow={handleShow}/> */}
       {/* End Login Popup Modal */}
 
-      <DefaulHeader2 show={show} handleClose={handleClose} handleShow={handleShow}/>
+      <DefaulHeader2 />
       {/* End Header with upload cv btn */}
 
-      <MobileMenu handleShow={handleShow}/>
+      <MobileMenu />
       {/* End MobileMenu */}
 
       <Hero1 />

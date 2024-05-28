@@ -1,16 +1,22 @@
+"use client"
 import Register from "../register/Register";
 import FormContent from "./FormContent";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import {useDispatch } from "react-redux";
+import { handleCloseModal, handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
+import { useEffect } from "react";
 
-const LoginPopup = ({show,handleClose}) => {
-
+const LoginPopup = ({show}) => {
   
+  const dispatch = useDispatch()
+
+  const handleClose = () => dispatch(handleCloseModal());
 
   return (
     <>
-      
-      <Modal    
+
+      <Modal
         className="modal fade"
         // data-bs-backdrop="static"
         // data-bs-keyboard="false"
@@ -32,7 +38,7 @@ const LoginPopup = ({show,handleClose}) => {
               <div id="login-modal">
                 {/* <!-- Login Form --> */}
                 <div className="login-form default-form">
-                  <FormContent handleClose={handleClose}/>
+                  <FormContent handleClose={handleClose} />
                 </div>
                 {/* <!--End Login Form --> */}
               </div>
@@ -45,7 +51,7 @@ const LoginPopup = ({show,handleClose}) => {
       </Modal>
       {/* <!-- Login Popup Modal --> */}
 
-      
+
       {/* <!-- Login Popup Modal --> */}
     </>
   );

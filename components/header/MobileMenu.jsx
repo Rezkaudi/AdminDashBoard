@@ -1,8 +1,17 @@
+"use client"
+
 import Link from "next/link";
 import MobileSidebar from "./mobile-sidebar";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
 
-const MobileMenu = ({handleShow}) => {
+
+const MobileMenu = () => {
+  // const isLoggedIn = getAuthStatus()
+  const dispatch = useDispatch()
+  const handleShow = () => dispatch(handleShowModal())
+
   return (
     // <!-- Main Header-->
     <header className="main-header main-header-mobile">
@@ -30,14 +39,14 @@ const MobileMenu = ({handleShow}) => {
           {/* End .nav-outer */}
 
           <div className="outer-box">
-            <div className="login-box">
+            {/* <div className="login-box">
               <button
                 className="call-modal"
                 onClick={handleShow}
               >
                 <span className="icon icon-user"></span>
               </button>
-            </div>
+            </div> */}
             {/* login popup end */}
 
             <a

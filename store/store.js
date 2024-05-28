@@ -9,16 +9,29 @@ import candidateSlice from "../features/candidate/candidateSlice";
 import candidateFilterSlice from "../features/filter/candidateFilterSlice";
 import shopSlice from "../features/shop/shopSlice";
 
+//users
+import usersSlice from "@/mainData/users/usersSlice";
+// token
+import tokenSlice from "@/mainData/token/tokenSlice";
+// company
+import companySlice from "@/mainData/company/companySlice";
+// loginPupup
+import loginPopupSlice from "@/mainData/loginPopup/loginPopupSlice";
+
 export const store = configureStore({
-    reducer: {
-        job: jobSlice,
-        toggle: toggleSlice,
-        filter: filterSlice,
-        employer: employerSlice,
-        employerFilter: employerFilterSlice,
-        candidate: candidateSlice,
-        candidateFilter: candidateFilterSlice,
-        shop: shopSlice,
-    },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
+  reducer: {
+    job: jobSlice,
+    toggle: toggleSlice,
+    filter: filterSlice,
+    employer: employerSlice,
+    employerFilter: employerFilterSlice,
+    candidate: candidateSlice,
+    candidateFilter: candidateFilterSlice,
+    shop: shopSlice,
+    users: usersSlice,
+    token: tokenSlice,
+    company: companySlice,
+    loginPopup:loginPopupSlice
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });

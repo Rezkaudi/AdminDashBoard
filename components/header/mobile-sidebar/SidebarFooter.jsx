@@ -1,4 +1,17 @@
+"use client"
+import { stateus } from "@/utils/status";
+import LogOut from "@/components/common/form/logout/LogOut";
+import { useEffect, useState } from "react";
+
 const SidebarFooter = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const state = stateus()
+
+  useEffect(() => {
+    setIsLoggedIn(state)
+  }, [isLoggedIn])
+
+
   const socialContent = [
     { id: 1, icon: "fa-facebook-f", link: "https://www.facebook.com/" },
     { id: 2, icon: "fa-twitter", link: "https://www.twitter.com/" },
@@ -8,9 +21,12 @@ const SidebarFooter = () => {
 
   return (
     <div className="mm-add-listing mm-listitem pro-footer">
-      <a href="#" className="theme-btn btn-style-one mm-listitem__text">
-        Job Post
-      </a>
+      {isLoggedIn ?
+        <LogOut /> :
+        <a href="/login" className="theme-btn btn-style-one mm-listitem__text">
+          Log In
+        </a>
+      }
       {/* job post btn */}
 
       <div className="mm-listitem__text">

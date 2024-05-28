@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
+
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -57,10 +59,10 @@ const Header = () => {
             {/* <!-- Login/Register --> */}
             <div className="btn-box">
               <Link
-                href="/employers-dashboard/post-jobs"
+                href="/"
                 className="theme-btn btn-style-one"
               >
-                <span className="btn-title">Job Post</span>
+                <span className="btn-title">Home</span>
               </Link>
             </div>
           </div>
