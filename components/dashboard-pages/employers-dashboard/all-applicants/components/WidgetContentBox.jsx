@@ -8,12 +8,15 @@ import { useEffect, useState } from "react";
 import Api from "@/utils/Api";
 import { toast } from "react-toastify";
 import useToken from "@/utils/useToken";
-
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers } from "@/mainData/users/usersSlice";
 
 const WidgetContentBox = () => {
 
-  const [candidatesData, setCandidatesData] = useState(null)
+  // const [candidatesData, setCandidatesData] = useState(null)
+  const dispatch = useDispatch()
   const { token } = useToken()
+  const { users } = useSelector(state => state.users)
 
   const getAllApplicant = async () => {
     try {
@@ -29,14 +32,15 @@ const WidgetContentBox = () => {
 
       if (response.ok) {
         toast.success(data.message)
-        setCandidatesData(data.data.list); // Assuming the API returns an object with a 'users' array
+        dispatch(getAllUsers(data.data.list))
+        // setCandidatesData(data.data.list); // Assuming the API returns an object with a 'users' array
       }
       else {
         toast.error(data.message)
       }
 
     } catch (err) {
-      toast.error("network error")
+      toast.error(err)
     }
   };
 
@@ -70,6 +74,7 @@ const WidgetContentBox = () => {
 
   useEffect(() => {
     getAllApplicant()
+    console.log(users)
   }, [])
 
   return (
@@ -80,7 +85,7 @@ const WidgetContentBox = () => {
             <h6>Senior Product Designer</h6>
 
             <TabList className="aplicantion-status tab-buttons clearfix">
-              <Tab className="tab-btn totals"> Total(s): {candidatesData && candidatesData.length}</Tab>
+              <Tab className="tab-btn totals"> Total(s): {users && users.length}</Tab>
               <Tab className="tab-btn approved"> Approved: 2</Tab>
               <Tab className="tab-btn rejected"> Rejected(s): 4</Tab>
             </TabList>
@@ -89,11 +94,11 @@ const WidgetContentBox = () => {
           <div className="tabs-content">
             <TabPanel>
               <div className="row">
-                {candidatesData ?
-                  candidatesData.map((candidate) => (
+                {users ?
+                  users.map((user) => (
                     <div
                       className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
-                      key={candidate.id}
+                      key={user.id}
                     >
                       <div className="inner-box">
                         <div className="content">
@@ -107,7 +112,7 @@ const WidgetContentBox = () => {
                           </figure>
                           <h4 className="name">
                             <Link href={`/candidates-single-v1/1`}>
-                              {candidate.firstName} {candidate.lastName}
+                              {user.firstName} {user.lastName}
                             </Link>
                           </h4>
 
@@ -117,11 +122,11 @@ const WidgetContentBox = () => {
                             </li>
                             <li>
                               {/* <span className="icon flaticon-map-locator"></span>{" "} */}
-                              {candidate.email}
+                              {user.email}
                             </li>
                             <li>
                               {/* <span className="icon flaticon-money"></span>  */}
-                              {candidate.phone}
+                              {user.phone}
                             </li>
                           </ul>
                           {/* End candidate-info */}
@@ -174,7 +179,7 @@ const WidgetContentBox = () => {
 
             <TabPanel>
               <div className="row">
-                {false ? candidatesData.map((candidate) => (
+                {false ? users.map((candidate) => (
                   <div
                     className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
                     key={candidate.id}
@@ -257,7 +262,7 @@ const WidgetContentBox = () => {
 
             <TabPanel>
               <div className="row">
-                {false ? candidatesData.map((candidate) => (
+                {false ? users.map((candidate) => (
                   <div
                     className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
                     key={candidate.id}

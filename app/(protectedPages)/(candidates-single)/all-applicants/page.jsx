@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
-import Seo from "../../../components/common/Seo";
-import AllApplicants from "../../../components/dashboard-pages/employers-dashboard/all-applicants";
+// import Seo from "../../../../components/common/Seo";
+import AllApplicants from "../../../../components/dashboard-pages/employers-dashboard/all-applicants";
 
 export const metadata = {
   title: 'All Applicants || Superio - Job Borad React NextJS Template',
@@ -14,7 +14,6 @@ export const metadata = {
 const index = () => {
   return (
     <>
-
       <AllApplicants />
     </>
   );

@@ -24,6 +24,10 @@ const DefaulHeader2 = () => {
     else { dispatch(handleShowModal()) }
   }
 
+  const handelLogout=()=>{
+    router.push('/logout') 
+  }
+
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -74,14 +78,24 @@ const DefaulHeader2 = () => {
           </Link>
           {/* <!-- Login/Register --> */}
           <div className="btn-box">
-            <button
-              className="theme-btn btn-style-three call-modal mx-4"
-              // data-bs-toggle="modal"
-              // data-bs-target="#loginPopupModal"
-              onClick={handleShow}
-            >
-              Login
-            </button>
+            {isLoggedIn ?
+              <button
+                className="theme-btn btn-style-three call-modal mx-4"
+                // data-bs-toggle="modal"
+                // data-bs-target="#loginPopupModal"
+                onClick={handelLogout}
+              >
+                Logout
+              </button> :
+              <button
+                className="theme-btn btn-style-three call-modal mx-4"
+                // data-bs-toggle="modal"
+                // data-bs-target="#loginPopupModal"
+                onClick={handleShow}
+              >
+                Login
+              </button>
+            }
             <LoginPopup show={show} />
 
             <Link

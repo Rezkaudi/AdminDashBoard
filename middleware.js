@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 
 export default function middleware(req) {
   const isAuthenticated = cookies().get("authToken");
-  console.log(req.nextUrl.pathname);
 
   const publicRoutes = [
     "/",

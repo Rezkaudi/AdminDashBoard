@@ -7,6 +7,7 @@ import CopyrightFooter from "../../CopyrightFooter";
 import WidgetContentBox from "./components/WidgetContentBox";
 import WidgetTopFilterBox from "./components/WidgetTopFilterBox";
 import MenuToggler from "../../MenuToggler";
+import Pagination from "./components/Pagination";
 
 const index = () => {
   return (
@@ -55,6 +56,7 @@ const index = () => {
           {/* End .row */}
         </div>
         {/* End dashboard-outer */}
+        <Pagination />
       </section>
       {/* <!-- End Dashboard --> */}
 
