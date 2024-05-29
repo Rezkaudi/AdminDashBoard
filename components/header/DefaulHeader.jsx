@@ -1,5 +1,4 @@
-
-'use client'
+"use client"
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -24,9 +23,7 @@ const DefaulHeader = () => {
   return (
     // <!-- Main Header-->
     <header
-      className={`main-header  ${
-        navbar ? "fixed-header animated slideInDown" : ""
-      }`}
+      className={`main-header  ${navbar ? "fixed-header animated slideInDown" : ""}`}
     >
       {/* <!-- Main box --> */}
       <div className="main-box">
@@ -60,7 +57,7 @@ const DefaulHeader = () => {
               data-bs-toggle="modal"
               data-bs-target="#loginPopupModal"
             >
-              Login / Register
+              Login
             </a>
             <Link
               href="/employers-dashboard/post-jobs"

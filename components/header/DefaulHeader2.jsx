@@ -1,4 +1,6 @@
 "use client";
+
+import LogOut from "../common/form/logout/LogOut";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -8,24 +10,27 @@ import LoginPopup from "../common/form/login/LoginPopup";
 import { useSelector, useDispatch } from "react-redux";
 import { handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
 import { useRouter } from "next/navigation";
-import useAuth from "@/utils/useAuth";
+import { stateus } from "@/utils/status";
 
 const DefaulHeader2 = () => {
   const [navbar, setNavbar] = useState(false);
   const router = useRouter()
   const { show } = useSelector((state) => state.loginPopup);
-  const { isLoggedIn } = useAuth()
   const dispatch = useDispatch()
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const state = stateus()
+
+  useEffect(() => {
+    setIsLoggedIn(state)
+  }, [isLoggedIn])
+
   const handleShow = () => {
-    if (isLoggedIn) {
-      router.push('/employers-dashboard/dashboard')
-    }
-    else { dispatch(handleShowModal()) }
+    dispatch(handleShowModal())
   }
 
-  const handelLogout=()=>{
-    router.push('/logout') 
+  const handelLogout = () => {
+    router.push('/logout')
   }
 
   const changeBackground = () => {
@@ -78,19 +83,15 @@ const DefaulHeader2 = () => {
           </Link>
           {/* <!-- Login/Register --> */}
           <div className="btn-box">
-            {isLoggedIn ?
+            {!!isLoggedIn ?
               <button
                 className="theme-btn btn-style-three call-modal mx-4"
-                // data-bs-toggle="modal"
-                // data-bs-target="#loginPopupModal"
                 onClick={handelLogout}
               >
                 Logout
               </button> :
               <button
                 className="theme-btn btn-style-three call-modal mx-4"
-                // data-bs-toggle="modal"
-                // data-bs-target="#loginPopupModal"
                 onClick={handleShow}
               >
                 Login

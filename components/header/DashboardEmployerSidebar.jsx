@@ -18,7 +18,6 @@ const DashboardEmployerSidebar = () => {
     const menuToggleHandler = () => {
         dispatch(menuToggle());
         dispatch(handleShowModal(false))
-        console.log("kjhkjh");
     };
 
     return (

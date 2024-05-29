@@ -35,7 +35,7 @@ const useToken = () => {
   // Effect to update token state when component mounts or Redux token changes
   useEffect(() => {
     setTokenState(loadToken()); // Sync local state with Redux token or fallback to local storage
-  }, []); // Depend on reduxToken to trigger updates
+  }, [token]); // Depend on reduxToken to trigger updates
 
   return { token, saveToken, removeToken };
 };

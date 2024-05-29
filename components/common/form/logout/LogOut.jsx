@@ -1,4 +1,5 @@
 "use client"
+
 import useToken from "@/utils/useToken"
 import { toast } from "react-toastify"
 import { useRouter } from 'next/navigation';
@@ -11,7 +12,6 @@ const LogOut = () => {
         removeToken()
         router.push('/login');
         toast.success("log out successfully")
-
     };
 
     return (

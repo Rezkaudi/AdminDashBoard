@@ -1,19 +1,27 @@
 "use client"
 import React, { useState } from "react";
 
-const Pagination = () => {
+const Pagination = ({ getAllApplicant, totalCount }) => {
+  const totalPages = Math.ceil(totalCount / 10)
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePrevClick = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    getAllApplicant(currentPage - 1)
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextClick = () => {
+    getAllApplicant(currentPage + 1)
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  const handleChangePage = (page) => {
+    setCurrentPage(page)
+    getAllApplicant(page)
+  }
+
   const renderPaginationItems = () => {
-    const totalPages = 3; // Change this to the actual total number of pages
+    // const totalPages = Math.ceil(totalCount / 10); // Change this to the actual total number of pages
     const items = [];
 
     for (let page = 1; page <= totalPages; page++) {
@@ -22,7 +30,7 @@ const Pagination = () => {
 
       items.push(
         <li key={page}>
-          <span className={className} onClick={() => setCurrentPage(page)}>
+          <span className={className} onClick={() => handleChangePage(page)}>
             {page}
           </span>
         </li>
@@ -36,15 +44,15 @@ const Pagination = () => {
     <nav className="ls-pagination">
       <ul>
         <li className="prev">
-          <span onClick={handlePrevClick}>
+          <button onClick={handlePrevClick} disabled={currentPage <= 1}>
             <i className="fa fa-arrow-left"></i>
-          </span>
+          </button>
         </li>
         {renderPaginationItems()}
         <li className="next">
-          <span onClick={handleNextClick}>
+          <button onClick={handleNextClick} disabled={currentPage >= totalPages}>
             <i className="fa fa-arrow-right"></i>
-          </span>
+          </button>
         </li>
       </ul>
     </nav>

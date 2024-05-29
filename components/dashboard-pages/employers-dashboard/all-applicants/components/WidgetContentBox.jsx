@@ -1,6 +1,7 @@
 "use client";
 
 // import candidatesData from "../../../../../data/candidates";
+import Pagination from "./Pagination";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,18 +10,28 @@ import Api from "@/utils/Api";
 import { toast } from "react-toastify";
 import useToken from "@/utils/useToken";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from "@/mainData/users/usersSlice";
+import { getAllUsers, setTotalCount } from "@/mainData/users/usersSlice";
 
 const WidgetContentBox = () => {
 
   // const [candidatesData, setCandidatesData] = useState(null)
   const dispatch = useDispatch()
   const { token } = useToken()
-  const { users } = useSelector(state => state.users)
+  const { users, totalCount } = useSelector(state => state.users)
 
-  const getAllApplicant = async () => {
+  const getAllApplicant = async (pageNumber) => {
+    dispatch(getAllUsers(null))
+    let pageSize = 0
+    if (totalCount === 0 || totalCount >= pageNumber * 10) {
+      pageSize = 10
+    }
+
+    else {
+      pageSize = totalCount - (pageNumber - 1) * 10
+    }
+
     try {
-      const response = await fetch(`${Api}/admin/users?pageNumber=1&pageSize=50`, {
+      const response = await fetch(`${Api}/admin/users?pageNumber=${pageNumber}&pageSize=${pageSize}`, {
         method: 'GET',
         headers: {
           'auth': token,
@@ -33,6 +44,7 @@ const WidgetContentBox = () => {
       if (response.ok) {
         toast.success(data.message)
         dispatch(getAllUsers(data.data.list))
+        dispatch(setTotalCount(data.data.totalCount))
         // setCandidatesData(data.data.list); // Assuming the API returns an object with a 'users' array
       }
       else {
@@ -43,7 +55,6 @@ const WidgetContentBox = () => {
       toast.error(err)
     }
   };
-
 
   const deleteApplicant = async (id) => {
     try {
@@ -59,7 +70,7 @@ const WidgetContentBox = () => {
 
       if (response.ok) {
         toast.success(data.message)
-        getAllApplicant()
+        getAllApplicant(1)
       }
       else {
         toast.error(data.message)
@@ -73,8 +84,7 @@ const WidgetContentBox = () => {
 
 
   useEffect(() => {
-    getAllApplicant()
-    console.log(users)
+    getAllApplicant(1)
   }, [])
 
   return (
@@ -85,7 +95,7 @@ const WidgetContentBox = () => {
             <h6>Senior Product Designer</h6>
 
             <TabList className="aplicantion-status tab-buttons clearfix">
-              <Tab className="tab-btn totals"> Total(s): {users && users.length}</Tab>
+              <Tab className="tab-btn totals"> Total(s): {totalCount}</Tab>
               <Tab className="tab-btn approved"> Approved: 2</Tab>
               <Tab className="tab-btn rejected"> Rejected(s): 4</Tab>
             </TabList>
@@ -159,7 +169,7 @@ const WidgetContentBox = () => {
                               </button>
                             </li>
                             <li>
-                              <button data-text="Delete Aplication" onClick={() => deleteApplicant(candidate.id)}>
+                              <button data-text="Delete Aplication" onClick={() => deleteApplicant(user.id)}>
                                 <span className="la la-trash"></span>
                               </button>
                             </li>
@@ -346,6 +356,7 @@ const WidgetContentBox = () => {
           </div>
         </Tabs>
       </div>
+      <Pagination getAllApplicant={getAllApplicant} totalCount={totalCount} />
     </div>
   );
 };

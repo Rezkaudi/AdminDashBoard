@@ -53,10 +53,10 @@ const index = () => {
               </div>
             </div>
           </div>
+          {/* <Pagination /> */}
           {/* End .row */}
         </div>
         {/* End dashboard-outer */}
-        <Pagination />
       </section>
       {/* <!-- End Dashboard --> */}
 
