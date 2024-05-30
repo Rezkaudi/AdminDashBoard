@@ -178,9 +178,11 @@ const WidgetContentBox = () => {
                         {/* End admin options box */}
                       </div>
                     </div>
-                  )) : (<div className="spinner-border text-primary mx-auto" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>)
+                  )) : (
+                    <div className="spinner-border text-primary mx-auto" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  )
                 }
               </div>
             </TabPanel>

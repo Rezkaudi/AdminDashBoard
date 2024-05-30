@@ -10,7 +10,7 @@ module.exports = [
     id: 4,
     name: "All companies",
     icon: "la-briefcase",
-    routePath: "/employers-dashboard/manage-jobs",
+    routePath: "/employers-dashboard/all-companies",
     active: "",
   },
   {

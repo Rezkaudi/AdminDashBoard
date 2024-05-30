@@ -1,12 +1,30 @@
+"use client"
 import Link from "next/link";
-import jobs from "../../../../../data/job-featured.js";
-import Image from "next/image.js";
+import Image from "next/image";
+import { useEffect } from "react";
+
+import useToken from "@/utils/useToken";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllCompanies, deleteCompany } from "@/mainData/company/handleRequests";
+import Pagination from "./Pagination";
+
+// import jobs from "../../../../../data/job-featured";
 
 const JobListingsTable = () => {
+
+  const dispatch = useDispatch()
+  const { token } = useToken()
+  const { companies, currentPage } = useSelector(state => state.companies)
+
+
+  useEffect(() => {
+    dispatch(getAllCompanies({ currentPage, token }))
+  }, [])
+
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>My Job Listings</h4>
+        <h4>List Of Companies</h4>
 
         <div className="chosen-outer">
           {/* <!--Tabs Box--> */}
@@ -27,7 +45,7 @@ const JobListingsTable = () => {
           <table className="default-table manage-job-table">
             <thead>
               <tr>
-                <th>Title</th>
+                <th>Email</th>
                 <th>Applications</th>
                 <th>Created & Expired</th>
                 <th>Status</th>
@@ -35,8 +53,8 @@ const JobListingsTable = () => {
               </tr>
             </thead>
 
-            <tbody>
-              {jobs.slice(0, 4).map((item) => (
+            <tbody className="w-100">
+              {companies ? companies.map((item) => (
                 <tr key={item.id}>
                   <td>
                     {/* <!-- Job Block --> */}
@@ -47,19 +65,20 @@ const JobListingsTable = () => {
                             <Image
                               width={50}
                               height={49}
-                              src={item.logo}
+                              className="rounded"
+                              src={'/images/resource/candidate-1.png'}
                               alt="logo"
                             />
                           </span>
                           <h4>
                             <Link href={`/job-single-v3/${item.id}`}>
-                              {item.jobTitle}
+                              {item.email}
                             </Link>
                           </h4>
                           <ul className="job-info">
                             <li>
                               <span className="icon flaticon-briefcase"></span>
-                              Segment
+                              {item.name}
                             </li>
                             <li>
                               <span className="icon flaticon-map-locator"></span>
@@ -74,8 +93,7 @@ const JobListingsTable = () => {
                     <a href="#">3+ Applied</a>
                   </td>
                   <td>
-                    October 27, 2017 <br />
-                    April 25, 2011
+                    {item.joinDate}
                   </td>
                   <td className="status">Active</td>
                   <td>
@@ -92,7 +110,7 @@ const JobListingsTable = () => {
                           </button>
                         </li>
                         <li>
-                          <button data-text="Delete Aplication">
+                          <button data-text="Delete Aplication" onClick={() => { dispatch(deleteCompany({ id: item.id, token })) }}>
                             <span className="la la-trash"></span>
                           </button>
                         </li>
@@ -100,10 +118,20 @@ const JobListingsTable = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) : (
+                <tr>
+                  <td colSpan={5} className="">
+                    <div className="mx-auto spinner-border text-primary d-flex justify-content-center" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
+              )
+              }
             </tbody>
           </table>
         </div>
+        <Pagination />
       </div>
       {/* End table widget content */}
     </div>

@@ -30,7 +30,7 @@ export const store = configureStore({
     shop: shopSlice,
     users: usersSlice,
     token: tokenSlice,
-    company: companySlice,
+    companies: companySlice,
     loginPopup:loginPopupSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
