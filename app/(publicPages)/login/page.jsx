@@ -1,8 +1,10 @@
 
 import dynamic from "next/dynamic";
-import { redirect } from "next/navigation";
+import { redirect} from "next/navigation";
 import { getAuthStatus } from "@/utils/authStatus";
 import LogIn from "@/components/pages-menu/login";
+
+
 export const metadata = {
   title: 'Login || Superio - Job Borad React NextJS Template',
   description:
@@ -19,7 +21,7 @@ const index = () => {
 
   return (
     <>
-      <LogIn />
+      <LogIn/>
     </>
   );
 };

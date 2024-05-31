@@ -42,6 +42,8 @@ export default function middleware(req) {
   // );
 
   if (!isAuthenticated?.value) {
+    // console.log(req?.nextUrl?.pathname)
+
     const absoluteUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());
   }

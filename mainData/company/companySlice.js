@@ -40,6 +40,7 @@ export const companySlice = createSlice({
         state.companies = state.companies.filter(
           (company) => company.id !== payload.id
         );
+        state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteCompany.rejected, (state, { payload }) => {

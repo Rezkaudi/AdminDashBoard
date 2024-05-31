@@ -1,27 +1,22 @@
 "use client"
-import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPage } from "@/mainData/users/usersSlice";
+import { getAllApplicants } from "@/mainData/users/handleRequests";
+import useToken from "@/utils/useToken";
 
-const Pagination = ({ getAllApplicant, totalCount }) => {
+const Pagination = () => {
+
+  const dispatch = useDispatch()
+  const { totalCount, currentPage } = useSelector(state => state.users)
   const totalPages = Math.ceil(totalCount / 10)
-  const [currentPage, setCurrentPage] = useState(1);
+  const { token } = useToken()
 
-  const handlePrevClick = () => {
-    getAllApplicant(currentPage - 1)
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
-
-  const handleNextClick = () => {
-    getAllApplicant(currentPage + 1)
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const handleChangePage = (page) => {
-    setCurrentPage(page)
-    getAllApplicant(page)
+  const handleChangePage = (currentPage) => {
+    dispatch(setCurrentPage(currentPage))
+    dispatch(getAllApplicants({ currentPage, token }))
   }
 
   const renderPaginationItems = () => {
-    // const totalPages = Math.ceil(totalCount / 10); // Change this to the actual total number of pages
     const items = [];
 
     for (let page = 1; page <= totalPages; page++) {
@@ -44,13 +39,13 @@ const Pagination = ({ getAllApplicant, totalCount }) => {
     <nav className="ls-pagination">
       <ul>
         <li className="prev">
-          <button onClick={handlePrevClick} disabled={currentPage <= 1}>
+          <button onClick={() => handleChangePage(currentPage - 1)} disabled={currentPage <= 1}>
             <i className="fa fa-arrow-left"></i>
           </button>
         </li>
         {renderPaginationItems()}
         <li className="next">
-          <button onClick={handleNextClick} disabled={currentPage >= totalPages}>
+          <button onClick={() => handleChangePage(currentPage + 1)} disabled={currentPage >= totalPages}>
             <i className="fa fa-arrow-right"></i>
           </button>
         </li>

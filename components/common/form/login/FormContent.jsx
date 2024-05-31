@@ -1,6 +1,5 @@
 "use client";
-import Link from "next/link";
-import LoginWithSocial from "./LoginWithSocial";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -8,19 +7,18 @@ import Api from "@/utils/Api";
 import useAuth from "@/utils/useAuth";
 import { useDispatch } from "react-redux";
 import { handleCloseModal } from "@/mainData/loginPopup/loginPopupSlice";
-// import { menuToggle ,popUpToggle} from "@/features/toggle/toggleSlice";
+import Cookies from "js-cookie";
 
-// pages/_app.js or pages/_app.tsx
 
 const FormContent = () => {
   const router = useRouter();
   const { login } = useAuth();
   const dispatch = useDispatch()
   const handleClose = () => dispatch(handleCloseModal())
-  // const { menu} = useSelector((state) => state.toggle);
-  // const { show } = useSelector((state) => state.loginPopup);
 
 
+  // console.log(Cookies.get("prevURL"));
+  
   const [adminData, setAdminData] = useState({
     email: "",
     password: "",

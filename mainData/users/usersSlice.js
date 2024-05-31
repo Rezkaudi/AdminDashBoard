@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getAllApplicants, deleteApplicant } from "./handleRequests";
+import { toast } from "react-toastify";
 
 const initialState = {
   users: null,
   totalCount: 0,
+  currentPage: 1,
 };
 
 export const usersSlice = createSlice({
@@ -17,25 +20,39 @@ export const usersSlice = createSlice({
       }
     },
 
-    deleteUser: (state, { payload }) => {
-      state.users = state.users.filter((user) => user.id !== payload.id);
-    },
-
     getUser: (state, { payload }) => {
       return state.users.find((user) => user.id === payload.id);
     },
 
-    getAllUsers: (state, { payload }) => {
-      console.log(payload);
-      state.users = payload;
-      // return (state.users = payload);
+    setCurrentPage: (state, { payload }) => {
+      state.currentPage = payload;
     },
-    setTotalCount:(state, { payload }) => {
-      state.totalCount = payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(deleteApplicant.fulfilled, (state, { payload }) => {
+        state.users = state.users.filter((user) => user.id !== payload.id);
+        state.totalCount = state.totalCount - 1;
+        toast.success(payload.data.message);
+      })
+      .addCase(deleteApplicant.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
+
+    builder
+      .addCase(getAllApplicants.pending, (state, { payload }) => {
+        state.users = null;
+      })
+      .addCase(getAllApplicants.fulfilled, (state, { payload }) => {
+        state.users = payload.data.list;
+        state.totalCount = payload.data.totalCount;
+        toast.success(payload.message);
+      })
+      .addCase(getAllApplicants.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
   },
 });
 
-export const { updateUser, deleteUser, getUser, getAllUsers ,setTotalCount} =
-  usersSlice.actions;
+export const { updateUser, getUser, setCurrentPage } = usersSlice.actions;
 export default usersSlice.reducer;

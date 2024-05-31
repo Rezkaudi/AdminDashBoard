@@ -10,81 +10,18 @@ import Api from "@/utils/Api";
 import { toast } from "react-toastify";
 import useToken from "@/utils/useToken";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers, setTotalCount } from "@/mainData/users/usersSlice";
+import { getAllApplicants, deleteApplicant } from "@/mainData/users/handleRequests";
 
 const WidgetContentBox = () => {
 
   // const [candidatesData, setCandidatesData] = useState(null)
   const dispatch = useDispatch()
   const { token } = useToken()
-  const { users, totalCount } = useSelector(state => state.users)
-
-  const getAllApplicant = async (pageNumber) => {
-    dispatch(getAllUsers(null))
-    let pageSize = 0
-    if (totalCount === 0 || totalCount >= pageNumber * 10) {
-      pageSize = 10
-    }
-
-    else {
-      pageSize = totalCount - (pageNumber - 1) * 10
-    }
-
-    try {
-      const response = await fetch(`${Api}/admin/users?pageNumber=${pageNumber}&pageSize=${pageSize}`, {
-        method: 'GET',
-        headers: {
-          'auth': token,
-          // Add other necessary headers here
-        },
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message)
-        dispatch(getAllUsers(data.data.list))
-        dispatch(setTotalCount(data.data.totalCount))
-        // setCandidatesData(data.data.list); // Assuming the API returns an object with a 'users' array
-      }
-      else {
-        toast.error(data.message)
-      }
-
-    } catch (err) {
-      toast.error(err)
-    }
-  };
-
-  const deleteApplicant = async (id) => {
-    try {
-      const response = await fetch(`${Api}/admin/users/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Auth': token, // Replace YOUR_AUTH_TOKEN_HERE with your actual auth token
-          // Add any other necessary headers here
-        },
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message)
-        getAllApplicant(1)
-      }
-      else {
-        toast.error(data.message)
-      }
-
-    } catch (error) {
-      toast.error("network error");
-    }
-
-  };
+  const { users, totalCount, currentPage } = useSelector(state => state.users)
 
 
   useEffect(() => {
-    getAllApplicant(1)
+    dispatch(getAllApplicants({ currentPage, token }))
   }, [])
 
   return (
@@ -169,7 +106,7 @@ const WidgetContentBox = () => {
                               </button>
                             </li>
                             <li>
-                              <button data-text="Delete Aplication" onClick={() => deleteApplicant(user.id)}>
+                              <button data-text="Delete Aplication" onClick={() => { dispatch(deleteApplicant({ id: user.id, token })) }}>
                                 <span className="la la-trash"></span>
                               </button>
                             </li>
@@ -358,7 +295,7 @@ const WidgetContentBox = () => {
           </div>
         </Tabs>
       </div>
-      <Pagination getAllApplicant={getAllApplicant} totalCount={totalCount} />
+      <Pagination />
     </div>
   );
 };

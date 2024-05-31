@@ -7,7 +7,7 @@ import { isActiveLink } from "../../utils/linkActiveChecker";
 import { useDispatch, useSelector } from "react-redux";
 import { menuToggle } from "../../features/toggle/toggleSlice";
 import { handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 
 const DashboardEmployerSidebar = () => {
 
