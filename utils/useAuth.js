@@ -1,11 +1,11 @@
 // utils/useAuth.js
-import useToken  from './useToken'; // Adjust the import path
+import useToken from "./useToken"; // Adjust the import path
 
 const useAuth = () => {
   const { token, saveToken, removeToken } = useToken(); // Assuming useToken manages token operations
 
-  const login = (newToken) => {
-    saveToken(newToken);
+  const login = (newToken, rememberMe) => {
+    saveToken(newToken, rememberMe);
   };
 
   const logout = () => {
@@ -13,7 +13,7 @@ const useAuth = () => {
   };
 
   return {
-    isLoggedIn:!!token,
+    isLoggedIn: !!token,
     login,
     logout,
   };

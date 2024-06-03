@@ -9,24 +9,32 @@ const useToken = () => {
   // const reduxToken = useSelector((state) => state.token); // Adjust the path according to your state shape
 
   // Function to save token to local storage and Redux store
-  const saveToken = (token) => {
+  const saveToken = (token, rememberMe) => {
     // localStorage.setItem("authToken", token);
     dispatch(setToken(token));
-    Cookies.set("authToken", token, { expires: 7 });
+
+    if (rememberMe) {
+      Cookies.set("authToken", token, { expires: 7 });
+    } else {
+      Cookies.set("authToken", token, { expires: 1 / 24 });
+    }
   };
 
   // Function to load token from local storage
   const loadToken = () => {
-    // const tokenFromLocalStorage = localStorage.getItem("authToken");
     const tokenFromCooki = Cookies.get("authToken");
-    return tokenFromCooki; // Prefer token from Redux if available
+    // const tokenFromSessionStorage = sessionStorage.getItem("authToken");
+    // const tokenFromLocalStorage = localStorage.getItem("authToken");
+
+    return tokenFromCooki;
   };
 
   // Function to remove token from local storage and Redux store
   const removeToken = () => {
-    // localStorage.removeItem("authToken");
     dispatch(deleteToken());
     Cookies.remove("authToken");
+    // sessionStorage.removeItem("authToken");
+    // localStorage.removeItem("authToken");
   };
 
   // State to hold the current token, initializing with the loaded token

@@ -17,10 +17,12 @@ import Testimonial from "../testimonial/Testimonial";
 import { useSelector, useDispatch } from "react-redux";
 import { handleCloseModal, handleShowModal } from "@/mainData/loginPopup/loginPopupSlice";
 import { useEffect } from "react";
+import useAuth from "@/utils/useAuth";
 
 const index = () => {
 
   const { show } = useSelector(state => state.loginPopup);
+  const { isLoggedIn } = useAuth()
   const dispatch = useDispatch()
 
   const handleClose = () => dispatch(handleCloseModal());
@@ -28,6 +30,11 @@ const index = () => {
 
   useEffect(() => {
     handleClose()
+    if (!isLoggedIn) {
+      setTimeout(() => {
+        handleShow()
+      }, 1500)
+    }
   }, [])
 
   return (

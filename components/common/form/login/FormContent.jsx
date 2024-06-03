@@ -18,10 +18,11 @@ const FormContent = () => {
 
 
   // console.log(Cookies.get("prevURL"));
-  
+
   const [adminData, setAdminData] = useState({
     email: "",
     password: "",
+    rememberMe: false
   });
 
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ const FormContent = () => {
 
     setAdminData({
       ...adminData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
   };
 
@@ -50,7 +51,7 @@ const FormContent = () => {
 
       // Assuming the server responds with a status indicating success
       if (response.ok) {
-        login(data.data.accessToken)
+        login(data.data.accessToken, adminData.rememberMe)
         router.push("/employers-dashboard/dashboard");
         toast.success(data.message);
         handleClose()
@@ -102,8 +103,8 @@ const FormContent = () => {
         <div className="form-group">
           <div className="field-outer">
             <div className="input-group checkboxes square">
-              <input type="checkbox" name="remember-me" id="remember" />
-              <label htmlFor="remember" className="remember">
+              <input type="checkbox" name="rememberMe" id="rememberMe" checked={adminData.rememberMe} onChange={handleChange} />
+              <label htmlFor="rememberMe" className="remember">
                 <span className="custom-checkbox"></span> Remember me
               </label>
             </div>
