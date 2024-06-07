@@ -1,25 +1,17 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
 
 import useToken from "@/utils/useToken";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCompanies, deleteCompany } from "@/mainData/company/handleRequests";
+import { deleteCompany } from "@/mainData/company/handleRequests";
 import Pagination from "./Pagination";
-
-// import jobs from "../../../../../data/job-featured";
 
 const JobListingsTable = () => {
 
   const dispatch = useDispatch()
   const { token } = useToken()
-  const { companies, currentPage } = useSelector(state => state.companies)
-
-
-  useEffect(() => {
-    dispatch(getAllCompanies({ currentPage, token }))
-  }, [])
+  const { companies } = useSelector(state => state.companies)
 
   return (
     <div className="tabs-box">
@@ -28,13 +20,13 @@ const JobListingsTable = () => {
 
         <div className="chosen-outer">
           {/* <!--Tabs Box--> */}
-          <select className="chosen-single form-select">
+          {/* <select className="chosen-single form-select">
             <option>Last 6 Months</option>
             <option>Last 12 Months</option>
             <option>Last 16 Months</option>
             <option>Last 24 Months</option>
             <option>Last 5 year</option>
-          </select>
+          </select> */}
         </div>
       </div>
       {/* End filter top bar */}

@@ -71,16 +71,16 @@ const DefaulHeader2 = () => {
           </div>
           {/* End .logo-box */}
 
-          <HeaderNavContent />
+          {/* <HeaderNavContent /> */}
           {/* <!-- Main Menu End--> */}
         </div>
         {/* End .nav-outer */}
 
         <div className="outer-box">
           {/* <!-- Add Listing --> */}
-          <Link href="/candidates-dashboard/cv-manager" className="upload-cv">
+          {/* <Link href="/candidates-dashboard/cv-manager" className="upload-cv">
             Upload your CV
-          </Link>
+          </Link> */}
           {/* <!-- Login/Register --> */}
           <div className="btn-box">
             {!!isLoggedIn ?
@@ -100,10 +100,10 @@ const DefaulHeader2 = () => {
             <LoginPopup show={show} />
 
             <Link
-              href="/employers-dashboard/post-jobs"
+              href="employers-dashboard/dashboard"
               className="theme-btn btn-style-one"
             >
-              Job Post
+             Dashboard
             </Link>
           </div>
         </div>

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllApplicants, deleteApplicant } from "./handleRequests";
+import { getAllApplicants, deleteApplicant ,getResentUsers} from "./handleRequests";
 import { toast } from "react-toastify";
 
 const initialState = {
   users: null,
+  recentUsers: null,
   totalCount: 0,
   currentPage: 1,
 };
@@ -49,6 +50,18 @@ export const usersSlice = createSlice({
         toast.success(payload.message);
       })
       .addCase(getAllApplicants.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
+
+    builder
+      .addCase(getResentUsers.pending, (state, { payload }) => {
+        state.recentUsers = null;
+      })
+      .addCase(getResentUsers.fulfilled, (state, { payload }) => {
+        state.recentUsers = payload.data.list;
+        toast.success(payload.message);
+      })
+      .addCase(getResentUsers.rejected, (state, { payload }) => {
         toast.error(payload);
       });
   },

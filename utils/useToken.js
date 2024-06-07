@@ -11,7 +11,7 @@ const useToken = () => {
   // Function to save token to local storage and Redux store
   const saveToken = (token, rememberMe) => {
     // localStorage.setItem("authToken", token);
-    dispatch(setToken(token));
+    // dispatch(setToken(token));
 
     if (rememberMe) {
       Cookies.set("authToken", token, { expires: 7 });

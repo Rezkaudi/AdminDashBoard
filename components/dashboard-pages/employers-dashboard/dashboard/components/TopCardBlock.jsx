@@ -1,33 +1,40 @@
+"use client"
+import { useSelector } from "react-redux";
 const TopCardBlock = () => {
+  const { totalCount: usersTotalCount } = useSelector((state) => state.users);
+  const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
+
+
+
   const cardContent = [
     {
       id: 1,
       icon: "flaticon-briefcase",
-      countNumber: "22",
-      metaName: "Posted Jobs",
+      countNumber: usersTotalCount,
+      metaName: "Applicants",
       uiClass: "ui-blue",
     },
     {
       id: 2,
       icon: "la-file-invoice",
-      countNumber: "9382",
-      metaName: "Application",
+      countNumber: companiesTotalCount,
+      metaName: "Companies",
       uiClass: "ui-red",
     },
-    {
-      id: 3,
-      icon: "la-comment-o",
-      countNumber: "74",
-      metaName: "Messages",
-      uiClass: "ui-yellow",
-    },
-    {
-      id: 4,
-      icon: "la-bookmark-o",
-      countNumber: "32",
-      metaName: "Shortlist",
-      uiClass: "ui-green",
-    },
+    // {
+    //   id: 3,
+    //   icon: "la-comment-o",
+    //   countNumber: "74",
+    //   metaName: "Messages",
+    //   uiClass: "ui-yellow",
+    // },
+    // {
+    //   id: 4,
+    //   icon: "la-bookmark-o",
+    //   countNumber: "32",
+    //   metaName: "Shortlist",
+    //   uiClass: "ui-green",
+    // },
   ];
 
   return (

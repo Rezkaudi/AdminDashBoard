@@ -53,3 +53,34 @@ export const getAllApplicants = createAsyncThunk(
     }
   }
 );
+
+
+export const getResentUsers = createAsyncThunk(
+  "user/getResent",
+  async ({token }, { rejectWithValue }) => {
+    let pageSize = 6;
+
+    try {
+      const response = await fetch(
+        `${Api}/admin/users?pageNumber=1&pageSize=${pageSize}`,
+        {
+          method: "GET",
+          headers: {
+            auth: token,
+          },
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+getResentUsers
