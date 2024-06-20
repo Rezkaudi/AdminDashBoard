@@ -1,14 +1,14 @@
 module.exports = [
-  {
-    id: 1,
-    label: "Home",
-    items: [
-      {
-        name: "Home Page",
-        routePath: "/",
-      },
-    ],
-  },
+  // {
+  //   id: 1,
+  //   label: "Home",
+  //   items: [
+  //     {
+  //       name: "Home Page",
+  //       routePath: "/",
+  //     },
+  //   ],
+  // },
   {
     id: 11,
     label: "Dashboard",

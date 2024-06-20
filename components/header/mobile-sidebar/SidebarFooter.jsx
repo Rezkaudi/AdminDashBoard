@@ -29,7 +29,7 @@ const SidebarFooter = () => {
       }
       {/* job post btn */}
 
-      <div className="mm-listitem__text">
+      {/* <div className="mm-listitem__text">
         <div className="contact-info">
           <span className="phone-num">
             <span>Call us</span>
@@ -43,7 +43,6 @@ const SidebarFooter = () => {
             support@superio.com
           </a>
         </div>
-        {/* End .contact-info */}
 
         <div className="social-links">
           {socialContent.map((item) => (
@@ -57,9 +56,7 @@ const SidebarFooter = () => {
             </a>
           ))}
         </div>
-        {/* End social-links */}
-      </div>
-      {/* End .mm-listitem__text */}
+      </div> */}
     </div>
   );
 };

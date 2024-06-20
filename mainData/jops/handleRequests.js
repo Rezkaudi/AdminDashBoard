@@ -2,11 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import Api from "@/utils/Api";
 
 // Async thunk for deleting a company
-export const deleteCompany = createAsyncThunk(
-  "company/delete",
+export const deleteJop = createAsyncThunk(
+  "jops/delete",
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/admin/companies/${id}`, {
+      const response = await fetch(`${Api}/admin/jobs/${id}`, {
         method: "DELETE",
         headers: {
           Auth: token,
@@ -26,13 +26,13 @@ export const deleteCompany = createAsyncThunk(
 );
 
 // Async thunk for getting all companies
-export const getAllCompanies = createAsyncThunk(
-  "company/getAll",
+export const getAllJops = createAsyncThunk(
+  "jops/getAll",
   async ({ currentPage, token }, { rejectWithValue }) => {
     let pageSize = 10;
     try {
       const response = await fetch(
-        `${Api}/admin/companies?pageNumber=${currentPage}&pageSize=${pageSize}`,
+        `${Api}/admin/jobs?page=${currentPage}&size=${pageSize}`,
         {
           method: "GET",
           headers: {
@@ -53,12 +53,11 @@ export const getAllCompanies = createAsyncThunk(
   }
 );
 
-// Async thunk for getting one a company
-export const getCompany = createAsyncThunk(
-  "company/find",
+export const getJop = createAsyncThunk(
+  "jops/get",
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${Api}/admin/companies/${id}`, {
+      const response = await fetch(`${Api}/admin/jobs/${id}`, {
         method: "GET",
         headers: {
           Auth: token,
@@ -67,7 +66,7 @@ export const getCompany = createAsyncThunk(
       const data = await response.json();
 
       if (response.ok) {
-        return data;
+        return data ;
       } else {
         return rejectWithValue(data.message);
       }

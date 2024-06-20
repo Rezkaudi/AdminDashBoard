@@ -12,6 +12,9 @@ import JobSkills from "@/components/candidates-single-pages/shared-components/Jo
 import AboutVideo from "@/components/candidates-single-pages/shared-components/AboutVideo";
 import Image from "next/image";
 
+
+
+
 export const metadata = {
   title:
     "Candidate Single Dyanmic V1 || Superio - Job Borad React NextJS Template",

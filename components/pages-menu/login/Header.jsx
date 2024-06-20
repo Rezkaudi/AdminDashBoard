@@ -57,14 +57,14 @@ const Header = () => {
 
           <div className="outer-box">
             {/* <!-- Login/Register --> */}
-            <div className="btn-box">
+            {/* <div className="btn-box">
               <Link
                 href="/"
                 className="theme-btn btn-style-one"
               >
                 <span className="btn-title">Home</span>
               </Link>
-            </div>
+            </div> */}
           </div>
           {/* End outer-box */}
         </div>

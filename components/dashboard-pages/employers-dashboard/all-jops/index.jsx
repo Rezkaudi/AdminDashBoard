@@ -1,11 +1,14 @@
 import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
-import LoginPopup from "../../../common/form/login/LoginPopup";
 import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
 import BreadCrumb from "../../BreadCrumb";
 import CopyrightFooter from "../../CopyrightFooter";
-import JobListingsTable from "./components/JobListingsTable";
+
 import MenuToggler from "../../MenuToggler";
+import Pagination from "./components/Pagination";
+
+import JobSearchForm from "./components/JobSearchForm";
+import FilterJobBox from "./components/FilterJobBox";
 
 const index = () => {
   return (
@@ -28,20 +31,34 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
-          <BreadCrumb title="All Companies" />
+          <BreadCrumb title="All Jobs!" />
           {/* breadCrumb */}
 
           <MenuToggler />
           {/* Collapsible sidebar button */}
 
-          <div className="row">
-            <div className="col-lg-12">
-              {/* <!-- Ls widget --> */}
-              <div className="ls-widget">
-                <JobListingsTable />
-              </div>
+          {/* <section className="page-title style-three">
+            <div className="auto-container">
+              <JobSearchForm />
             </div>
-          </div>
+          </section> */}
+
+          <section className="ls-section style-three">
+            <div className="auto-container">
+              <div className="row">
+                <div className="content-column col-lg-12">
+                  <div className="ls-outer">
+                    <FilterJobBox />
+                  </div>
+                </div>
+                {/* <!-- End Content Column --> */}
+              </div>
+              {/* End row */}
+            </div>
+            {/* End container */}
+          </section>
+
+          {/* <Pagination /> */}
           {/* End .row */}
         </div>
         {/* End dashboard-outer */}

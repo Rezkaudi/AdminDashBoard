@@ -1,10 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllApplicants, deleteApplicant ,getResentUsers} from "./handleRequests";
+import {
+  getAllApplicants,
+  deleteApplicant,
+  getResentUsers,
+  getUser,
+} from "./handleRequests";
 import { toast } from "react-toastify";
+
+// {
+//   "id": "882d5807-2ecb-4f35-82d4-5932c771aad5",
+//   "email": "ismaeladra250@gmail.com",
+//   "firstName": "Ismael",
+//   "lastName": "Adra",
+//   "isGoogleUser": null,
+//   "isAppleUser": null,
+//   "isLinkedInUser": null,
+//   "image": "image url updated",
+//   "phone": "+963932078097",
+//   "verifiedAt": "2024-04-19T09:00:52.000Z",
+//   "createdAt": "2024-04-19T08:59:54.000Z"
+// }
 
 const initialState = {
   users: null,
   recentUsers: null,
+  findUser: null,
   totalCount: 0,
   currentPage: 1,
 };
@@ -19,10 +39,6 @@ export const usersSlice = createSlice({
       if (index !== -1) {
         state.users[index] = payload;
       }
-    },
-
-    getUser: (state, { payload }) => {
-      return state.users.find((user) => user.id === payload.id);
     },
 
     setCurrentPage: (state, { payload }) => {
@@ -64,8 +80,20 @@ export const usersSlice = createSlice({
       .addCase(getResentUsers.rejected, (state, { payload }) => {
         toast.error(payload);
       });
+
+    builder
+      .addCase(getUser.pending, (state, { payload }) => {
+        state.findUser = null;
+      })
+      .addCase(getUser.fulfilled, (state, { payload }) => {
+        state.findUser = payload.data;
+        toast.success(payload.message);
+      })
+      .addCase(getUser.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
   },
 });
 
-export const { updateUser, getUser, setCurrentPage } = usersSlice.actions;
+export const { updateUser, setCurrentPage } = usersSlice.actions;
 export default usersSlice.reducer;

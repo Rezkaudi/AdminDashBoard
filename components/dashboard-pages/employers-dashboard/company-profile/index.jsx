@@ -1,3 +1,4 @@
+"use client"
 import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
 import LoginPopup from "../../../common/form/login/LoginPopup";
@@ -9,83 +10,167 @@ import ContactInfoBox from "./components/ContactInfoBox";
 import CopyrightFooter from "../../CopyrightFooter";
 import MenuToggler from "../../MenuToggler";
 
-const index = () => {
-    return (
-        <div className="page-wrapper dashboard">
-            <span className="header-span"></span>
-            {/* <!-- Header Span for hight --> */}
+import employersInfo from "@/data/topCompany";
+import FooterDefault from "@/components/footer/common-footer";
+import JobDetailsDescriptions from "@/components/employer-single-pages/shared-components/JobDetailsDescriptions";
+import RelatedJobs from "@/components/employer-single-pages/related-jobs/RelatedJobs";
+import MapJobFinder from "@/components/job-listing-pages/components/MapJobFinder";
+import Social from "@/components/employer-single-pages/social/Social";
+import PrivateMessageBox from "@/components/employer-single-pages/shared-components/PrivateMessageBox";
+import Image from "next/image";
 
-            <LoginPopup />
-            {/* End Login Popup Modal */}
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import useToken from "@/utils/useToken";
+import { getCompany } from "@/mainData/company/handleRequests";
+
+const index = ({ id }) => {
+
+    const dispatch = useDispatch()
+    const { token } = useToken()
+    const { findCompany } = useSelector(state => state.companies)
+
+
+    const company = findCompany;
+    const employer =
+        employersInfo.find((item) => item.id == id) || employersInfo[0];
+
+    useEffect(() => {
+        dispatch(getCompany({ token, id }))
+    }, [])
+
+    return (
+
+        <>
+            {/* <!-- Header Span --> */}
+            <span className="header-span"></span>
 
             <DashboardHeader />
-            {/* End Header */}
+            {/* <!--End Main Header --> */}
 
             <MobileMenu />
             {/* End MobileMenu */}
 
-            <DashboardEmployerSidebar />
-            {/* <!-- End User Sidebar Menu --> */}
+            {/* <!-- Job Detail Section --> */}
+            {company ?
+                <section className="job-detail-section">
+                    {/* <!-- Upper Box --> */}
+                    <div className="upper-box">
+                        <div className="auto-container">
+                            <div className="job-block-seven">
+                                <div className="inner-box">
+                                    <div className="content">
+                                        <span className="company-logo">
+                                            <Image
+                                                width={100}
+                                                height={100}
+                                                src={"/images/resource/company-2.png"}
+                                                alt="logo"
+                                            />
+                                        </span>
+                                        <h4>{company.name}</h4>
 
-            {/* <!-- Dashboard --> */}
-            <section className="user-dashboard">
-                <div className="dashboard-outer">
-                    <BreadCrumb title="Company Profile!" />
-                    {/* breadCrumb */}
-
-                    <MenuToggler />
-                    {/* Collapsible sidebar button */}
-
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="ls-widget">
-                                <div className="tabs-box">
-                                    <div className="widget-title">
-                                        <h4>My Profile</h4>
+                                        <ul className="job-info">
+                                            <li>
+                                                <span className="icon flaticon-map-locator"></span>
+                                                {company.address}
+                                            </li>
+                                          
+                                            <li>
+                                                <span className="icon flaticon-mail"></span>
+                                                {company.email}
+                                            </li>
+                                        </ul>
+                        
                                     </div>
-                                    <MyProfile />
+                                   
                                 </div>
                             </div>
-                            {/* <!-- Ls widget --> */}
-
-                            <div className="ls-widget">
-                                <div className="tabs-box">
-                                    <div className="widget-title">
-                                        <h4>Social Network</h4>
-                                    </div>
-                                    {/* End .widget-title */}
-                                    <div className="widget-content">
-                                        <SocialNetworkBox />
-                                    </div>
-                                </div>
-                            </div>
-                            {/* <!-- Ls widget --> */}
-
-                            <div className="ls-widget">
-                                <div className="tabs-box">
-                                    <div className="widget-title">
-                                        <h4>Contact Information</h4>
-                                    </div>
-                                    {/* End .widget-title */}
-
-                                    <div className="widget-content">
-                                        <ContactInfoBox />
-                                    </div>
-                                </div>
-                            </div>
-                            {/* <!-- Ls widget --> */}
+                            {/* <!-- Job Block --> */}
                         </div>
                     </div>
-                    {/* End .row */}
-                </div>
-                {/* End dashboard-outer */}
-            </section>
-            {/* <!-- End Dashboard --> */}
+                    {/* <!-- Upper Box --> */}
 
-            <CopyrightFooter />
-            {/* <!-- End Copyright --> */}
-        </div>
-        // End page-wrapper
+                    {/* <!-- job-detail-outer--> */}
+                    <div className="job-detail-outer">
+                        <div className="auto-container">
+                            <div className="row">
+                                <div className="content-column col-lg-8 col-md-12 col-sm-12">
+                                    {/*  job-detail */}
+                                    <JobDetailsDescriptions company={company}/>
+                                    {/* End job-detail */}
+
+                                    {/* <!-- Related Jobs --> */}
+                                   
+                                </div>
+                                {/* End .content-column */}
+
+                                <div className="sidebar-column col-lg-4 col-md-12 col-sm-12">
+                                    <aside className="sidebar">
+                                        <div className="sidebar-widget company-widget">
+                                            <div className="widget-content">
+                                                {/*  compnay-info */}
+                                                <ul className="company-info mt-0">
+                                                    <li>
+                                                        Email: <span>{company.email}</span>
+                                                    </li>
+                                                    <li>
+                                                        Location: <span>{company.address}</span>
+                                                    </li>
+                                                    <li>
+                                                        Social media:
+                                                        {/* <Social /> */}
+                                                    </li>
+                                                </ul>
+                                                {/* End compnay-info */}
+
+                                                {/* <div className="btn-box">
+                                                    <a
+                                                        href="#"
+                                                        className="theme-btn btn-style-three"
+                                                        style={{ textTransform: "lowercase" }}
+                                                    >
+                                                        www.{employer?.name}.com
+                                                    </a>
+                                                </div> */}
+                                                {/* btn-box */}
+                                            </div>
+                                        </div>
+                                        {/* End company-widget */}
+
+                                        <div className="sidebar-widget">
+                                            {/* <!-- Map Widget --> */}
+                                            <h4 className="widget-title">Job Location</h4>
+                                            <div className="widget-content">
+                                                <div style={{ height: "100px", width: "100%" }}>
+                                                    {/* <MapJobFinder /> */}
+                                                </div>
+                                            </div>
+                                            {/* <!--  Map Widget --> */}
+                                        </div>
+                                        {/* End sidebar-widget */}
+                                    </aside>
+                                    {/* End .sidebar */}
+                                </div>
+                                {/* End .sidebar-column */}
+                            </div>
+                        </div>
+                    </div>
+                    {/* <!-- job-detail-outer--> */}
+                </section>
+                :
+                <div className=" d-flex my-5 mh-100">
+                    <div className="spinner-border text-primary mx-auto" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+            }
+            {/* <!-- End Job Detail Section --> */}
+
+            {company ? <FooterDefault footerStyle="alternate5" /> : ""}
+            {/* <!-- End Main Footer --> */}
+        </>
     );
 };
 

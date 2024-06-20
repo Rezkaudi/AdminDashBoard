@@ -8,18 +8,26 @@ import { Provider } from "react-redux";
 import { store } from "../store/store";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import useToken from "@/utils/useToken";
+import Cookies from "js-cookie";
+import { redirect,useRouter } from "next/navigation";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
 }
 
 export default function RootLayout({ children }) {
+  const token = Cookies.get("authToken");
+  const router = useRouter();
 
   useEffect(() => {
     Aos.init({
       duration: 1400,
       once: true,
     });
+    if (token) {
+      router.push("/employers-dashboard/dashboard");
+    }
   }, []);
   return (
     <html lang="en">

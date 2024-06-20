@@ -16,7 +16,7 @@ const Index = () => {
       <span className="header-span"></span>
       {/* <!-- Header Span for hight --> */}
 
-      <LoginPopup />
+      {/* <LoginPopup /> */}
       {/* End Login Popup Modal */}
 
       <DashboardHeader />
@@ -62,22 +62,18 @@ const Index = () => {
             </div> */}
             {/* End .col */}
 
-            <div className="col-lg-12">
-              {/* <!-- applicants Widget --> */}
+            {/* <div className="col-lg-12">
               <div className="applicants-widget ls-widget">
                 <div className="widget-title">
                   <h4>Recent Applicants</h4>
                 </div>
                 <div className="widget-content">
                   <div className="row">
-                    {/* <!-- Candidate block three --> */}
-
                     <Applicants />
                   </div>
                 </div>
               </div>
-            </div>
-            {/* End .col */}
+            </div> */}
           </div>
           {/* End .row profile and notificatins */}
         </div>
@@ -85,7 +81,7 @@ const Index = () => {
       </section>
       {/* <!-- End Dashboard --> */}
 
-      <CopyrightFooter />
+      {/* <CopyrightFooter /> */}
       {/* <!-- End Copyright --> */}
     </div>
     // End page-wrapper

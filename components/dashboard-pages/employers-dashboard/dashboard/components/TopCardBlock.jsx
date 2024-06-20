@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 const TopCardBlock = () => {
   const { totalCount: usersTotalCount } = useSelector((state) => state.users);
   const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
+  const { totalCount: jopsTotalCount } = useSelector((state) => state.jops);
 
 
 
@@ -21,13 +22,13 @@ const TopCardBlock = () => {
       metaName: "Companies",
       uiClass: "ui-red",
     },
-    // {
-    //   id: 3,
-    //   icon: "la-comment-o",
-    //   countNumber: "74",
-    //   metaName: "Messages",
-    //   uiClass: "ui-yellow",
-    // },
+    {
+      id: 3,
+      icon: "la-comment-o",
+      countNumber: jopsTotalCount,
+      metaName: "Jops",
+      uiClass: "ui-yellow",
+    },
     // {
     //   id: 4,
     //   icon: "la-bookmark-o",

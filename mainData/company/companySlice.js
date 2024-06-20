@@ -1,9 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getAllCompanies, deleteCompany } from "./handleRequests";
+import { getAllCompanies, deleteCompany ,getCompany} from "./handleRequests";
+
+// {
+//   "id": "f15a6346-0704-4f08-bbab-1b9d8b21c7b6",
+//   "email": "test2y@gmail.com",
+//   "name": "London, UK",
+//   "address": "test2",
+//   "joinDate": "2024-06-19T17:34:28.276Z"
+// }
 
 const initialState = {
   companies: null,
+  findCompany:null,
   totalCount: 0,
   currentPage: 1,
 };
@@ -25,11 +34,6 @@ export const companySlice = createSlice({
         state.companies[index] = payload;
       }
     },
-
-    getCompany: (state, { payload }) => {
-      return state.companies.find((company) => company.id === payload.id);
-    },
-
     setCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
     },
@@ -59,9 +63,21 @@ export const companySlice = createSlice({
       .addCase(getAllCompanies.rejected, (state, { payload }) => {
         toast.error(payload);
       });
+
+      builder
+      .addCase(getCompany.pending, (state, { payload }) => {
+        state.findCompany = null;
+      })
+      .addCase(getCompany.fulfilled, (state, { payload }) => {
+        state.findCompany = payload.data;
+        toast.success(payload.message);
+      })
+      .addCase(getCompany.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
   },
 });
 
-export const { addCompany, updateCompany, getCompany, setCurrentPage } =
+export const { addCompany, updateCompany, setCurrentPage } =
   companySlice.actions;
 export default companySlice.reducer;

@@ -20,13 +20,13 @@ module.exports = [
     routePath: "/employers-dashboard/all-applicants",
     active: "",
   },
-  // {
-  //   id: 10,
-  //   name: "Change Password",
-  //   icon: "la-lock",
-  //   routePath: "/employers-dashboard/change-password",
-  //   active: "",
-  // },
+  {
+    id: 10,
+    name: "Job Opportunities",
+    icon: "la-briefcase",
+    routePath: "/employers-dashboard/all-jobs",
+    active: "",
+  },
   {
     id: 11,
     name: "Logout",

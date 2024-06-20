@@ -1,20 +1,20 @@
-const JobSkills = () => {
-  const skills = [
-    "app",
-    "administrative",
-    "android",
-    "wordpress",
-    "design",
-    "react",
-  ];
+
+const JobSkills = ({ data ,name}) => {
   return (
-    <ul className="job-skills">
-      {skills.map((skill, i) => (
-        <li key={i}>
-          <a href="#">{skill}</a>
-        </li>
-      ))}
-    </ul>
+    <>
+      {
+        data.length > 0 ?
+          <ul className="job-skills">
+            {data.map((skill, i) => (
+              <li key={i}>
+                <a href="#">{skill.name}</a>
+              </li>
+            ))}
+          </ul>
+          :
+          <span>There is no {name}</span>
+      }
+    </>
   );
 };
 

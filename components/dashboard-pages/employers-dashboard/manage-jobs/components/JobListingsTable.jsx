@@ -37,10 +37,8 @@ const JobListingsTable = () => {
           <table className="default-table manage-job-table">
             <thead>
               <tr>
-                <th>Email</th>
-                <th>Applications</th>
+                <th>Company Name</th>
                 <th>Created & Expired</th>
-                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -63,46 +61,48 @@ const JobListingsTable = () => {
                             />
                           </span>
                           <h4>
-                            <Link href={`/job-single-v3/${item.id}`}>
-                              {item.email}
+                            <Link href={`/employers-dashboard/company-profile/${item.id}`}>
+                              {item.name}
                             </Link>
                           </h4>
                           <ul className="job-info">
                             <li>
                               <span className="icon flaticon-briefcase"></span>
-                              {item.name}
+                              {item.email}
                             </li>
                             <li>
                               <span className="icon flaticon-map-locator"></span>
-                              London, UK
+                              {item.address}
                             </li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="applied">
+                  {/* <td className="applied">
                     <a href="#">3+ Applied</a>
-                  </td>
+                  </td> */}
                   <td>
                     {item.joinDate}
                   </td>
-                  <td className="status">Active</td>
+                  {/* <td className="status">Active</td> */}
                   <td>
                     <div className="option-box">
                       <ul className="option-list">
                         <li>
-                          <button data-text="View Aplication">
-                            <span className="la la-eye"></span>
+                          <button data-text="View Company Profile">
+                            <Link data-text="View Company Profile" href={`/employers-dashboard/company-profile/${item.id}`}>
+                              <span className="la la-eye"></span>
+                            </Link>
                           </button>
                         </li>
                         <li>
-                          <button data-text="Reject Aplication">
+                          <button data-text="Edit Company">
                             <span className="la la-pencil"></span>
                           </button>
                         </li>
                         <li>
-                          <button data-text="Delete Aplication" onClick={() => { dispatch(deleteCompany({ id: item.id, token })) }}>
+                          <button data-text="Delete Company" onClick={() => { dispatch(deleteCompany({ id: item.id, token })) }}>
                             <span className="la la-trash"></span>
                           </button>
                         </li>

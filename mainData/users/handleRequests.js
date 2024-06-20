@@ -54,10 +54,9 @@ export const getAllApplicants = createAsyncThunk(
   }
 );
 
-
 export const getResentUsers = createAsyncThunk(
   "user/getResent",
-  async ({token }, { rejectWithValue }) => {
+  async ({ token }, { rejectWithValue }) => {
     let pageSize = 6;
 
     try {
@@ -83,4 +82,25 @@ export const getResentUsers = createAsyncThunk(
   }
 );
 
-getResentUsers
+export const getUser = createAsyncThunk(
+  "users/find",
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${Api}/admin/users/${id}`, {
+        method: "GET",
+        headers: {
+          Auth: token,
+        },
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

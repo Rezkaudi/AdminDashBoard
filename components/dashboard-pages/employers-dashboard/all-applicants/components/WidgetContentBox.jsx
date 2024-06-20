@@ -55,55 +55,43 @@ const WidgetContentBox = () => {
                             />
                           </figure>
                           <h4 className="name">
-                            <Link href={`/candidates-single-v1/1`}>
+                            <Link href={`/employers-dashboard/applicant-profile/${user.id}`}>
                               {user.firstName} {user.lastName}
                             </Link>
                           </h4>
 
                           <ul className="candidate-info">
-                            <li className="designation">
+                            {/* <li className="designation">
                               {"developer"}
-                            </li>
+                            </li> */}
                             <li>
-                              {/* <span className="icon flaticon-map-locator"></span>{" "} */}
+                              <span className="icon flaticon-email"></span>{" "}
                               {user.email}
                             </li>
                             <li>
-                              {/* <span className="icon flaticon-money"></span>  */}
-                              {user.phone}
+                              <span className="icon flaticon-phone"></span>
+                              {user.phone ? user.phone : "0000"}
                             </li>
                           </ul>
-                          {/* End candidate-info */}
-
-                          {/* <ul className="post-tags">
-                            {candidate.tags.map((val, i) => (
-                              <li key={i}>
-                                <a href="#">{val}</a>
-                              </li>
-                            ))}
-                          </ul> */}
                         </div>
                         {/* End content */}
 
                         <div className="option-box">
                           <ul className="option-list">
                             <li>
-                              <button data-text="View Aplication">
-                                <span className="la la-eye"></span>
+                              <button data-text="View Applicant Profile">
+                                <Link data-text="View Applicant Profile" href={`/employers-dashboard/applicant-profile/${user.id}`}>
+                                  <span className="la la-eye"></span>
+                                </Link>
                               </button>
                             </li>
                             <li>
-                              <button data-text="Approve Aplication">
-                                <span className="la la-check"></span>
+                              <button data-text="Edit Applicant">
+                                <span className="la la-pencil"></span>
                               </button>
                             </li>
                             <li>
-                              <button data-text="Reject Aplication">
-                                <span className="la la-times-circle"></span>
-                              </button>
-                            </li>
-                            <li>
-                              <button data-text="Delete Aplication" onClick={() => { dispatch(deleteApplicant({ id: user.id, token })) }}>
+                              <button data-text="Delete Applicant" onClick={() => { dispatch(deleteApplicant({ id: user.id, token })) }}>
                                 <span className="la la-trash"></span>
                               </button>
                             </li>
@@ -120,7 +108,6 @@ const WidgetContentBox = () => {
                 }
               </div>
             </TabPanel>
-
             {/* End total applicants */}
           </div>
         </Tabs>

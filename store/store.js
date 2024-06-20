@@ -9,6 +9,7 @@ import candidateSlice from "../features/candidate/candidateSlice";
 import candidateFilterSlice from "../features/filter/candidateFilterSlice";
 import shopSlice from "../features/shop/shopSlice";
 
+
 //users
 import usersSlice from "@/mainData/users/usersSlice";
 // token
@@ -17,6 +18,8 @@ import tokenSlice from "@/mainData/token/tokenSlice";
 import companySlice from "@/mainData/company/companySlice";
 // loginPupup
 import loginPopupSlice from "@/mainData/loginPopup/loginPopupSlice";
+
+import jopsSlice from "@/mainData/jops/jopsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -31,7 +34,8 @@ export const store = configureStore({
     users: usersSlice,
     token: tokenSlice,
     companies: companySlice,
-    loginPopup:loginPopupSlice
+    loginPopup:loginPopupSlice,
+    jops:jopsSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });

@@ -1,4 +1,4 @@
-const JobOverView = () => {
+const JobOverView = ({jop}) => {
   return (
     <div className="widget-content">
       <ul className="job-overview">
