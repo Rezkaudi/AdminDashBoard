@@ -8,6 +8,8 @@ import {
 } from "react-pro-sidebar";
 
 import mobileMenuData from "../../../data/mobileMenuData";
+import employerMenuData from "@/data/employerMenuData";
+
 import SidebarFooter from "./SidebarFooter";
 import SidebarHeader from "./SidebarHeader";
 import {
@@ -32,38 +34,25 @@ const Index = () => {
       <SidebarHeader />
       {/* End pro-header */}
 
-      
-        <Sidebar>
-          <Menu>
-            {mobileMenuData.map((item) => (
-              <SubMenu
-                className={
-                  isActiveParentChaild(item.items, usePathname())
-                    ? "menu-active"
-                    : ""
-                }
-                label={item.label}
-                key={item.id}
-              >
-                {item.items.map((menuItem, i) => (
-                  <MenuItem
 
-                  onClick={()=>router.push(menuItem.routePath)}
-                    className={
-                      isActiveLink(menuItem.routePath, usePathname())
-                        ? "menu-active-link"
-                        : ""
-                    }
-                    key={i}
-                    // routerLink={<Link href={menuItem.routePath} />}
-                  >
-                    {menuItem.name}
-                  </MenuItem>
-                ))}
-              </SubMenu>
-            ))}
-          </Menu>
-        </Sidebar>
+      <Sidebar>
+        <Menu>
+          {employerMenuData.map((item,i) => (
+            <MenuItem
+              onClick={() => router.push(item.routePath)}
+              className={
+                isActiveLink(item.routePath, usePathname())
+                  ? "menu-active-link"
+                  : ""
+              }
+              key={i}
+            // routerLink={<Link href={menuItem.routePath} />}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </Menu>
+      </Sidebar>
 
 
       <SidebarFooter />

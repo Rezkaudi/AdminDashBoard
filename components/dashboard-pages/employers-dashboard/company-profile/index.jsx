@@ -50,7 +50,6 @@ const index = ({ id }) => {
 
             <MobileMenu />
             {/* End MobileMenu */}
-
             {/* <!-- Job Detail Section --> */}
             {company ?
                 <section className="job-detail-section">

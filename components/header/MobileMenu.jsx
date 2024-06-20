@@ -38,6 +38,7 @@ const MobileMenu = () => {
           {/* End .logo-box */}
 
           {/* <MobileSidebar /> */}
+          <MobileSidebar/>
           {/* <!-- Main Menu End--> */}
         </div>
         {/* End .nav-outer */}
@@ -47,9 +48,8 @@ const MobileMenu = () => {
           <a
             href="#"
             className="mobile-nav-toggler"
-            // data-bs-toggle="offcanvas"
-            // data-bs-target="#offcanvasMenu"
-            onClick={menuToggleHandler}
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasMenu"
           >
             <span className="flaticon-menu-1"></span>
           </a>
