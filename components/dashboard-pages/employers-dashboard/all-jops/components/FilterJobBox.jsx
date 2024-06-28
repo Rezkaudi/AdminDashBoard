@@ -19,6 +19,7 @@ import {
 } from "@/features/filter/filterSlice";
 import Image from "next/image";
 import Pagination from "./Pagination";
+import DeleteModal from "./DeleteModal";
 
 
 const FilterJobBox = () => {
@@ -40,10 +41,6 @@ const FilterJobBox = () => {
 
   const dispatch = useDispatch();
 
-
-  const handleDelete = (id) => {
-    dispatch(deleteJop({ id, token }))
-  }
   // keyword filter on title
   const keywordFilter = (item) =>
     keyword !== ""
@@ -162,10 +159,7 @@ const FilterJobBox = () => {
             ))}
           </ul>
           {/* End .job-other-info */}
-
-          <button className="bookmark-btn" onClick={() => handleDelete(item.id)}>
-            <span className="flaticon-delete"></span>
-          </button>
+          <DeleteModal id={item.id} />
         </div>
       </div>
     </div>
@@ -197,12 +191,17 @@ const FilterJobBox = () => {
   };
   return (
     <>
-      <div className="ls-switcher">
-        <div className="showing-result">
+      <div className="ls-switcher mb-3">
+        <div className="showing-resul d-flex">
           <div className="text">
             <strong>{totalCount}</strong> jobs
           </div>
+
         </div>
+        <Link href={"/"} className="theme-btn btn-style-one">
+          Create New Jop
+        </Link>
+
         {/* End .showing-result */}
 
         {/* <div className="sort-by">

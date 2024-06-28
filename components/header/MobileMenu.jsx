@@ -29,7 +29,7 @@ const MobileMenu = () => {
                 <Image
                   width={154}
                   height={50}
-                  src="/images/logo.svg"
+                  src="/images/bon-logo-2.png"
                   alt="brand"
                 />
               </Link>
@@ -43,7 +43,7 @@ const MobileMenu = () => {
         </div>
         {/* End .nav-outer */}
 
-        <div className="outer-box">
+        <div className="outer-box ">
          
           <a
             href="#"

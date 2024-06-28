@@ -104,3 +104,29 @@ export const getUser = createAsyncThunk(
     }
   }
 );
+
+export const editUser = createAsyncThunk(
+  "users/editUser",
+  async ({ id, token, newData }, { rejectWithValue }) => {
+    console.log(newData);
+    try {
+      const response = await fetch(`${Api}/admin/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Auth: token,
+        },
+        body: JSON.stringify(newData),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return { data, id };
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

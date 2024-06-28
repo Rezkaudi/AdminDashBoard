@@ -5,23 +5,13 @@ import Pagination from "./Pagination";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Api from "@/utils/Api";
-import { toast } from "react-toastify";
-import useToken from "@/utils/useToken";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteApplicant } from "@/mainData/users/handleRequests";
+import { useSelector,  } from "react-redux";
+import DeleteModal from "./DeleteModal";
 
 const WidgetContentBox = () => {
 
-  const dispatch = useDispatch()
-  const { token } = useToken()
   const { users, totalCount } = useSelector(state => state.users)
 
-
-  // useEffect(() => {
-  //   dispatch(getAllApplicants({ currentPage, token }))
-  // }, [])
 
   return (
     <div className="widget-content">
@@ -87,13 +77,13 @@ const WidgetContentBox = () => {
                             </li>
                             <li>
                               <button data-text="Edit Applicant">
-                                <span className="la la-pencil"></span>
+                                <Link data-text="Edit Applicant" href={`/employers-dashboard/edit-applicant/${user.id}`}>
+                                  <span className="la la-pencil"></span>
+                                </Link >
                               </button>
                             </li>
                             <li>
-                              <button data-text="Delete Applicant" onClick={() => { dispatch(deleteApplicant({ id: user.id, token })) }}>
-                                <span className="la la-trash"></span>
-                              </button>
+                              <DeleteModal id={user.id}/>
                             </li>
                           </ul>
                         </div>

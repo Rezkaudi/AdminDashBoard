@@ -1,16 +1,13 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-
-import useToken from "@/utils/useToken";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteCompany } from "@/mainData/company/handleRequests";
+import { useSelector } from "react-redux";
 import Pagination from "./Pagination";
+import DeleteModal from './DeleteModal'
 
 const JobListingsTable = () => {
 
-  const dispatch = useDispatch()
-  const { token } = useToken()
+
   const { companies } = useSelector(state => state.companies)
 
   return (
@@ -19,14 +16,9 @@ const JobListingsTable = () => {
         <h4>List Of Companies</h4>
 
         <div className="chosen-outer">
-          {/* <!--Tabs Box--> */}
-          {/* <select className="chosen-single form-select">
-            <option>Last 6 Months</option>
-            <option>Last 12 Months</option>
-            <option>Last 16 Months</option>
-            <option>Last 24 Months</option>
-            <option>Last 5 year</option>
-          </select> */}
+           <Link href={"/employers-dashboard/create-company"} className="theme-btn btn-style-one">
+            Create New Company
+          </Link>
         </div>
       </div>
       {/* End filter top bar */}
@@ -38,7 +30,7 @@ const JobListingsTable = () => {
             <thead>
               <tr>
                 <th>Company Name</th>
-                <th>Created & Expired</th>
+                <th>Created At</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -98,13 +90,14 @@ const JobListingsTable = () => {
                         </li>
                         <li>
                           <button data-text="Edit Company">
+                          <Link data-text="Edit Company" href={`/employers-dashboard/edit-company/${item.id}`}>
                             <span className="la la-pencil"></span>
+                            </Link>
                           </button>
                         </li>
                         <li>
-                          <button data-text="Delete Company" onClick={() => { dispatch(deleteCompany({ id: item.id, token })) }}>
-                            <span className="la la-trash"></span>
-                          </button>
+                          <DeleteModal id={item.id}/>
+                          {/*  */}
                         </li>
                       </ul>
                     </div>

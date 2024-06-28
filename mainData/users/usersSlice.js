@@ -4,6 +4,7 @@ import {
   deleteApplicant,
   getResentUsers,
   getUser,
+  editUser,
 } from "./handleRequests";
 import { toast } from "react-toastify";
 
@@ -25,6 +26,7 @@ const initialState = {
   users: null,
   recentUsers: null,
   findUser: null,
+  requestState: true,
   totalCount: 0,
   currentPage: 1,
 };
@@ -90,6 +92,25 @@ export const usersSlice = createSlice({
         toast.success(payload.message);
       })
       .addCase(getUser.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
+
+    builder
+      .addCase(editUser.pending, (state, { payload }) => {
+        state.requestState = false;
+      })
+      .addCase(editUser.fulfilled, (state, { payload }) => {
+        toast.success(payload.data.message);
+
+        state.requestState = true;
+        const index = state.users.findIndex((user) => user.id === payload.id);
+
+        if (index !== -1) {
+          state.users[index] = payload.data.data;
+        }
+      })
+      .addCase(editUser.rejected, (state, { payload }) => {
+        state.requestState = true;
         toast.error(payload);
       });
   },

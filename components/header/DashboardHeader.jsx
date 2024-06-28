@@ -29,9 +29,8 @@ const DashboardHeader = () => {
     return (
         // <!-- Main Header-->
         <header
-            className={`main-header header-shaddow  ${
-                navbar ? "fixed-header " : ""
-            }`}
+            className={`main-header header-shaddow${navbar ? "fixed-header " : ""
+                }`}
         >
             <div className="container-fluid">
                 {/* <!-- Main box --> */}
@@ -40,13 +39,13 @@ const DashboardHeader = () => {
                     <div className="nav-outer">
                         <div className="logo-box">
                             <div className="logo">
-                                <Link href="/">
+                                <Link href="/" >
                                     <Image
                                         alt="brand"
-                                        src="/images/logo.svg"
+                                        src="/images/bon-logo-2.png"
                                         width={154}
                                         height={50}
-                                        priority
+                                        priorityS
                                     />
                                 </Link>
                             </div>
@@ -70,7 +69,6 @@ const DashboardHeader = () => {
                         </button> */}
                         {/* End notification-icon */}
 
-                        {/* <!-- Dashboard Option --> */}
                         <div className="dropdown dashboard-option">
                             <a
                                 className="dropdown-toggle"
@@ -91,14 +89,13 @@ const DashboardHeader = () => {
                             <ul className="dropdown-menu">
                                 {employerMenuData.map((item) => (
                                     <li
-                                        className={`${
-                                            isActiveLink(
-                                                item.routePath,
-                                                usePathname()
-                                            )
+                                        className={`${isActiveLink(
+                                            item.routePath,
+                                            usePathname()
+                                        )
                                                 ? "active"
                                                 : ""
-                                        } mb-1`}
+                                            } mb-1`}
                                         key={item.id}
                                     >
                                         <Link href={item.routePath}>
@@ -111,7 +108,6 @@ const DashboardHeader = () => {
                                 ))}
                             </ul>
                         </div>
-                        {/* End dropdown */}
                     </div>
                     {/* End outer-box */}
                 </div>

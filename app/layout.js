@@ -25,9 +25,9 @@ export default function RootLayout({ children }) {
       duration: 1400,
       once: true,
     });
-    if (token) {
-      router.push("/employers-dashboard/dashboard");
-    }
+    // if (token) {
+    //   router.push("/employers-dashboard/dashboard");
+    // }
   }, []);
   return (
     <html lang="en">
