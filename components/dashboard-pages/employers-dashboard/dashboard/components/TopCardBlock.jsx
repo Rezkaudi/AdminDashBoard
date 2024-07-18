@@ -4,6 +4,9 @@ const TopCardBlock = () => {
   const { totalCount: usersTotalCount } = useSelector((state) => state.users);
   const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
   const { totalCount: jopsTotalCount } = useSelector((state) => state.jops);
+  const { totalCount: languagesTotalCount } = useSelector((state) => state.languages);
+  const { totalCount: skillsTotalCount } = useSelector((state) => state.skills);
+
 
 
 
@@ -12,7 +15,7 @@ const TopCardBlock = () => {
       id: 1,
       icon: "flaticon-briefcase",
       countNumber: usersTotalCount,
-      metaName: "Applicants",
+      metaName: "Users",
       uiClass: "ui-blue",
     },
     {
@@ -28,6 +31,20 @@ const TopCardBlock = () => {
       countNumber: jopsTotalCount,
       metaName: "Jops",
       uiClass: "ui-yellow",
+    },
+    {
+      id: 4,
+      icon: "la-language",
+      countNumber: languagesTotalCount,
+      metaName: "Languages",
+      uiClass: "ui-red",
+    },
+    {
+      id: 5,
+      icon: "la-bookmark-o",
+      countNumber: skillsTotalCount,
+      metaName: "Skills",
+      uiClass: "ui-green",
     },
     // {
     //   id: 4,

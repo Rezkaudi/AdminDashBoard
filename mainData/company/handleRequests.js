@@ -129,3 +129,32 @@ export const createCompany = createAsyncThunk(
     }
   }
 );
+
+export const getCompaniesByName = createAsyncThunk(
+  "company/getCompaniesByName",
+  async ({ companyName, token }, { rejectWithValue }) => {
+    let url =
+      companyName !== undefined &&
+      companyName !== null &&
+      companyName.length > 0
+        ? `${Api}/admin/companies?pageNumber=1&pageSize=10&name=${companyName}`
+        : `${Api}/admin/companies?pageNumber=1&pageSize=10`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          auth: token,
+        },
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

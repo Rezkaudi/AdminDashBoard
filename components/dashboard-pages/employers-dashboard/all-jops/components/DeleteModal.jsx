@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useToken from "@/utils/useToken";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { deleteJop } from "@/mainData/jops/handleRequests";
 
 const DeleteModal = ({ id }) => {
@@ -11,16 +11,25 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
+    const { requestState } = useSelector((state) => state.jops)
 
     const handleDelete = () => {
-        dispatch(deleteJop({ id, token }))
-        handleClose()
+        dispatch(deleteJop({ id, token })).unwrap().then(
+            () => {
+                // Deletion was successful, close the modal
+                handleClose();
+            },
+            (error) => {
+                // Handle any errors here
+                console.error("Failed to delete jop:", error);
+            }
+        );
     }
 
     return (
         <>
-            <button className="bookmark-btn" data-text="Delete Jop" onClick={handleShow}>
-                <span className="flaticon-delete"></span>
+            <button data-text="Delete Jop" onClick={handleShow}>
+                <span className="la la-trash"></span>
             </button>
             <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
                 <Modal.Header closeButton>
@@ -31,8 +40,15 @@ const DeleteModal = ({ id }) => {
                     <Button variant="primary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={handleDelete}>
+                    <Button variant="danger" onClick={handleDelete} disabled={!requestState}>
                         Delete
+                        {!requestState && (
+                            <span
+                                className="spinner-border spinner-border-sm mx-2"
+                                role="status"
+                                aria-live="polite"
+                            ></span>
+                        )}
                     </Button>
                 </Modal.Footer>
             </Modal>

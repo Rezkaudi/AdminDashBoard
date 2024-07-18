@@ -37,11 +37,11 @@ const index = () => {
           <MenuToggler />
           {/* Collapsible sidebar button */}
 
-          {/* <section className="page-title style-three">
+          <section className="page-title style-three">
             <div className="auto-container">
               <JobSearchForm />
             </div>
-          </section> */}
+          </section>
 
           <section className="ls-section style-three">
             <div className="auto-container">

@@ -3,19 +3,28 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteCompany } from "@/mainData/company/handleRequests";
 import useToken from "@/utils/useToken";
-import {useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 
-const DeleteModal = ({id}) => {
+const DeleteModal = ({ id }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
+    const { requestState } = useSelector((state) => state.companies);
 
     const handleDelete = () => {
-        dispatch(deleteCompany({ id, token }))
-        handleClose()
-    }
+        dispatch(deleteCompany({ id, token })).unwrap().then(
+            () => {
+                // Deletion was successful, close the modal
+                handleClose();
+            },
+            (error) => {
+                // Handle any errors here
+                console.error("Failed to delete company:", error);
+            }
+        );
+    };
 
     return (
         <>
@@ -33,6 +42,13 @@ const DeleteModal = ({id}) => {
                     </Button>
                     <Button variant="danger" onClick={handleDelete}>
                         Delete
+                        {!requestState && (
+                            <span
+                                className="spinner-border spinner-border-sm mx-2"
+                                role="status"
+                                aria-live="polite"
+                            ></span>
+                        )}
                     </Button>
                 </Modal.Footer>
             </Modal>

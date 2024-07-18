@@ -17,18 +17,19 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useToken from "@/utils/useToken";
-import { getUser } from "@/mainData/users/handleRequests";
+import { getAllApplicantInfo, getUser } from "@/mainData/users/handleRequests";
 
 const index = ({ id }) => {
 
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { findUser } = useSelector(state => state.users)
+    const { fullUserInfo, findUser } = useSelector(state => state.users)
 
     const candidate = candidates[0];
-    const applicant = findUser;
+    const applicant = fullUserInfo;
 
     useEffect(() => {
+        dispatch(getAllApplicantInfo({ token, id }))
         dispatch(getUser({ token, id }))
     }, [])
 
@@ -47,7 +48,7 @@ const index = ({ id }) => {
             {/* End MobileMenu */}
 
             {/* <!-- Job Detail Section --> */}
-            {applicant ?
+            {applicant && findUser ?
                 <section className="candidate-detail-section">
                     <div className="upper-box">
                         <div className="auto-container">
@@ -62,32 +63,34 @@ const index = ({ id }) => {
                                                 alt="avatar"
                                             />
                                         </figure>
-                                        <h4 className="name">{applicant.firstName} {applicant.lastName}</h4>
+                                        <h4 className="name">{findUser.firstName || "No value"} {findUser.lastName || "No value"}</h4>
 
                                         <ul className="candidate-info">
-                                            <li className="designation">{candidate?.designation}</li>
+                                            <li className="designation">
+                                                {!!applicant.basicInfo?.brief ? applicant.basicInfo.brief : "No value"}
+                                            </li>
                                             <li>
                                                 <span className="icon flaticon-map-locator"></span>
-                                                {candidate?.location}
+                                                {applicant.basicInfo?.location || "No value"}
                                             </li>
                                             <li>
                                                 <span className="icon flaticon-money"></span> $
-                                                {candidate?.hourlyRate} / hour
+                                                {applicant.basicInfo?.desiredSalary || "No value"}
                                             </li>
                                             <li>
-                                                <span className="icon flaticon-clock"></span> Member
-                                                Since,Aug 19, 2020
+                                                <span className="icon flaticon-clock"></span>
+                                                {`Member Since ${applicant.basicInfo?.createdAt}` || "No value"}
                                             </li>
                                         </ul>
 
-                                        <ul className="post-tags">
+                                        {/* <ul className="post-tags">
                                             {candidate?.tags?.map((val, i) => (
                                                 <li key={i}>{val}</li>
                                             ))}
-                                        </ul>
+                                        </ul> */}
                                     </div>
 
-                                    <div className="btn-box">
+                                    {/* <div className="btn-box">
                                         <a
                                             className="theme-btn btn-style-one"
                                             href="/images/sample.pdf"
@@ -98,7 +101,7 @@ const index = ({ id }) => {
                                         <button className="bookmark-btn">
                                             <i className="flaticon-bookmark"></i>
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             {/*  <!-- Candidate block Five --> */}
@@ -111,71 +114,104 @@ const index = ({ id }) => {
                             <div className="row">
                                 <div className="content-column col-lg-8 col-md-12 col-sm-12">
                                     <div className="job-detail">
-                                        <div className="video-outer">
-                                            <h4>Applicant About</h4>
-                                            {/* <AboutVideo /> */}
-                                        </div>
-                                        {/* <!-- About Video Box --> */}
-                                        <p>
-                                            Hello my name is Nicole Wells and web developer from
-                                            Portland. In pharetra orci dignissim, blandit mi semper,
-                                            ultricies diam. Suspendisse malesuada suscipit nunc non
-                                            volutpat. Sed porta nulla id orci laoreet tempor non
-                                            consequat enim. Sed vitae aliquam velit. Aliquam ante erat,
-                                            blandit at pretium et, accumsan ac est. Integer vehicula
-                                            rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et
-                                            pulvinar tortor luctus. Suspendisse condimentum lorem ut
-                                            elementum aliquam.
-                                        </p>
-                                        <p>
-                                            Mauris nec erat ut libero vulputate pulvinar. Aliquam ante
-                                            erat, blandit at pretium et, accumsan ac est. Integer
-                                            vehicula rhoncus molestie. Morbi ornare ipsum sed sem
-                                            condimentum, et pulvinar tortor luctus. Suspendisse
-                                            condimentum lorem ut elementum aliquam. Mauris nec erat ut
-                                            libero vulputate pulvinar.
-                                        </p>
+                                        {/* {candidateResume.map((resume) => (
+                                
+                                        ))} */}
 
-                                        {/* <!-- Portfolio --> */}
-                                        <div className="portfolio-outer">
-                                            <div className="row">
-                                                <GalleryBox />
+
+                                        {/*education  */}
+                                        <div
+                                            className={`resume-outer theme-blue`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Education</h4>
                                             </div>
-                                        </div>
 
-                                        {/* <!-- Candidate Resume Start --> */}
-                                        {candidateResume.map((resume) => (
-                                            <div
-                                                className={`resume-outer ${resume.themeColor}`}
-                                                key={resume.id}
-                                            >
-                                                <div className="upper-title">
-                                                    <h4>{resume?.title}</h4>
-                                                </div>
-
-                                                {/* <!-- Start Resume BLock --> */}
-                                                {resume?.blockList?.map((item) => (
-                                                    <div className="resume-block" key={item.id}>
-                                                        <div className="inner">
-                                                            <span className="name">{item.meta}</span>
-                                                            <div className="title-box">
-                                                                <div className="info-box">
-                                                                    <h3>{item.name}</h3>
-                                                                    <span>{item.industry}</span>
-                                                                </div>
-                                                                <div className="edit-box">
-                                                                    <span className="year">{item.year}</span>
-                                                                </div>
+                                            {fullUserInfo.education.length > 0 ? fullUserInfo.education.map((item, index) => (
+                                                <div className="resume-block" key={item.id}>
+                                                    <div className="inner">
+                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
+                                                        <div className="title-box">
+                                                            <div className="info-box">
+                                                                <h3>{item.degree}</h3>
+                                                                <span>{item.institution}</span>
                                                             </div>
-                                                            <div className="text">{item.text}</div>
+                                                            <div className="edit-box">
+                                                                <span className="year">{item.fromYear} - {item.toYear}</span>
+                                                            </div>
                                                         </div>
+                                                        {/* <div className="text">{item.text}</div> */}
                                                     </div>
-                                                ))}
+                                                </div>
+                                            ))
+                                                :
+                                                <span className="text px-5">No Education yet</span>
+                                            }
 
-                                                {/* <!-- End Resume BLock --> */}
+                                        </div>
+
+
+                                        {/*Experience  */}
+                                        <div
+                                            className={`resume-outer theme-yellow`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Experience</h4>
                                             </div>
-                                        ))}
-                                        {/* <!-- Candidate Resume End --> */}
+
+                                            {fullUserInfo.experiences.length > 0 ? fullUserInfo.experiences.map((item, index) => (
+                                                <div className="resume-block" key={item.id}>
+                                                    <div className="inner">
+                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
+                                                        <div className="title-box">
+                                                            <div className="info-box">
+                                                                <h3>{item.title}</h3>
+                                                                <span>{item.company}</span>
+                                                            </div>
+                                                            <div className="edit-box">
+                                                                <span className="year">{item.startYear} - {item.endYear}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text">{item.summary} in  {item.location}</div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                                :
+                                                <span className="text px-5">No Experience yet</span>
+                                            }
+
+                                        </div>
+
+
+                                        {/*Experience  */}
+                                        <div
+                                            className={`resume-outer`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Projects</h4>
+                                            </div>
+
+                                            {fullUserInfo.projects.length > 0 ? fullUserInfo.projects.map((item, index) => (
+                                                <div className="resume-block" key={item.id}>
+                                                    <div className="inner">
+                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
+                                                        <div className="title-box">
+                                                            <div className="info-box">
+                                                                <h3>{item.title}</h3>
+                                                                <span>{item.company}</span>
+                                                            </div>
+                                                            <div className="edit-box">
+                                                                <span className="year">{item.startYear} - {item.endYear}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text">{item.summary} in  {item.location}</div>
+                                                    </div>
+                                                </div>
+                                            )) :
+                                                <span className="text px-5">No Projects yet</span>
+                                            }
+
+                                        </div>
                                     </div>
                                 </div>
                                 {/* End .content-column */}
@@ -185,47 +221,36 @@ const index = ({ id }) => {
                                         <div className="sidebar-widget">
                                             <div className="widget-content">
                                                 <ul className="job-overview">
-                                                    <li>
+                                                    {/* <li>
                                                         <i className="icon icon-calendar"></i>
                                                         <h5>Experience:</h5>
                                                         <span>0-2 Years</span>
-                                                    </li>
+                                                    </li> */}
 
                                                     <li>
                                                         <i className="icon icon-expiry"></i>
                                                         <h5>Age:</h5>
-                                                        <span>28-33 Years</span>
+                                                        <span>{fullUserInfo.basicInfo?.birthDate || "No value"} - {fullUserInfo.basicInfo?.noticePeriod || "No value"} Years</span>
                                                     </li>
 
                                                     <li>
                                                         <i className="icon icon-rate"></i>
                                                         <h5>Current Salary:</h5>
-                                                        <span>11K - 15K</span>
-                                                    </li>
-
-                                                    <li>
-                                                        <i className="icon icon-salary"></i>
-                                                        <h5>Expected Salary:</h5>
-                                                        <span>26K - 30K</span>
-                                                    </li>
-
-                                                    <li>
-                                                        <i className="icon icon-user-2"></i>
-                                                        <h5>Gender:</h5>
-                                                        <span>Female</span>
+                                                        <span>{fullUserInfo.basicInfo?.desiredSalary ? fullUserInfo.basicInfo?.desiredSalary :
+                                                            <span className="text px-3">No Salary</span>
+                                                        }</span>
                                                     </li>
 
                                                     <li>
                                                         <i className="icon icon-language"></i>
                                                         <h5>Language:</h5>
-                                                        <span>English, German, Spanish</span>
+                                                        <span>{fullUserInfo.languages?.length > 0 ? fullUserInfo.languages.map(item =>
+                                                            <>{item.languageName} , </>
+                                                        ) :
+                                                            <span className="text px-3">No Language</span>
+                                                        }</span>
                                                     </li>
 
-                                                    <li>
-                                                        <i className="icon icon-degree"></i>
-                                                        <h5>Education Level:</h5>
-                                                        <span>Master Degree</span>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -235,7 +260,12 @@ const index = ({ id }) => {
                                             <h4 className="widget-title">Social media</h4>
                                             <div className="widget-content">
                                                 <div className="social-links">
-                                                    <Social />
+                                                    <Social
+                                                        github={fullUserInfo.basicInfo?.github}
+                                                        portfolioUrl={fullUserInfo.basicInfo?.portfolioUrl}
+                                                        linkedinUrl={fullUserInfo.basicInfo?.linkedinUrl}
+                                                        email={findUser.email}
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +275,11 @@ const index = ({ id }) => {
                                             <h4 className="widget-title">Professional Skills</h4>
                                             <div className="widget-content">
                                                 <ul className="job-skills">
-                                                    <JobSkills />
+                                                    {fullUserInfo.skills?.length > 0 ?
+                                                        < JobSkills skills={fullUserInfo.skills} />
+                                                    :
+                                                    <span className="text px-3">No Skills</span>
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -278,7 +312,7 @@ const index = ({ id }) => {
             }
             {/* <!-- End Job Detail Section --> */}
 
-            {findUser ? <FooterDefault footerStyle="alternate5" /> : ""}
+            {applicant && findUser ? <FooterDefault footerStyle="alternate5" /> : ""}
             {/* <!-- End Main Footer --> */}
         </>
     );

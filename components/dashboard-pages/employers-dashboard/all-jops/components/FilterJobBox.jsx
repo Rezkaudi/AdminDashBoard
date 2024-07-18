@@ -159,7 +159,21 @@ const FilterJobBox = () => {
             ))}
           </ul>
           {/* End .job-other-info */}
-          <DeleteModal id={item.id} />
+
+          <ul className="option-list d-flex align-item-center justify-content-end">
+            <li>
+              <DeleteModal id={item.id} />
+            </li>
+            <li>
+              <button data-text="Edit Jop">
+                <Link data-text="Edit Jop" href={`/employers-dashboard/edit-jop/${item.id}`}>
+                  <span className="la la-pencil"></span>
+                </Link >
+              </button>
+            </li>
+          </ul>
+
+
         </div>
       </div>
     </div>
@@ -189,6 +203,7 @@ const FilterJobBox = () => {
     dispatch(addSort(""));
     dispatch(addPerPage({ start: 0, end: 0 }));
   };
+
   return (
     <>
       <div className="ls-switcher mb-3">
@@ -198,7 +213,7 @@ const FilterJobBox = () => {
           </div>
 
         </div>
-        <Link href={"/"} className="theme-btn btn-style-one">
+        <Link href={"/employers-dashboard/create-jop"} className="theme-btn btn-style-one">
           Create New Jop
         </Link>
 

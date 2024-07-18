@@ -1,9 +1,12 @@
-const Social = () => {
+const Social = ({ github
+  , portfolioUrl
+  , linkedinUrl
+  , email }) => {
   const socialContent = [
-    { id: 1, icon: "fa-facebook-f", link: "https://www.facebook.com/" },
-    { id: 2, icon: "fa-twitter", link: "https://www.twitter.com/" },
-    { id: 3, icon: "fa-instagram", link: "https://www.instagram.com/" },
-    { id: 4, icon: "fa-linkedin-in", link: "https://www.linkedin.com/" },
+    { id: 2, icon: "fab fa-github", link: github },
+    { id: 4, icon: "fab fa-linkedin-in", link: linkedinUrl },
+    { id: 3, icon: "fa fa-envelope", link: email },
+    { id: 1, icon: "fa fa-user", link: portfolioUrl },
   ];
   return (
     <div className="social-links">
@@ -14,7 +17,7 @@ const Social = () => {
           rel="noopener noreferrer"
           key={item.id}
         >
-          <i className={`fab ${item.icon}`}></i>
+          <i className={`${item.icon}`}></i>
         </a>
       ))}
     </div>

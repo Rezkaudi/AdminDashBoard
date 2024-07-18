@@ -130,3 +130,28 @@ export const editUser = createAsyncThunk(
     }
   }
 );
+
+export const getAllApplicantInfo = createAsyncThunk(
+  "users/getAllApplicantInfo",
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${Api}/admin/users/${id}/full`, {
+        method: "GET",
+        headers: {
+          Auth: token,
+        },
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+getAllApplicantInfo

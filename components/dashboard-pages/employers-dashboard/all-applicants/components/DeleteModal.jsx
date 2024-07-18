@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { deleteCompany } from "@/mainData/company/handleRequests";
 import useToken from "@/utils/useToken";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteApplicant } from "@/mainData/users/handleRequests";
 
 
@@ -13,10 +12,19 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
+    const { requestState } = useSelector((state) => state.users);
 
     const handleDelete = () => {
-        dispatch(deleteApplicant({ id, token }))
-        handleClose()
+        dispatch(deleteApplicant({ id, token })).unwrap().then(
+            () => {
+                // Deletion was successful, close the modal
+                handleClose();
+            },
+            (error) => {
+                // Handle any errors here
+                console.error("Failed to delete user:", error);
+            }
+        );
     }
 
     return (
@@ -27,15 +35,22 @@ const DeleteModal = ({ id }) => {
 
             <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-primary'>Delete Applicant</Modal.Title>
+                    <Modal.Title className='text-primary'>Delete User</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this applicant?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this User?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={handleDelete}>
+                    <Button variant="danger" onClick={handleDelete} disabled={!requestState}>
                         Delete
+                        {!requestState && (
+                            <span
+                                className="spinner-border spinner-border-sm mx-2"
+                                role="status"
+                                aria-live="polite"
+                            ></span>
+                        )}
                     </Button>
                 </Modal.Footer>
             </Modal>

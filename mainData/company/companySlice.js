@@ -6,6 +6,7 @@ import {
   getCompany,
   editCompany,
   createCompany,
+  getCompaniesByName,
 } from "./handleRequests";
 
 // {
@@ -21,6 +22,7 @@ const initialState = {
   findCompany: null,
   totalCount: 0,
   currentPage: 1,
+  companiesByName: null,
   requestState: true,
 };
 
@@ -48,7 +50,11 @@ export const companySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(deleteCompany.pending, (state, { payload }) => {
+        state.requestState = false;
+      })
       .addCase(deleteCompany.fulfilled, (state, { payload }) => {
+        state.requestState = true;
         state.companies = state.companies.filter(
           (company) => company.id !== payload.id
         );
@@ -56,6 +62,7 @@ export const companySlice = createSlice({
         toast.success(payload.data.message);
       })
       .addCase(deleteCompany.rejected, (state, { payload }) => {
+        state.requestState = true;
         toast.error(payload);
       });
 
@@ -118,6 +125,18 @@ export const companySlice = createSlice({
         state.requestState = true;
         toast.error(payload);
       });
+
+    builder
+      .addCase(getCompaniesByName.pending, (state, { payload }) => {
+        state.companiesByName = null;
+      })
+      .addCase(getCompaniesByName.fulfilled, (state, { payload }) => {
+        state.companiesByName = payload.data.list;
+        // toast.success(payload.message);
+      });
+    // .addCase(getCompaniesByName.rejected, (state, { payload }) => {
+    //   toast.error(payload);
+    // });
   },
 });
 

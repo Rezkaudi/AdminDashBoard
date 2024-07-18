@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { deleteJop, getAllJops,getJop } from "./handleRequests";
+import {
+  deleteJop,
+  getAllJops,
+  getJop,
+  createJop,
+  editJop,
+  filterJops
+} from "./handleRequests";
 
 const initialState = {
   jops: null,
   findJop: null,
+  requestState: true,
   totalCount: 0,
   currentPage: 1,
 };
@@ -18,9 +26,7 @@ export const jopsSlice = createSlice({
     },
 
     updateJop: (state, { payload }) => {
-      const index = state.jops.findIndex(
-        (jop) => jop.id === payload.id
-      );
+      const index = state.jops.findIndex((jop) => jop.id === payload.id);
 
       if (index !== -1) {
         state.jops[index] = payload;
@@ -34,14 +40,17 @@ export const jopsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(deleteJop.pending, (state, { payload }) => {
+        state.requestState = false;
+      })
       .addCase(deleteJop.fulfilled, (state, { payload }) => {
-        state.jops = state.jops.filter(
-          (jop) => jop.id !== payload.id
-        );
+        state.requestState = true;
+        state.jops = state.jops.filter((jop) => jop.id !== payload.id);
         state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteJop.rejected, (state, { payload }) => {
+        state.requestState = true;
         toast.error(payload);
       });
 
@@ -58,7 +67,7 @@ export const jopsSlice = createSlice({
         toast.error(payload);
       });
 
-      builder
+    builder
       .addCase(getJop.pending, (state, { payload }) => {
         state.findJop = null;
       })
@@ -69,9 +78,54 @@ export const jopsSlice = createSlice({
       .addCase(getJop.rejected, (state, { payload }) => {
         toast.error(payload);
       });
+
+    builder
+      .addCase(editJop.pending, (state, { payload }) => {
+        state.requestState = false;
+      })
+      .addCase(editJop.fulfilled, (state, { payload }) => {
+        toast.success(payload.data.message);
+
+        state.requestState = true;
+        const index = state.jops.findIndex((jop) => jop.id === payload.id);
+
+        if (index !== -1) {
+          state.jops[index] = payload.data.data;
+        }
+      })
+      .addCase(editJop.rejected, (state, { payload }) => {
+        state.requestState = true;
+        toast.error(payload);
+      });
+
+    builder
+      .addCase(createJop.pending, (state, { payload }) => {
+        state.requestState = false;
+      })
+      .addCase(createJop.fulfilled, (state, { payload }) => {
+        state.requestState = true;
+        state.jops = [...state.jops, payload.data];
+        toast.success(payload.message);
+      })
+      .addCase(createJop.rejected, (state, { payload }) => {
+        state.requestState = true;
+        toast.error(payload);
+      });
+
+      builder
+      .addCase(filterJops.pending, (state, { payload }) => {
+        state.jops = null;
+      })
+      .addCase(filterJops.fulfilled, (state, { payload }) => {
+        state.jops = payload.data.jobs;
+        state.totalCount = payload.data.total;
+        toast.success(payload.message);
+      })
+      .addCase(filterJops.rejected, (state, { payload }) => {
+        toast.error(payload);
+      });
   },
 });
 
-export const { addJop, updateJop, setCurrentPage } =
-  jopsSlice.actions;
+export const { addJop, updateJop, setCurrentPage } = jopsSlice.actions;
 export default jopsSlice.reducer;

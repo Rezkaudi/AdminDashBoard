@@ -1,3 +1,4 @@
+"use client"
 import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
 import LoginPopup from "../../../common/form/login/LoginPopup";
@@ -6,9 +7,12 @@ import BreadCrumb from "../../BreadCrumb";
 import CopyrightFooter from "../../CopyrightFooter";
 import PostJobSteps from "./components/PostJobSteps";
 import PostBoxForm from "./components/PostBoxForm";
-import MenuToggler from "../../MenuToggler";
+import MenuToggler from "../../MenuToggler"
+
 
 const index = () => {
+
+
   return (
     <div className="page-wrapper dashboard">
       <span className="header-span"></span>
@@ -45,8 +49,6 @@ const index = () => {
                   </div>
 
                   <div className="widget-content">
-                    <PostJobSteps />
-                    {/* End job steps form */}
                     <PostBoxForm />
                     {/* End post box form */}
                   </div>
