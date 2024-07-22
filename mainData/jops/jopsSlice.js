@@ -105,6 +105,7 @@ export const jopsSlice = createSlice({
       .addCase(createJop.fulfilled, (state, { payload }) => {
         state.requestState = true;
         state.jops = [...state.jops, payload.data];
+        state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createJop.rejected, (state, { payload }) => {

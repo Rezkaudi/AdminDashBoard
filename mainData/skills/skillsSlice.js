@@ -81,6 +81,7 @@ export const skillsSlice = createSlice({
       .addCase(createSkill.fulfilled, (state, { payload }) => {
         state.requestState = true;
         state.skills = [...state.skills, payload.data];
+        state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createSkill.rejected, (state, { payload }) => {

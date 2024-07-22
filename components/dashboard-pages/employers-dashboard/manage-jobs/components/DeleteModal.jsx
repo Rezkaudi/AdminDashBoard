@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteCompany } from "@/mainData/company/handleRequests";
+import { getAllJops } from '@/mainData/jops/handleRequests';
 import useToken from "@/utils/useToken";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DeleteModal = ({ id }) => {
     const [show, setShow] = useState(false);
@@ -18,6 +19,7 @@ const DeleteModal = ({ id }) => {
             () => {
                 // Deletion was successful, close the modal
                 handleClose();
+                dispatch(getAllJops({ currentPage: 1, token }))
             },
             (error) => {
                 // Handle any errors here

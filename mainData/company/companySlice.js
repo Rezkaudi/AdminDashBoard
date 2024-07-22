@@ -119,6 +119,7 @@ export const companySlice = createSlice({
       .addCase(createCompany.fulfilled, (state, { payload }) => {
         state.requestState = true;
         state.companies = [...state.companies, payload.data];
+        state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createCompany.rejected, (state, { payload }) => {

@@ -125,7 +125,7 @@ const FilterJobBox = () => {
           <ul className="job-info">
             <li>
               <span className="icon flaticon-briefcase"></span>
-              {item.Company.name}
+              {item.Company?.name}
             </li>
             {/* compnay info */}
             <li>

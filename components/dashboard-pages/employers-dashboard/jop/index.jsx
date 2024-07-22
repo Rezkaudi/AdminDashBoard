@@ -69,7 +69,7 @@ const index = ({ id }) => {
                           <ul className="job-info">
                             <li>
                               <span className="icon flaticon-briefcase"></span>
-                              {findJop.Company.name}
+                              {findJop.Company?.name}
                             </li>
                             {/* compnay info */}
                             <li>
@@ -168,7 +168,7 @@ const index = ({ id }) => {
                               alt="resource"
                             />
                           </div>
-                          <h6 className="company-name">{findJop.Company.email}</h6>
+                          <h6 className="company-name">{findJop.Company?.email}</h6>
                           <Link href={`/employers-dashboard/company-profile/${findJop.companyId}`} className="profile-link">
                             View company profile
                           </Link>

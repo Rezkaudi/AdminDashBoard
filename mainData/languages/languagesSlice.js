@@ -83,6 +83,7 @@ export const languagesSlice = createSlice({
       .addCase(createLanguage.fulfilled, (state, { payload }) => {
         state.requestState = true;
         state.languages = [...state.languages, payload.data];
+        state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createLanguage.rejected, (state, { payload }) => {
