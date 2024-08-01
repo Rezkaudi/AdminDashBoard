@@ -10,7 +10,7 @@ import Contact from "@/components/candidates-single-pages/shared-components/Cont
 import GalleryBox from "@/components/candidates-single-pages/shared-components/GalleryBox";
 import Social from "@/components/candidates-single-pages/social/Social";
 import JobSkills from "@/components/candidates-single-pages/shared-components/JobSkills";
-import Cvs from "@/components/candidates-single-pages/shared-components/cvs";
+import Cvs from "@/components/candidates-single-pages/shared-components/Cvs";
 // import AboutVideo from "@/components/candidates-single-pages/shared-components/AboutVideo";
 import Image from "next/image";
 
