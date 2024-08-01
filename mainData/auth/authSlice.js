@@ -36,7 +36,7 @@ export const authSlice = createSlice({
         } else {
           Cookies.set("authToken", token, { expires: 1 / 24 });
         }
-        toast.success(payload.data.message);
+        // toast.success(payload.data.message);
       })
       .addCase(logIn.rejected, (state, { payload }) => {
         state.requestState = true;

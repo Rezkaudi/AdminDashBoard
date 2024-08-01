@@ -123,3 +123,11 @@ Global Settings
 @import "./base/responsive.scss";
 @import "./input-range-slider";
 @import "./custom-nextjs.scss";
+
+.limited-text {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    width: fit-content;
+    white-space: nowrap;
+  }

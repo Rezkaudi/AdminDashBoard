@@ -3,14 +3,14 @@ const Social = ({ github
   , linkedinUrl
   , email }) => {
   const socialContent = [
-    { id: 2, icon: "fab fa-github", link: github },
-    { id: 4, icon: "fab fa-linkedin-in", link: linkedinUrl },
-    { id: 3, icon: "fa fa-envelope", link: email },
-    { id: 1, icon: "fa fa-user", link: portfolioUrl },
+    { id: 1, icon: "fab fa-github", link: github },
+    { id: 2, icon: "fab fa-linkedin-in", link: linkedinUrl },
+    { id: 3, icon: "fa fa-user", link: portfolioUrl },
   ];
   return (
     <div className="social-links">
       {socialContent.map((item) => (
+        item.link &&
         <a
           href={item.link}
           target="_blank"

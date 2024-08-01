@@ -5,13 +5,24 @@ import Pagination from "./Pagination";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Link from "next/link";
 import Image from "next/image";
-import { useSelector,  } from "react-redux";
+import useToken from "@/utils/useToken";
+import { useSelector, } from "react-redux";
 import DeleteModal from "./DeleteModal";
+import { useEffect } from "react";
+import { getAllApplicants } from "@/mainData/users/handleRequests";
+import { useDispatch } from "react-redux";
+
+
 
 const WidgetContentBox = () => {
 
-  const { users, totalCount } = useSelector(state => state.users)
+  const dispatch = useDispatch();
+  const { token } = useToken();
+  const { users, totalCount, currentPage } = useSelector(state => state.users)
 
+  useEffect(() => {
+    dispatch(getAllApplicants({ currentPage, token }));
+  }, [])
 
   return (
     <div className="widget-content">
@@ -83,7 +94,7 @@ const WidgetContentBox = () => {
                               </button>
                             </li>
                             <li>
-                              <DeleteModal id={user.id}/>
+                              <DeleteModal id={user.id} />
                             </li>
                           </ul>
                         </div>

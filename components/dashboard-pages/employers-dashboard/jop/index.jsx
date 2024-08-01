@@ -72,20 +72,18 @@ const index = ({ id }) => {
                               {findJop.Company?.name}
                             </li>
                             {/* compnay info */}
-                            <li>
-                              <span className="icon flaticon-map-locator"></span>
-                              {findJop.location}
-                            </li>
-                            {/* location info */}
+
                             {/* <li>
                               <span className="icon flaticon-clock-3"></span>{" "}
                               {company?.time}
                             </li> */}
                             {/* time info */}
-                            <li>
-                              <span className="icon flaticon-money"></span>{" "}
-                              {findJop.salary}
-                            </li>
+                            {findJop.salaryMin!==null && findJop.salaryMax!==null &&
+                              <li>
+                                <span className="icon flaticon-money"></span>{" "}
+                                {findJop.salaryMin}-{findJop.salaryMax}
+                              </li>
+                            }
                             {/* salary info */}
                           </ul>
                           {/* End .job-info */}
@@ -98,7 +96,7 @@ const index = ({ id }) => {
                   </div>
                   {/* End job-block-outer */}
 
-                  <JobDetailsDescriptions description={findJop.description} />
+                  <JobDetailsDescriptions description={findJop.description || "no description"} />
                   {/* End jobdetails content */}
 
                   {/* <div className="other-options">
@@ -142,16 +140,16 @@ const index = ({ id }) => {
 
                     <div className="sidebar-widget">
                       {/* <!-- Job Overview --> */}
-                      {/* <h4 className="widget-title">Job Overview</h4>
-                      <JobOverView jop={findJop} /> */}
+                      <h4 className="widget-title">Job Overview</h4>
+                      <JobOverView jop={findJop} />
 
-                      <h4 className="widget-title">Job Skills</h4>
+                      <h4 className="widget-title mt-5 mb-2">Job Skills</h4>
                       <div className="widget-content">
-                        <JobSkills data={findJop.skills} name="skills"/>
+                        <JobSkills data={findJop.skills} name="skills" />
                       </div>
-                      <h4 className="widget-title">Job Languages</h4>
+                      <h4 className="widget-title mt-5 mb-2">Job Languages</h4>
                       <div className="widget-content">
-                        <JobSkills data={findJop.languages} name="languages"/>
+                        <JobSkills data={findJop.languages} name="languages" />
                       </div>
                       {/* <!-- Job Skills --> */}
                     </div>

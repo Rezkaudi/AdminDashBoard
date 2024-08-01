@@ -1,22 +1,31 @@
 "use client"
 import Link from "next/link";
+import useToken from "@/utils/useToken";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Pagination from "./Pagination";
 import DeleteModal from './DeleteModal'
+import { getAllCompanies } from "@/mainData/company/handleRequests";
+import { useEffect } from "react";
+import { truncateString } from "@/utils/algorithms";
 
 const JobListingsTable = () => {
+  const dispatch = useDispatch();
+  const { token } = useToken();
 
+  const { companies, currentPage, totalCount } = useSelector(state => state.companies)
 
-  const { companies } = useSelector(state => state.companies)
+  useEffect(() => {
+    dispatch(getAllCompanies({ currentPage, token }));
+  }, [])
 
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>List Of Companies</h4>
+        <h4>List Of Companies - {totalCount}</h4>
 
         <div className="chosen-outer">
-           <Link href={"/employers-dashboard/create-company"} className="theme-btn btn-style-one">
+          <Link href={"/employers-dashboard/create-company"} className="theme-btn btn-style-one">
             Create New Company
           </Link>
         </div>
@@ -37,7 +46,7 @@ const JobListingsTable = () => {
 
             <tbody className="w-100">
               {companies ? companies.map((item) => (
-                <tr key={item.id}>
+                <tr key={item.id} >
                   <td>
                     {/* <!-- Job Block --> */}
                     <div className="job-block">
@@ -53,19 +62,21 @@ const JobListingsTable = () => {
                             />
                           </span>
                           <h4>
-                            <Link href={`/employers-dashboard/company-profile/${item.id}`}>
+                            <Link
+                              href={`/employers-dashboard/company-profile/${item.id}`}
+                            >
                               {item.name}
                             </Link>
                           </h4>
                           <ul className="job-info">
                             <li>
-                              <span className="icon flaticon-briefcase"></span>
+                              <span className="icon flaticon-briefcase" ></span>
                               {item.email}
                             </li>
-                            <li>
-                              <span className="icon flaticon-map-locator"></span>
+                            {!!item.address && <li>
+                              <span className="icon flaticon-map-locator" ></span>
                               {item.address}
-                            </li>
+                            </li>}
                           </ul>
                         </div>
                       </div>
@@ -90,13 +101,13 @@ const JobListingsTable = () => {
                         </li>
                         <li>
                           <button data-text="Edit Company">
-                          <Link data-text="Edit Company" href={`/employers-dashboard/edit-company/${item.id}`}>
-                            <span className="la la-pencil"></span>
+                            <Link data-text="Edit Company" href={`/employers-dashboard/edit-company/${item.id}`}>
+                              <span className="la la-pencil"></span>
                             </Link>
                           </button>
                         </li>
                         <li>
-                          <DeleteModal id={item.id}/>
+                          <DeleteModal id={item.id} />
                           {/*  */}
                         </li>
                       </ul>

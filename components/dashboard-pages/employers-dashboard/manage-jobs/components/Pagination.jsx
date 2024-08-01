@@ -18,21 +18,39 @@ const Pagination = () => {
 
   const renderPaginationItems = () => {
     const items = [];
-
-    for (let page = 1; page <= totalPages; page++) {
+    const maxPagesToShow = 5; // Maximum number of pages to show at a time
+    const halfPagesToShow = Math.floor(maxPagesToShow / 2);
+    let startPage, endPage;
+  
+    if (totalPages <= maxPagesToShow) {
+      // If total pages are less than or equal to maxPagesToShow, show all pages
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      // Calculate start and end pages based on current page
+      startPage = Math.max(currentPage - halfPagesToShow, 1);
+      endPage = startPage + maxPagesToShow - 1;
+  
+      // Adjust if endPage exceeds totalPages
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = endPage - maxPagesToShow + 1;
+      }
+    }
+  
+    for (let page = startPage; page <= endPage; page++) {
       const isCurrentPage = page === currentPage;
       const className = isCurrentPage ? "current-page" : "";
-
+  
       items.push(
         <li key={page}>
-          <span className={className} onClick={() => handleChangePage(page)
-          }>
+          <span className={className} onClick={() => handleChangePage(page)}>
             {page}
           </span>
         </li>
       );
     }
-
+  
     return items;
   };
 

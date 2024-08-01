@@ -8,7 +8,7 @@ import useToken from '@/utils/useToken'
 
 import { getCompaniesByName } from "@/mainData/company/handleRequests";
 
-const Categories = ({ setCompanyId }) => {
+const Categories = ({ companyId, setCompanyId }) => {
 
     const dispatch = useDispatch();
     const { token } = useToken();
@@ -25,6 +25,9 @@ const Categories = ({ setCompanyId }) => {
     //     { id: "Creative Art", name: "Creative Art" },
     // ];
 
+    useEffect(() => {
+        dispatch(getCompaniesByName({ token }));
+    }, [])
 
     const customStyles = {
         control: (provided) => ({
@@ -107,12 +110,11 @@ const Categories = ({ setCompanyId }) => {
 
     const handleInputCompany = (e) => {
         const companyName = e
-        console.log(companyName);
         dispatch(getCompaniesByName({ companyName, token }));
     };
 
     const handleChangeCompany = (selectedOption) => {
-        setCompanyId(selectedOption.value);
+        setCompanyId(selectedOption);
     };
 
 
@@ -120,6 +122,7 @@ const Categories = ({ setCompanyId }) => {
     return (
         <>
             <Select
+                value={companyId}
                 onInputChange={handleInputCompany}
                 onChange={(selectedOption) => handleChangeCompany(selectedOption)} // Assuming 'companyId' is the name of the field in formData
                 options={companiesList}

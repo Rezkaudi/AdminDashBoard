@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { editSkill } from '@/mainData/skills/handleRequests';
+import { editSkill ,getAllSkills} from '@/mainData/skills/handleRequests';
 import useToken from "@/utils/useToken";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,7 +16,7 @@ const EditModal = ({ id, name }) => {
 
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { requestState } = useSelector((state) => state.skills);
+    const { requestState,currentPage } = useSelector((state) => state.skills);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,6 +32,7 @@ const EditModal = ({ id, name }) => {
             () => {
                 // Deletion was successful, close the modal
                 handleClose();
+                dispatch(getAllSkills({ currentPage, token }))
             },
             (error) => {
                 // Handle any errors here

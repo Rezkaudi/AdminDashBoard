@@ -1,19 +1,28 @@
 "use client"
 import Link from "next/link";
-import { useSelector } from "react-redux";
 import Pagination from "./Pagination";
 import DeleteModal from './DeleteModal'
 import EditModal from "./EditModal";
+import useToken from "@/utils/useToken";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllLanguages } from "@/mainData/languages/handleRequests";
+
 
 const JobListingsTable = () => {
 
+  const dispatch = useDispatch();
+  const { token } = useToken();
+  const { languages, currentPage, totalCount } = useSelector(state => state.languages)
 
-  const { languages } = useSelector(state => state.languages)
+  useEffect(() => {
+    dispatch(getAllLanguages({ currentPage, token }));
+  }, [])
 
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>List Of Languages</h4>
+        <h4>List Of Languages - {totalCount}</h4>
 
         <div className="chosen-outer">
           <Link href={"/employers-dashboard/create-language"} className="theme-btn btn-style-one">

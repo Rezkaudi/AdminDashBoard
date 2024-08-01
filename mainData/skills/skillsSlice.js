@@ -31,8 +31,8 @@ export const skillsSlice = createSlice({
       })
       .addCase(deleteSkill.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.skills = state.skills.filter((skill) => skill.id !== payload.id);
-        state.totalCount = state.totalCount - 1;
+        // state.skills = state.skills.filter((skill) => skill.id !== payload.id);
+        // state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteSkill.rejected, (state, { payload }) => {
@@ -43,11 +43,13 @@ export const skillsSlice = createSlice({
     builder
       .addCase(getAllSkills.pending, (state, { payload }) => {
         state.skills = null;
+        state.totalCount = 0;
+
       })
       .addCase(getAllSkills.fulfilled, (state, { payload }) => {
         state.skills = payload.data.list;
         state.totalCount = payload.data.totalCount;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getAllSkills.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -80,8 +82,8 @@ export const skillsSlice = createSlice({
       })
       .addCase(createSkill.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.skills = [...state.skills, payload.data];
-        state.totalCount =Number(state.totalCount) + 1
+        // state.skills = [...state.skills, payload.data];
+        // state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createSkill.rejected, (state, { payload }) => {

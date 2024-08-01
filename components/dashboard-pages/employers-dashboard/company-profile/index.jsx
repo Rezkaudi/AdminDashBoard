@@ -18,7 +18,7 @@ import MapJobFinder from "@/components/job-listing-pages/components/MapJobFinder
 import Social from "@/components/employer-single-pages/social/Social";
 import PrivateMessageBox from "@/components/employer-single-pages/shared-components/PrivateMessageBox";
 import Image from "next/image";
-
+import { truncateString } from "@/utils/algorithms";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useToken from "@/utils/useToken";
@@ -70,19 +70,19 @@ const index = ({ id }) => {
                                         <h4>{company.name}</h4>
 
                                         <ul className="job-info">
-                                            <li>
+                                            {!!company.address && <li>
                                                 <span className="icon flaticon-map-locator"></span>
                                                 {company.address}
-                                            </li>
-                                          
+                                            </li>}
+
                                             <li>
                                                 <span className="icon flaticon-mail"></span>
                                                 {company.email}
                                             </li>
                                         </ul>
-                        
+
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             {/* <!-- Job Block --> */}
@@ -96,11 +96,11 @@ const index = ({ id }) => {
                             <div className="row">
                                 <div className="content-column col-lg-8 col-md-12 col-sm-12">
                                     {/*  job-detail */}
-                                    <JobDetailsDescriptions company={company}/>
+                                    {/* <JobDetailsDescriptions company={company} /> */}
                                     {/* End job-detail */}
 
                                     {/* <!-- Related Jobs --> */}
-                                   
+
                                 </div>
                                 {/* End .content-column */}
 
@@ -114,12 +114,12 @@ const index = ({ id }) => {
                                                         Email: <span>{company.email}</span>
                                                     </li>
                                                     <li>
-                                                        Location: <span>{company.address}</span>
+                                                        Location: <span>{company.address || "no value"}</span>
                                                     </li>
-                                                    <li>
+                                                    {/* <li>
                                                         Social media:
-                                                        {/* <Social /> */}
-                                                    </li>
+                                                        <Social />
+                                                    </li> */}
                                                 </ul>
                                                 {/* End compnay-info */}
 
@@ -137,16 +137,14 @@ const index = ({ id }) => {
                                         </div>
                                         {/* End company-widget */}
 
-                                        <div className="sidebar-widget">
-                                            {/* <!-- Map Widget --> */}
+                                        {/* <div className="sidebar-widget">
                                             <h4 className="widget-title">Job Location</h4>
                                             <div className="widget-content">
                                                 <div style={{ height: "100px", width: "100%" }}>
-                                                    {/* <MapJobFinder /> */}
+                                                    <MapJobFinder />
                                                 </div>
                                             </div>
-                                            {/* <!--  Map Widget --> */}
-                                        </div>
+                                        </div> */}
                                         {/* End sidebar-widget */}
                                     </aside>
                                     {/* End .sidebar */}

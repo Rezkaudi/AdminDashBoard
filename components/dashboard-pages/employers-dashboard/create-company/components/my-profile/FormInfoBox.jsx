@@ -72,7 +72,7 @@ const FormInfoBox = () => {
                         value={companyData.address}
                         onChange={handleChange}
                         autoComplete='false'
-                        required
+                        // required
                     />
                 </div>
 

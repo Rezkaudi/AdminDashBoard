@@ -31,10 +31,10 @@ export const languagesSlice = createSlice({
       })
       .addCase(deleteLanguage.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.languages = state.languages.filter(
-          (language) => language.id !== payload.id
-        );
-        state.totalCount = state.totalCount - 1;
+        // state.languages = state.languages.filter(
+        //   (language) => language.id !== payload.id
+        // );
+        // state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteLanguage.rejected, (state, { payload }) => {
@@ -45,11 +45,12 @@ export const languagesSlice = createSlice({
     builder
       .addCase(getAllLanguages.pending, (state, { payload }) => {
         state.languages = null;
+        state.totalCount = 0;
       })
       .addCase(getAllLanguages.fulfilled, (state, { payload }) => {
         state.languages = payload.data.list;
         state.totalCount = payload.data.totalCount;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getAllLanguages.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -63,13 +64,13 @@ export const languagesSlice = createSlice({
         toast.success(payload.data.message);
 
         state.requestState = true;
-        const index = state.languages.findIndex(
-          (language) => language.id === payload.id
-        );
+        // const index = state.languages.findIndex(
+        //   (language) => language.id === payload.id
+        // );
 
-        if (index !== -1) {
-          state.languages[index] = payload.data.data;
-        }
+        // if (index !== -1) {
+        //   state.languages[index] = payload.data.data;
+        // }
       })
       .addCase(editLanguage.rejected, (state, { payload }) => {
         state.requestState = true;
@@ -82,8 +83,8 @@ export const languagesSlice = createSlice({
       })
       .addCase(createLanguage.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.languages = [...state.languages, payload.data];
-        state.totalCount =Number(state.totalCount) + 1
+        // state.languages = [...state.languages, payload.data];
+        // state.totalCount = Number(state.totalCount) + 1;
         toast.success(payload.message);
       })
       .addCase(createLanguage.rejected, (state, { payload }) => {

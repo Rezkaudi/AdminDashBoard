@@ -15,6 +15,7 @@ export const deleteJop = createAsyncThunk(
       const data = await response.json();
 
       if (response.ok) {
+        
         return { id, data };
       } else {
         return rejectWithValue(data.message);
@@ -129,13 +130,13 @@ export const editJop = createAsyncThunk(
 export const filterJops = createAsyncThunk(
   "jops/filterJops",
   async (
-    { currentPage, token, title, location, skills, companyId },
+    { currentPage, token, title, skills, companyId },
     { rejectWithValue }
   ) => {
     let pageSize = 10;
     try {
       const response = await fetch(
-        `${Api}/admin/jobs?page=${currentPage}&size=${pageSize}&title=${title}&location=${location}&skills=${skills}&companyId=${companyId}`,
+        `${Api}/admin/jobs?page=${currentPage}&size=${pageSize}&title=${title}&skills=${skills}&companyId=${companyId}`,
         {
           method: "GET",
           headers: {

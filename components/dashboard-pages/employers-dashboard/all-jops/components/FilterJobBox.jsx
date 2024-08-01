@@ -20,11 +20,12 @@ import {
 import Image from "next/image";
 import Pagination from "./Pagination";
 import DeleteModal from "./DeleteModal";
-
+import { useEffect } from "react";
+import { filterJops } from "@/mainData/jops/handleRequests";
 
 const FilterJobBox = () => {
   const { token } = useToken()
-  const { jops, totalCount } = useSelector((state) => state.jops);
+  const { jops, totalCount, currentPage } = useSelector((state) => state.jops);
   const { jobList, jobSort } = useSelector((state) => state.filter);
   const {
     keyword,
@@ -40,6 +41,11 @@ const FilterJobBox = () => {
   const { sort, perPage } = jobSort;
 
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
+  }, [])
 
   // keyword filter on title
   const keywordFilter = (item) =>
@@ -128,18 +134,18 @@ const FilterJobBox = () => {
               {item.Company?.name}
             </li>
             {/* compnay info */}
-            <li>
-              <span className="icon flaticon-map-locator"></span>
-              {item.location}
-            </li>
-            {/* location info */}
+
             {/* <li>
                 <span className="icon flaticon-clock-3"></span> {item.time}
               </li> */}
             {/* time info */}
-            <li>
-              <span className="icon flaticon-money"></span> {item.salary}
-            </li>
+
+            {item.salaryMin !== null && !!item.salaryMax !== null &&
+              <li>
+                <span className="icon flaticon-money"></span> {item.salaryMin} - {item.salaryMax}
+              </li>
+            }
+
             {/* salary info */}
           </ul>
           {/* End .job-info */}

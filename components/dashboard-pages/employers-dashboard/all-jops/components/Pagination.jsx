@@ -1,7 +1,7 @@
 "use client"
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentPage } from "@/mainData/jops/jopsSlice";
-import { getAllJops } from "@/mainData/jops/handleRequests";
+import { filterJops } from "@/mainData/jops/handleRequests";
 import useToken from "@/utils/useToken";
 
 const Pagination = () => {
@@ -13,16 +13,35 @@ const Pagination = () => {
 
   const handleChangePage = (currentPage) => {
     dispatch(setCurrentPage(currentPage))
-    dispatch(getAllJops({ currentPage, token }))
+    dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
   }
 
   const renderPaginationItems = () => {
     const items = [];
-
-    for (let page = 1; page <= totalPages; page++) {
+    const maxPagesToShow = 5; // Maximum number of pages to show at a time
+    const halfPagesToShow = Math.floor(maxPagesToShow / 2);
+    let startPage, endPage;
+  
+    if (totalPages <= maxPagesToShow) {
+      // If total pages are less than or equal to maxPagesToShow, show all pages
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      // Calculate start and end pages based on current page
+      startPage = Math.max(currentPage - halfPagesToShow, 1);
+      endPage = startPage + maxPagesToShow - 1;
+  
+      // Adjust if endPage exceeds totalPages
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = endPage - maxPagesToShow + 1;
+      }
+    }
+  
+    for (let page = startPage; page <= endPage; page++) {
       const isCurrentPage = page === currentPage;
       const className = isCurrentPage ? "current-page" : "";
-
+  
       items.push(
         <li key={page}>
           <span className={className} onClick={() => handleChangePage(page)}>
@@ -31,7 +50,7 @@ const Pagination = () => {
         </li>
       );
     }
-
+  
     return items;
   };
 

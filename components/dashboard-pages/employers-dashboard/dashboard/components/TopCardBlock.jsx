@@ -1,51 +1,51 @@
 "use client"
 import { useSelector } from "react-redux";
 const TopCardBlock = () => {
-  const { totalCount: usersTotalCount } = useSelector((state) => state.users);
-  const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
-  const { totalCount: jopsTotalCount } = useSelector((state) => state.jops);
-  const { totalCount: languagesTotalCount } = useSelector((state) => state.languages);
-  const { totalCount: skillsTotalCount } = useSelector((state) => state.skills);
+  // const { totalCount: usersTotalCount } = useSelector((state) => state.users);
+  // const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
+  // const { totalCount: jopsTotalCount } = useSelector((state) => state.jops);
+  // const { totalCount: languagesTotalCount } = useSelector((state) => state.languages);
+  // const { totalCount: skillsTotalCount } = useSelector((state) => state.skills);
 
 
 
 
   const cardContent = [
-    {
-      id: 1,
-      icon: "flaticon-briefcase",
-      countNumber: usersTotalCount,
-      metaName: "Users",
-      uiClass: "ui-blue",
-    },
-    {
-      id: 2,
-      icon: "la-file-invoice",
-      countNumber: companiesTotalCount,
-      metaName: "Companies",
-      uiClass: "ui-red",
-    },
-    {
-      id: 3,
-      icon: "la-comment-o",
-      countNumber: jopsTotalCount,
-      metaName: "Jops",
-      uiClass: "ui-yellow",
-    },
-    {
-      id: 4,
-      icon: "la-language",
-      countNumber: languagesTotalCount,
-      metaName: "Languages",
-      uiClass: "ui-red",
-    },
-    {
-      id: 5,
-      icon: "la-bookmark-o",
-      countNumber: skillsTotalCount,
-      metaName: "Skills",
-      uiClass: "ui-green",
-    },
+    // {
+    //   id: 1,
+    //   icon: "flaticon-briefcase",
+    //   countNumber: usersTotalCount,
+    //   metaName: "Users",
+    //   uiClass: "ui-blue",
+    // },
+    // {
+    //   id: 2,
+    //   icon: "la-file-invoice",
+    //   countNumber: companiesTotalCount,
+    //   metaName: "Companies",
+    //   uiClass: "ui-red",
+    // },
+    // {
+    //   id: 3,
+    //   icon: "la-comment-o",
+    //   countNumber: jopsTotalCount,
+    //   metaName: "Jops",
+    //   uiClass: "ui-yellow",
+    // },
+    // {
+    //   id: 4,
+    //   icon: "la-language",
+    //   countNumber: languagesTotalCount,
+    //   metaName: "Languages",
+    //   uiClass: "ui-red",
+    // },
+    // {
+    //   id: 5,
+    //   icon: "la-bookmark-o",
+    //   countNumber: skillsTotalCount,
+    //   metaName: "Skills",
+    //   uiClass: "ui-green",
+    // },
     // {
     //   id: 4,
     //   icon: "la-bookmark-o",

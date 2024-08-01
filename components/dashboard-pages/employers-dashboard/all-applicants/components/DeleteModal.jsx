@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useToken from "@/utils/useToken";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteApplicant } from "@/mainData/users/handleRequests";
-
+import { deleteApplicant, getAllApplicants } from "@/mainData/users/handleRequests";
+import { setCurrentPage } from '@/mainData/users/usersSlice';
 
 const DeleteModal = ({ id }) => {
     const [show, setShow] = useState(false);
@@ -12,13 +12,20 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { requestState } = useSelector((state) => state.users);
+    const { requestState, currentPage, users } = useSelector((state) => state.users);
 
     const handleDelete = () => {
         dispatch(deleteApplicant({ id, token })).unwrap().then(
             () => {
-                // Deletion was successful, close the modal
                 handleClose();
+                if (users.length === 1 && currentPage > 1) {
+                    dispatch(setCurrentPage(currentPage - 1))
+                    dispatch(getAllApplicants({ currentPage: currentPage - 1, token }))
+                }
+
+                else {
+                    dispatch(getAllApplicants({ currentPage, token }))
+                }
             },
             (error) => {
                 // Handle any errors here

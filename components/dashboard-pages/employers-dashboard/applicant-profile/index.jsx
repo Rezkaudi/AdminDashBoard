@@ -10,7 +10,8 @@ import Contact from "@/components/candidates-single-pages/shared-components/Cont
 import GalleryBox from "@/components/candidates-single-pages/shared-components/GalleryBox";
 import Social from "@/components/candidates-single-pages/social/Social";
 import JobSkills from "@/components/candidates-single-pages/shared-components/JobSkills";
-import AboutVideo from "@/components/candidates-single-pages/shared-components/AboutVideo";
+import Cvs from "@/components/candidates-single-pages/shared-components/cvs";
+// import AboutVideo from "@/components/candidates-single-pages/shared-components/AboutVideo";
 import Image from "next/image";
 
 
@@ -90,10 +91,10 @@ const index = ({ id }) => {
                                         </ul> */}
                                     </div>
 
-                                    {/* <div className="btn-box">
+                                    <div className="btn-box">
                                         <a
                                             className="theme-btn btn-style-one"
-                                            href="/images/sample.pdf"
+                                            href="#"
                                             download
                                         >
                                             Download CV
@@ -101,7 +102,7 @@ const index = ({ id }) => {
                                         <button className="bookmark-btn">
                                             <i className="flaticon-bookmark"></i>
                                         </button>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                             {/*  <!-- Candidate block Five --> */}
@@ -212,6 +213,39 @@ const index = ({ id }) => {
                                             }
 
                                         </div>
+
+                                        {/*certificates  */}
+                                        <div
+                                            className={`resume-outer theme-blue`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Certificates</h4>
+                                            </div>
+
+                                            {fullUserInfo.certificates.length > 0 ? fullUserInfo.certificates.map((item, index) => (
+                                                <div className="resume-block" key={item.id}>
+                                                    <div className="inner">
+                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
+                                                        <div className="title-box">
+                                                            <div className="info-box">
+                                                                <a href={item.link}>
+                                                                    <h3>{item.title}</h3>
+                                                                </a>
+                                                                <span>{item.institution}</span>
+                                                            </div>
+                                                            {/* <div className="edit-box">
+                                                                <span className="year">{item.fromYear} - {item.toYear}</span>
+                                                            </div> */}
+                                                        </div>
+                                                        <div className="text">{item.brief}</div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                                :
+                                                <span className="text px-5">No Certificates yet</span>
+                                            }
+
+                                        </div>
                                     </div>
                                 </div>
                                 {/* End .content-column */}
@@ -228,14 +262,26 @@ const index = ({ id }) => {
                                                     </li> */}
 
                                                     <li>
+                                                        <i className="icon icon-phone"></i>
+                                                        <h5>Phone number:</h5>
+                                                        <span>{findUser.phone || "No value"}</span>
+                                                    </li>
+
+                                                    <li>
+                                                        <i className="icon icon-email"></i>
+                                                        <h5>Email:</h5>
+                                                        <span>{findUser.email || "No value"}</span>
+                                                    </li>
+
+                                                    <li>
                                                         <i className="icon icon-expiry"></i>
-                                                        <h5>Age:</h5>
-                                                        <span>{fullUserInfo.basicInfo?.birthDate || "No value"} - {fullUserInfo.basicInfo?.noticePeriod || "No value"} Years</span>
+                                                        <h5>Birth Date:</h5>
+                                                        <span>{fullUserInfo.basicInfo?.birthDate || "No value"}</span>
                                                     </li>
 
                                                     <li>
                                                         <i className="icon icon-rate"></i>
-                                                        <h5>Current Salary:</h5>
+                                                        <h5>Desired Salary:</h5>
                                                         <span>{fullUserInfo.basicInfo?.desiredSalary ? fullUserInfo.basicInfo?.desiredSalary :
                                                             <span className="text px-3">No Salary</span>
                                                         }</span>
@@ -243,7 +289,7 @@ const index = ({ id }) => {
 
                                                     <li>
                                                         <i className="icon icon-language"></i>
-                                                        <h5>Language:</h5>
+                                                        <h5>Languages:</h5>
                                                         <span>{fullUserInfo.languages?.length > 0 ? fullUserInfo.languages.map(item =>
                                                             <>{item.languageName} , </>
                                                         ) :
@@ -264,7 +310,6 @@ const index = ({ id }) => {
                                                         github={fullUserInfo.basicInfo?.github}
                                                         portfolioUrl={fullUserInfo.basicInfo?.portfolioUrl}
                                                         linkedinUrl={fullUserInfo.basicInfo?.linkedinUrl}
-                                                        email={findUser.email}
                                                     />
                                                 </div>
                                             </div>
@@ -277,22 +322,35 @@ const index = ({ id }) => {
                                                 <ul className="job-skills">
                                                     {fullUserInfo.skills?.length > 0 ?
                                                         < JobSkills skills={fullUserInfo.skills} />
-                                                    :
-                                                    <span className="text px-3">No Skills</span>
+                                                        :
+                                                        <span className="text px-3">No Skills</span>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div className="sidebar-widget">
+                                            <h4 className="widget-title">All CV versions</h4>
+                                            <div className="widget-content">
+                                                <ul className="job-skills">
+                                                    {fullUserInfo.Cvs?.length > 0 ?
+                                                        < Cvs cvs={fullUserInfo.Cvs} />
+                                                        :
+                                                        <span className="text px-3">No Cvs</span>
                                                     }
                                                 </ul>
                                             </div>
                                         </div>
                                         {/* End .sidebar-widget skill widget */}
 
-                                        <div className="sidebar-widget contact-widget">
+                                        {/* <div className="sidebar-widget contact-widget">
                                             <h4 className="widget-title">Contact Us</h4>
                                             <div className="widget-content">
                                                 <div className="default-form">
                                                     <Contact />
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         {/* End .sidebar-widget contact-widget */}
                                     </aside>
                                     {/* End .sidebar */}
@@ -319,3 +377,12 @@ const index = ({ id }) => {
 };
 
 export default index;
+// .icon-Email:before {
+// 	content: "\e854";
+// }
+// .icon-Phone-2:before {
+// 	content: "\eb58";
+// }
+// .icon-Phone-3:before {
+// 	content: "\eb59";
+// }

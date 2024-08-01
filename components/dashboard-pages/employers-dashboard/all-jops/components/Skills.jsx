@@ -8,11 +8,12 @@ import useToken from '@/utils/useToken'
 
 import { getSkillsByName } from "@/mainData/skills/handleRequests";
 
-const Skills = ({ setskills }) => {
+const Skills = ({ skills, setskills }) => {
 
     const dispatch = useDispatch();
     const { token } = useToken();
     const { skillsByName } = useSelector((state) => state.skills);
+    const [selectedOption, setSelectedOption] = useState(null);
 
     // const specialisms = [
     //     { id: "id", name: "Banking" },
@@ -24,6 +25,10 @@ const Skills = ({ setskills }) => {
     //     { id: "Digital", name: "Digital" },
     //     { id: "Creative Art", name: "Creative Art" },
     // ];
+
+    useEffect(() => {
+        dispatch(getSkillsByName({ token }))
+    }, [])
 
     const customStyles = {
         control: (provided) => ({
@@ -106,12 +111,12 @@ const Skills = ({ setskills }) => {
 
     const handleInputSkill = (e) => {
         const skillName = e
-        console.log(skillName);
+        // console.log(skillName);
         dispatch(getSkillsByName({ skillName, token }));
     };
 
     const handleChangeSkill = (selectedOption) => {
-        setskills(selectedOption.value);
+        setskills(selectedOption);
     };
 
 
@@ -119,6 +124,7 @@ const Skills = ({ setskills }) => {
     return (
         <>
             <Select
+                value={skills}
                 onInputChange={handleInputSkill}
                 onChange={(selectedOption) => handleChangeSkill(selectedOption)} // Assuming 'companyId' is the name of the field in formData
                 options={skillsList}

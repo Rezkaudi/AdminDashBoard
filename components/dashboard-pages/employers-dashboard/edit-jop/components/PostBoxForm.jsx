@@ -25,6 +25,11 @@ const PostBoxForm = ({ id }) => {
   const { languagesByName } = useSelector((state) => state.languages);
   const { companiesByName } = useSelector((state) => state.companies);
 
+  useEffect(() => {
+    dispatch(getCompaniesByName({ token }))
+    dispatch(getSkillsByName({ token }))
+    dispatch(getLanguagesByName({ token }))
+  }, [])
 
   const languagesList = languagesByName?.map(specialism => ({
     value: specialism.id,
@@ -52,16 +57,18 @@ const PostBoxForm = ({ id }) => {
           title: payload.data?.title,
           description: payload.data?.description,
           company: {
-            value: payload.data?.Company.id, // Assuming formData?.Company is the selected company object
-            label: payload.data?.Company.name // Display name as the label
+            value: payload.data?.Company?.id, // Assuming formData?.Company is the selected company object
+            label: payload.data?.Company?.name // Display name as the label
           },
-          location: payload.data?.location,
-          salary: payload.data?.salary,
-          skills: payload.data?.skills.map(skill => ({
+          salaryMin: payload.data?.salaryMin,
+          salaryMax: payload.data?.salaryMax,
+          experienceMin: payload.data?.experienceMin,
+          experienceMax: payload.data?.experienceMax,
+          skills: payload.data?.skills?.map(skill => ({
             value: skill.id,
             label: skill.name
           })),
-          languages: payload.data?.languages.map(language => ({
+          languages: payload.data?.languages?.map(language => ({
             value: language.id,
             label: language.name
           })),
@@ -113,8 +120,10 @@ const PostBoxForm = ({ id }) => {
       title: formData.title,
       description: formData.description,
       companyId: formData.company.value,
-      location: formData.location,
-      salary: formData.salary,
+      salaryMin: formData.salaryMin,
+      salaryMax: formData.salaryMax,
+      experienceMin: formData.experienceMin,
+      experienceMax: formData.experienceMax,
       skills: formData.skills.map(skill => skill.value),
       languages: formData.languages.map(language => language.value),
     }
@@ -142,19 +151,19 @@ const PostBoxForm = ({ id }) => {
 
   const handleInputSkill = (e) => {
     const skillName = e
-    console.log(skillName);
+    // console.log(skillName);
     dispatch(getSkillsByName({ skillName, token }));
   };
 
   const handleInputCompany = (e) => {
     const companyName = e
-    console.log(companyName);
+    // console.log(companyName);
     dispatch(getCompaniesByName({ companyName, token }));
   };
 
   const handleInputLanguage = (e) => {
     const LanguageName = e
-    console.log(LanguageName);
+    // console.log(LanguageName);
     dispatch(getLanguagesByName({ LanguageName, token }));
   };
 
@@ -180,7 +189,7 @@ const PostBoxForm = ({ id }) => {
             {/* About Company */}
             <div className="form-group col-lg-12 col-md-12">
               <label>Job Description</label>
-              <textarea name="description" placeholder="Enter Job Description" value={formData?.description} onChange={handleChange} required></textarea>
+              <textarea name="description" placeholder="Enter Job Description" value={formData?.description} onChange={handleChange}></textarea>
             </div>
 
             {/* Input */}
@@ -200,20 +209,31 @@ const PostBoxForm = ({ id }) => {
                 options={companiesList}
                 placeholder="Select..."
                 isSearchable
+                required
               />
             </div>
 
             {/* Input */}
             <div className="form-group col-lg-6 col-md-12">
-              <label>Location</label>
-              <input type="text" name="location" placeholder="Enter Location" value={formData?.location} onChange={handleChange} required />
-            </div>
+          <label>Min Salary</label>
+          <input type="number" min={0} name="salaryMin" placeholder="Enter Min Salary" value={formData?.salaryMin} onChange={handleChange} />
+        </div>
+
+        <div className="form-group col-lg-6 col-md-12">
+          <label>Max Salary</label>
+          <input type="number" min={0} name="salaryMax" placeholder="Enter Max Salary" value={formData?.salaryMax} onChange={handleChange} />
+        </div>
 
 
-            <div className="form-group col-lg-6 col-md-12">
-              <label>Salary</label>
-              <input type="text" name="salary" placeholder="Enter Salary" value={formData?.salary} onChange={handleChange} required />
-            </div>
+        <div className="form-group col-lg-6 col-md-12">
+          <label>Min Experience</label>
+          <input type="number" min={0} name="experienceMin" placeholder="Enter Min Experience" value={formData?.experienceMin} onChange={handleChange} />
+        </div>
+
+        <div className="form-group col-lg-6 col-md-12">
+          <label>Max Experience</label>
+          <input type="number" min={0} name="experienceMax" placeholder="Enter Max Experience" value={formData?.experienceMax} onChange={handleChange} />
+        </div>
 
 
             {/* Search Select for Skills */}
@@ -236,7 +256,6 @@ const PostBoxForm = ({ id }) => {
                 classNamePrefix="select"
                 onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'skills')}
                 onInputChange={handleInputSkill}
-                required
               />
             </div>
 
@@ -260,7 +279,6 @@ const PostBoxForm = ({ id }) => {
                 className="basic-multi-select"
                 classNamePrefix="select"
                 onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'languages')}
-                required
                 onInputChange={handleInputLanguage}
               />
             </div>

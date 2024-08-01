@@ -108,7 +108,6 @@ export const getUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "users/editUser",
   async ({ id, token, newData }, { rejectWithValue }) => {
-    console.log(newData);
     try {
       const response = await fetch(`${Api}/admin/users/${id}`, {
         method: "PUT",
@@ -154,4 +153,30 @@ export const getAllApplicantInfo = createAsyncThunk(
   }
 );
 
-getAllApplicantInfo
+export const getUserCv = createAsyncThunk(
+  "user/getUserCv",
+  async ({userId,token }, { rejectWithValue }) => {
+
+    try {
+      const response = await fetch(
+        `${Api}/admin/user/cv/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            auth: token,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data)
+
+      if (response.ok) {
+        return data;
+      } else {
+        return rejectWithValue(data.message);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

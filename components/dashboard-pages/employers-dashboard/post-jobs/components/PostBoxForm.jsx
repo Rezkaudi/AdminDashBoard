@@ -33,11 +33,11 @@ const PostBoxForm = () => {
   //   { id: "Creative Art", name: "Creative Art" },
   // ];
 
-  // useEffect(() => {
-  //   dispatch(getCompaniesByName({ token }))
-  //   dispatch(getSkillsByName({ token }))
-  //   dispatch(getLanguagesByName({ token }))
-  // }, [])
+  useEffect(() => {
+    dispatch(getCompaniesByName({ token }))
+    dispatch(getSkillsByName({ token }))
+    dispatch(getLanguagesByName({ token }))
+  }, [])
 
 
   const languagesList = languagesByName?.map(item => ({
@@ -60,8 +60,10 @@ const PostBoxForm = () => {
     title: '',
     description: '',
     companyId: '',
-    location: '',
-    salary: '',
+    salaryMin: '',
+    salaryMax: '',
+    experienceMin: '',
+    experienceMax: '',
     skills: [],
     languages: [],
   });
@@ -77,19 +79,19 @@ const PostBoxForm = () => {
 
   const handleInputSkill = (e) => {
     const skillName = e
-    console.log(skillName);
+    // console.log(skillName);
     dispatch(getSkillsByName({ skillName, token }));
   };
 
   const handleInputCompany = (e) => {
     const companyName = e
-    console.log(companyName);
+    // console.log(companyName);
     dispatch(getCompaniesByName({ companyName, token }));
   };
 
   const handleInputLanguage = (e) => {
     const LanguageName = e
-    console.log(LanguageName);
+    // console.log(LanguageName);
     dispatch(getLanguagesByName({ LanguageName, token }));
   };
 
@@ -100,7 +102,7 @@ const PostBoxForm = () => {
     }));
   };
 
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -112,7 +114,7 @@ const PostBoxForm = () => {
       console.error('Create Jop failed', error);
     }
     console.log(formData);
-  } 
+  }
 
   // Handle changes for multi-select inputs
   const handleMultiSelectChange = (selectedOptions, fieldName) => {
@@ -134,7 +136,7 @@ const PostBoxForm = () => {
         {/* About Company */}
         <div className="form-group col-lg-12 col-md-12">
           <label>Job Description</label>
-          <textarea name="description" placeholder="Enter Job Description" onChange={handleChange} required></textarea>
+          <textarea name="description" placeholder="Enter Job Description" onChange={handleChange} ></textarea>
         </div>
 
         {/* Input */}
@@ -153,19 +155,31 @@ const PostBoxForm = () => {
             options={companiesList}
             placeholder="Select..."
             isSearchable
+            required
           />
         </div>
 
         {/* Input */}
+
         <div className="form-group col-lg-6 col-md-12">
-          <label>Location</label>
-          <input type="text" name="location" placeholder="Enter Location" onChange={handleChange} required />
+          <label>Min Salary</label>
+          <input type="number" min={0} name="salaryMin" placeholder="Enter Min Salary" onChange={handleChange} />
+        </div>
+
+        <div className="form-group col-lg-6 col-md-12">
+          <label>Max Salary</label>
+          <input type="number" min={0} name="salaryMax" placeholder="Enter Max Salary" onChange={handleChange} />
         </div>
 
 
         <div className="form-group col-lg-6 col-md-12">
-          <label>Salary</label>
-          <input type="text" name="salary" placeholder="Enter Salary" onChange={handleChange} required />
+          <label>Min Experience</label>
+          <input type="number" min={0} name="experienceMin" placeholder="Enter Min Experience" onChange={handleChange} />
+        </div>
+
+        <div className="form-group col-lg-6 col-md-12">
+          <label>Max Experience</label>
+          <input type="number" min={0} name="experienceMax" placeholder="Enter Max Experience" onChange={handleChange} />
         </div>
 
 
@@ -189,7 +203,7 @@ const PostBoxForm = () => {
             classNamePrefix="select"
             onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'skills')}
             onInputChange={handleInputSkill}
-            required
+          // required
           />
         </div>
 
@@ -212,7 +226,7 @@ const PostBoxForm = () => {
             className="basic-multi-select"
             classNamePrefix="select"
             onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'languages')}
-            required
+            // required
             onInputChange={handleInputLanguage}
           />
         </div>

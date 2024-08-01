@@ -9,55 +9,35 @@ import { filterJops, getAllJops } from "@/mainData/jops/handleRequests";
 import { setCurrentPage } from "@/mainData/jops/jopsSlice";
 import useToken from "@/utils/useToken";
 import { useState } from "react";
-// title=&location=&skills=&companyId=
-// currentPage, token, title, location, skills, companyId 
+
 
 const JobSearchForm = () => {
 
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { currentPage } = useSelector((state) => state.jops)
+    // const { currentPage } = useSelector((state) => state.jops)
 
     const [title, setTitle] = useState("")
-    const [location, setLocation] = useState("")
-    const [skills, setskills] = useState("")
-    const [companyId, setCompanyId] = useState("")
-
+    const [skills, setskills] = useState(null)
+    const [companyId, setCompanyId] = useState(null)
 
     const handleSubmit = (e) => {
-
         e.preventDefault()
 
-        setCurrentPage(1)
-
-        dispatch(filterJops({ currentPage, token, title, location, skills, companyId })).unwrap().then(
-            () => {
-                console.log("get filter");
-            },
-            (error) => {
-                console.error("Failed to :", error);
-            }
-        );
-
+        dispatch(setCurrentPage(1))
+        // console.log({ currentPage: 1, token, title, skills: skills?.value || "", companyId: companyId?.value || "" });
+        dispatch(filterJops({ currentPage: 1, token, title, skills: skills?.value || "", companyId: companyId?.value || "" }))
     }
 
     const handleReset = (e) => {
         e.preventDefault()
 
-        setCurrentPage(1)
+        dispatch(setCurrentPage(1))
         setTitle("")
-        setCompanyId("")
-        setLocation("")
-        setskills("")
-        
-        dispatch(getAllJops({ currentPage, token })).unwrap().then(
-            () => {
-                console.log("get filter");
-            },
-            (error) => {
-                console.error("Failed to :", error);
-            }
-        );
+        setCompanyId(null)
+        setskills(null)
+
+        dispatch(filterJops({ currentPage: 1, token, title: "", skills: "", companyId: "" }))
 
     }
 
@@ -65,22 +45,17 @@ const JobSearchForm = () => {
         <>
             <div className="job-search-form">
                 <form className="row align-items-center" onSubmit={handleSubmit} onReset={handleReset}>
-                    <div className="form-group col-lg-3 col-md-12 col-sm-12">
+                    <div className="form-group col-lg-4 col-md-12 col-sm-12">
                         <SearchBox title={title} setTitle={setTitle} />
                     </div>
                     {/* <!-- Form Group --> */}
 
-                    <div className="form-group col-lg-3 col-md-12 col-sm-12 location">
-                        <LocationBox location={location} setLocation={setLocation} />
-                    </div>
-                    {/* <!-- Form Group --> */}
-
-                    <div className="form-group col-lg-3 col-md-12 col-sm-12 location">
-                        <Skills setskills={setskills} />
+                    <div className="form-group col-lg-4 col-md-12 col-sm-12 location">
+                        <Skills skills={skills} setskills={setskills} />
                     </div>
 
-                    <div className="form-group col-lg-3 col-md-12 col-sm-12 location">
-                        <Categories setCompanyId={setCompanyId} />
+                    <div className="form-group col-lg-4 col-md-12 col-sm-12 location">
+                        <Categories companyId={companyId} setCompanyId={setCompanyId} />
                     </div>
                     {/* <!-- Form Group --> */}
 

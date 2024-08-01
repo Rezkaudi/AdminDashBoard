@@ -6,7 +6,7 @@ import {
   getJop,
   createJop,
   editJop,
-  filterJops
+  filterJops,
 } from "./handleRequests";
 
 const initialState = {
@@ -45,8 +45,8 @@ export const jopsSlice = createSlice({
       })
       .addCase(deleteJop.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.jops = state.jops.filter((jop) => jop.id !== payload.id);
-        state.totalCount = state.totalCount - 1;
+        // state.jops = state.jops.filter((jop) => jop.id !== payload.id);
+        // state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteJop.rejected, (state, { payload }) => {
@@ -61,7 +61,7 @@ export const jopsSlice = createSlice({
       .addCase(getAllJops.fulfilled, (state, { payload }) => {
         state.jops = payload.data.jobs;
         state.totalCount = payload.data.total;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getAllJops.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -73,7 +73,7 @@ export const jopsSlice = createSlice({
       })
       .addCase(getJop.fulfilled, (state, { payload }) => {
         state.findJop = payload.data;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getJop.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -87,11 +87,11 @@ export const jopsSlice = createSlice({
         toast.success(payload.data.message);
 
         state.requestState = true;
-        const index = state.jops.findIndex((jop) => jop.id === payload.id);
+        // const index = state.jops.findIndex((jop) => jop.id === payload.id);
 
-        if (index !== -1) {
-          state.jops[index] = payload.data.data;
-        }
+        // if (index !== -1) {
+        //   state.jops[index] = payload.data.data;
+        // }
       })
       .addCase(editJop.rejected, (state, { payload }) => {
         state.requestState = true;
@@ -104,8 +104,8 @@ export const jopsSlice = createSlice({
       })
       .addCase(createJop.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.jops = [...state.jops, payload.data];
-        state.totalCount =Number(state.totalCount) + 1
+        // state.jops = [...state.jops, payload.data];
+        // state.totalCount = Number(state.totalCount) + 1;
         toast.success(payload.message);
       })
       .addCase(createJop.rejected, (state, { payload }) => {
@@ -113,14 +113,15 @@ export const jopsSlice = createSlice({
         toast.error(payload);
       });
 
-      builder
+    builder
       .addCase(filterJops.pending, (state, { payload }) => {
         state.jops = null;
+        state.totalCount = 0;
       })
       .addCase(filterJops.fulfilled, (state, { payload }) => {
         state.jops = payload.data.jobs;
         state.totalCount = payload.data.total;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(filterJops.rejected, (state, { payload }) => {
         toast.error(payload);

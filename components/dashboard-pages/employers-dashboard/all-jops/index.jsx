@@ -65,7 +65,7 @@ const index = () => {
       </section>
       {/* <!-- End Dashboard --> */}
 
-      <CopyrightFooter />
+      {/* <CopyrightFooter /> */}
       {/* <!-- End Copyright --> */}
     </div>
     // End page-wrapper

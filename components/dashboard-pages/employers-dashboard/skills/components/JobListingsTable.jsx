@@ -1,19 +1,28 @@
 "use client"
 import Link from "next/link";
-import { useSelector } from "react-redux";
 import Pagination from "./Pagination";
 import DeleteModal from './DeleteModal'
 import EditModal from "./EditModal";
+import useToken from "@/utils/useToken";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllSkills } from "@/mainData/skills/handleRequests";
 
 const JobListingsTable = () => {
 
 
-  const { skills } = useSelector(state => state.skills)
+  const { skills, currentPage, totalCount } = useSelector(state => state.skills)
+  const dispatch = useDispatch();
+  const { token } = useToken();
+
+  useEffect(() => {
+    dispatch(getAllSkills({ currentPage, token }));
+  }, [])
 
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>List Of Skills</h4>
+        <h4>List Of Skills - {totalCount}</h4>
 
         <div className="chosen-outer">
           <Link href={"/employers-dashboard/create-skill"} className="theme-btn btn-style-one">

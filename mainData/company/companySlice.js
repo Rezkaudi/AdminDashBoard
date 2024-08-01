@@ -55,10 +55,10 @@ export const companySlice = createSlice({
       })
       .addCase(deleteCompany.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.companies = state.companies.filter(
-          (company) => company.id !== payload.id
-        );
-        state.totalCount = state.totalCount - 1;
+        // state.companies = state.companies.filter(
+        //   (company) => company.id !== payload.id
+        // );
+        // state.totalCount = state.totalCount - 1;
         toast.success(payload.data.message);
       })
       .addCase(deleteCompany.rejected, (state, { payload }) => {
@@ -73,7 +73,7 @@ export const companySlice = createSlice({
       .addCase(getAllCompanies.fulfilled, (state, { payload }) => {
         state.companies = payload.data.list;
         state.totalCount = payload.data.totalCount;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getAllCompanies.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -85,7 +85,7 @@ export const companySlice = createSlice({
       })
       .addCase(getCompany.fulfilled, (state, { payload }) => {
         state.findCompany = payload.data;
-        toast.success(payload.message);
+        // toast.success(payload.message);
       })
       .addCase(getCompany.rejected, (state, { payload }) => {
         toast.error(payload);
@@ -99,13 +99,13 @@ export const companySlice = createSlice({
         toast.success(payload.data.message);
 
         state.requestState = true;
-        const index = state.companies.findIndex(
-          (company) => company.id === payload.id
-        );
+        // const index = state.companies.findIndex(
+        //   (company) => company.id === payload.id
+        // );
 
-        if (index !== -1) {
-          state.companies[index] = payload.data.data;
-        }
+        // if (index !== -1) {
+        //   state.companies[index] = payload.data.data;
+        // }
       })
       .addCase(editCompany.rejected, (state, { payload }) => {
         state.requestState = true;
@@ -118,8 +118,8 @@ export const companySlice = createSlice({
       })
       .addCase(createCompany.fulfilled, (state, { payload }) => {
         state.requestState = true;
-        state.companies = [...state.companies, payload.data];
-        state.totalCount =Number(state.totalCount) + 1
+        // state.companies = [...state.companies, payload.data];
+        // state.totalCount =Number(state.totalCount) + 1
         toast.success(payload.message);
       })
       .addCase(createCompany.rejected, (state, { payload }) => {

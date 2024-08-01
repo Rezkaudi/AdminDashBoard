@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useToken from '@/utils/useToken'
 import { useRouter } from 'next/navigation';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 import { getCompany, editCompany } from '@/mainData/company/handleRequests';
 
@@ -41,13 +40,16 @@ const FormInfoBox = ({ id }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const resultAction = await dispatch(editCompany({ id, token, newData: formData }));
-            unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/employers-dashboard/all-companies");
-        } catch (error) {
-            console.error('Edit company failed', error); 
-        }
+
+        dispatch(editCompany({ id, token, newData: formData })).unwrap().then(
+            () => {
+                router.push("/employers-dashboard/all-companies");
+            },
+            (error) => {
+                // Handle any errors here
+                console.error("Edit company failed:", error);
+            }
+        );
     }
 
     return (

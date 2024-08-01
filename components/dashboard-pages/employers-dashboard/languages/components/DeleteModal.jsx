@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { deleteLanguage } from '@/mainData/languages/handleRequests';
+import { deleteLanguage,getAllLanguages } from '@/mainData/languages/handleRequests';
 import useToken from "@/utils/useToken";
 import { useDispatch ,useSelector} from "react-redux";
 
@@ -11,13 +11,14 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { requestState } = useSelector((state) => state.languages);
+    const { requestState,currentPage } = useSelector((state) => state.languages);
 
     const handleDelete = () => {
         dispatch(deleteLanguage({ id, token })).unwrap().then(
             () => {
                 // Deletion was successful, close the modal
                 handleClose();
+                dispatch(getAllLanguages({ currentPage, token }));
             },
             (error) => {
                 // Handle any errors here

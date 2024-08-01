@@ -25,7 +25,7 @@ const FormInfoBox = ({ id }) => {
 
     useEffect(() => {
         if (findUser) {
-            console.log('Updating form data:', findUser); // Debug log
+            // console.log('Updating form data:', findUser); // Debug log
             setFormData({
                 email: findUser.email,
                 firstName: findUser.firstName,
