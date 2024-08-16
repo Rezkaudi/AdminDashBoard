@@ -7,13 +7,13 @@ import useToken from "@/utils/useToken";
 const Pagination = () => {
 
   const dispatch = useDispatch()
-  const { totalCount, currentPage } = useSelector(state => state.jops)
+  const { totalCount, currentPage, filterByCompanyId, filterByTitle, filterBySkillId } = useSelector((state) => state.jops);
   const totalPages = Math.ceil(totalCount / 10)
   const { token } = useToken()
 
   const handleChangePage = (currentPage) => {
     dispatch(setCurrentPage(currentPage))
-    dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
+    dispatch(filterJops({ currentPage, token, title: filterByTitle, skills: filterBySkillId?.value || "", companyId: filterByCompanyId?.value || "" }))
   }
 
   const renderPaginationItems = () => {
@@ -21,7 +21,7 @@ const Pagination = () => {
     const maxPagesToShow = 5; // Maximum number of pages to show at a time
     const halfPagesToShow = Math.floor(maxPagesToShow / 2);
     let startPage, endPage;
-  
+
     if (totalPages <= maxPagesToShow) {
       // If total pages are less than or equal to maxPagesToShow, show all pages
       startPage = 1;
@@ -30,18 +30,18 @@ const Pagination = () => {
       // Calculate start and end pages based on current page
       startPage = Math.max(currentPage - halfPagesToShow, 1);
       endPage = startPage + maxPagesToShow - 1;
-  
+
       // Adjust if endPage exceeds totalPages
       if (endPage > totalPages) {
         endPage = totalPages;
         startPage = endPage - maxPagesToShow + 1;
       }
     }
-  
+
     for (let page = startPage; page <= endPage; page++) {
       const isCurrentPage = page === currentPage;
       const className = isCurrentPage ? "current-page" : "";
-  
+
       items.push(
         <li key={page}>
           <span className={className} onClick={() => handleChangePage(page)}>
@@ -50,7 +50,7 @@ const Pagination = () => {
         </li>
       );
     }
-  
+
     return items;
   };
 

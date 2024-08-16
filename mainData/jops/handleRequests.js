@@ -134,9 +134,21 @@ export const filterJops = createAsyncThunk(
     { rejectWithValue }
   ) => {
     let pageSize = 10;
+
+    let url = `${Api}/admin/jobs?page=${currentPage}&size=${pageSize}`;
+    if (title.length !== 0) {
+        url += `&title=${title}`;
+    }
+    if (skills.length !== 0) {
+        url += `&skills=${skills}`;
+    }
+    if (companyId.length !== 0) {
+        url += `&companyId=${companyId}`;
+    }      
+    
+    console.log(url)
     try {
-      const response = await fetch(
-        `${Api}/admin/jobs?page=${currentPage}&size=${pageSize}&title=${title}&skills=${skills}&companyId=${companyId}`,
+      const response = await fetch(url,
         {
           method: "GET",
           headers: {
@@ -145,6 +157,7 @@ export const filterJops = createAsyncThunk(
         }
       );
       const data = await response.json();
+      console.log(data)
 
       if (response.ok) {
         return data;

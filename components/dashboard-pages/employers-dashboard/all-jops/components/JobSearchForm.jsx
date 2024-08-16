@@ -9,36 +9,24 @@ import { filterJops, getAllJops } from "@/mainData/jops/handleRequests";
 import { setCurrentPage } from "@/mainData/jops/jopsSlice";
 import useToken from "@/utils/useToken";
 import { useState } from "react";
-
+import { clearJopFilter } from "@/mainData/jops/jopsSlice";
 
 const JobSearchForm = () => {
 
     const dispatch = useDispatch()
     const { token } = useToken()
-    // const { currentPage } = useSelector((state) => state.jops)
-
-    const [title, setTitle] = useState("")
-    const [skills, setskills] = useState(null)
-    const [companyId, setCompanyId] = useState(null)
+    const { filterByCompanyId, filterByTitle, filterBySkillId } = useSelector((state) => state.jops)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         dispatch(setCurrentPage(1))
-        // console.log({ currentPage: 1, token, title, skills: skills?.value || "", companyId: companyId?.value || "" });
-        dispatch(filterJops({ currentPage: 1, token, title, skills: skills?.value || "", companyId: companyId?.value || "" }))
+        dispatch(filterJops({ currentPage: 1, token, title: filterByTitle, skills: filterBySkillId?.value || "", companyId: filterByCompanyId?.value || "" }))
     }
 
     const handleReset = (e) => {
         e.preventDefault()
-
-        dispatch(setCurrentPage(1))
-        setTitle("")
-        setCompanyId(null)
-        setskills(null)
-
+        dispatch(clearJopFilter())
         dispatch(filterJops({ currentPage: 1, token, title: "", skills: "", companyId: "" }))
-
     }
 
     return (
@@ -46,16 +34,16 @@ const JobSearchForm = () => {
             <div className="job-search-form">
                 <form className="row align-items-center" onSubmit={handleSubmit} onReset={handleReset}>
                     <div className="form-group col-lg-4 col-md-12 col-sm-12">
-                        <SearchBox title={title} setTitle={setTitle} />
+                        <SearchBox />
                     </div>
                     {/* <!-- Form Group --> */}
 
                     <div className="form-group col-lg-4 col-md-12 col-sm-12 location">
-                        <Skills skills={skills} setskills={setskills} />
+                        <Skills />
                     </div>
 
                     <div className="form-group col-lg-4 col-md-12 col-sm-12 location">
-                        <Categories companyId={companyId} setCompanyId={setCompanyId} />
+                        <Categories />
                     </div>
                     {/* <!-- Form Group --> */}
 

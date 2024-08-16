@@ -25,7 +25,7 @@ import { filterJops } from "@/mainData/jops/handleRequests";
 
 const FilterJobBox = () => {
   const { token } = useToken()
-  const { jops, totalCount, currentPage } = useSelector((state) => state.jops);
+  const { jops, totalCount, currentPage, filterByCompanyId, filterByTitle, filterBySkillId } = useSelector((state) => state.jops);
   const { jobList, jobSort } = useSelector((state) => state.filter);
   const {
     keyword,
@@ -44,7 +44,7 @@ const FilterJobBox = () => {
 
 
   useEffect(() => {
-    dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
+    dispatch(filterJops({ currentPage, token, title: filterByTitle, skills: filterBySkillId?.value || "", companyId: filterByCompanyId?.value || "" }))
   }, [])
 
   // keyword filter on title

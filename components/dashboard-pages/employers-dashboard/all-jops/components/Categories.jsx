@@ -7,12 +7,14 @@ import { addCategory } from "@/features/filter/filterSlice";
 import useToken from '@/utils/useToken'
 
 import { getCompaniesByName } from "@/mainData/company/handleRequests";
+import { handleChangeFilters } from "@/mainData/jops/jopsSlice";
 
-const Categories = ({ companyId, setCompanyId }) => {
+const Categories = () => {
 
     const dispatch = useDispatch();
     const { token } = useToken();
     const { companiesByName } = useSelector((state) => state.companies);
+    const { filterByCompanyId } = useSelector((state) => state.jops)
 
     // const specialisms = [
     //     { id: "id", name: "Banking" },
@@ -114,15 +116,15 @@ const Categories = ({ companyId, setCompanyId }) => {
     };
 
     const handleChangeCompany = (selectedOption) => {
-        setCompanyId(selectedOption);
+        // setCompanyId(selectedOption);
+        dispatch(handleChangeFilters({companyId:selectedOption}))
     };
-
 
 
     return (
         <>
             <Select
-                value={companyId}
+                value={filterByCompanyId}
                 onInputChange={handleInputCompany}
                 onChange={(selectedOption) => handleChangeCompany(selectedOption)} // Assuming 'companyId' is the name of the field in formData
                 options={companiesList}

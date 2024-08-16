@@ -7,13 +7,16 @@ import { addCategory } from "@/features/filter/filterSlice";
 import useToken from '@/utils/useToken'
 
 import { getSkillsByName } from "@/mainData/skills/handleRequests";
+import { handleChangeFilters } from "@/mainData/jops/jopsSlice";
 
-const Skills = ({ skills, setskills }) => {
+const Skills = () => {
 
     const dispatch = useDispatch();
     const { token } = useToken();
     const { skillsByName } = useSelector((state) => state.skills);
     const [selectedOption, setSelectedOption] = useState(null);
+    const { filterBySkillId } = useSelector((state) => state.jops)
+
 
     // const specialisms = [
     //     { id: "id", name: "Banking" },
@@ -111,12 +114,11 @@ const Skills = ({ skills, setskills }) => {
 
     const handleInputSkill = (e) => {
         const skillName = e
-        // console.log(skillName);
         dispatch(getSkillsByName({ skillName, token }));
     };
 
     const handleChangeSkill = (selectedOption) => {
-        setskills(selectedOption);
+        dispatch(handleChangeFilters({ skillId: selectedOption }))
     };
 
 
@@ -124,7 +126,7 @@ const Skills = ({ skills, setskills }) => {
     return (
         <>
             <Select
-                value={skills}
+                value={filterBySkillId}
                 onInputChange={handleInputSkill}
                 onChange={(selectedOption) => handleChangeSkill(selectedOption)} // Assuming 'companyId' is the name of the field in formData
                 options={skillsList}

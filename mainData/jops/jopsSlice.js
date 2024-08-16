@@ -15,6 +15,10 @@ const initialState = {
   requestState: true,
   totalCount: 0,
   currentPage: 1,
+  filterByCompanyId: null,
+  filterByTitle: "",
+  filterBySkillId: null,
+
 };
 
 export const jopsSlice = createSlice({
@@ -36,6 +40,20 @@ export const jopsSlice = createSlice({
     setCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
     },
+
+    clearJopFilter: (state, { payload }) => {
+      state.filterByCompanyId = null
+      state.filterBySkillId = null
+      state.filterByTitle =  ""
+      state.currentPage = 1
+    },
+
+    handleChangeFilters: (state, { payload }) => {
+      state.filterByCompanyId = payload.companyId || null
+      state.filterBySkillId = payload.skillId ||  null
+      state.filterByTitle = payload.title || ""
+    },
+
   },
 
   extraReducers: (builder) => {
@@ -129,5 +147,5 @@ export const jopsSlice = createSlice({
   },
 });
 
-export const { addJop, updateJop, setCurrentPage } = jopsSlice.actions;
+export const { addJop, updateJop, setCurrentPage,clearJopFilter,handleChangeFilters } = jopsSlice.actions;
 export default jopsSlice.reducer;
