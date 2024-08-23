@@ -36,7 +36,7 @@ const Header = () => {
                   <Image
                     width={154}
                     height={50}
-                    src="/images/logo-2.svg"
+                    src="/images/bon-logo-1.png"
                     alt="logo"
                     title="brand"
                   />

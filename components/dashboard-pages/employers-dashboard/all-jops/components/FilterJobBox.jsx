@@ -299,16 +299,21 @@ const FilterJobBox = () => {
       </div>
       {/* <!-- ls Switcher --> */}
 
-      {jops ? <div className="row">{content}</div>
-        : <div className="d-flex py-5 my-5">
-          <div className="spinner-border text-primary mx-auto" role="status">
-            <span className="sr-only">Loading...</span>
+      {jops && jops.length > 0 ? <div className="row">{content}</div>
+        :
+        jops && jops.length === 0 ?
+          <div className="text-center">
+            <span> No Jops Found. Create a new jop to get started.</span>
           </div>
-        </div>
+          : <div className="d-flex py-5 my-5">
+            <div className="spinner-border text-primary mx-auto" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
       }
       {/* End .row with jobs */}
 
-      <Pagination />
+      {jops?.length > 0 && <Pagination />}
       {/* <!-- End Pagination --> */}
     </>
   );

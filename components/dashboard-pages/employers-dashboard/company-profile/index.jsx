@@ -63,7 +63,8 @@ const index = ({ id }) => {
                                             <Image
                                                 width={100}
                                                 height={100}
-                                                src={"/images/resource/company-2.png"}
+                                                className="rounded-full"
+                                                src={'/images/resource/candidate-1.png'}
                                                 alt="logo"
                                             />
                                         </span>
@@ -165,7 +166,7 @@ const index = ({ id }) => {
             }
             {/* <!-- End Job Detail Section --> */}
 
-            {company ? <FooterDefault footerStyle="alternate5" /> : ""}
+            {/* {company ? <FooterDefault footerStyle="alternate5" /> : ""} */}
             {/* <!-- End Main Footer --> */}
         </>
     );

@@ -89,7 +89,7 @@ const FormInfoBox = ({ id }) => {
                                 placeholder="Enter New Address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                required
+                                // required
                             />
                         </div>
 

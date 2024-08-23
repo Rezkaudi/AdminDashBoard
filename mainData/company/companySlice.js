@@ -9,13 +9,6 @@ import {
   getCompaniesByName,
 } from "./handleRequests";
 
-// {
-//   "id": "f15a6346-0704-4f08-bbab-1b9d8b21c7b6",
-//   "email": "test2y@gmail.com",
-//   "name": "London, UK",
-//   "address": "test2",
-//   "joinDate": "2024-06-19T17:34:28.276Z"
-// }
 
 const initialState = {
   companies: null,

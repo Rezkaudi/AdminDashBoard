@@ -8,6 +8,7 @@ import DeleteModal from './DeleteModal'
 import { getAllCompanies } from "@/mainData/company/handleRequests";
 import { useEffect } from "react";
 import { truncateString } from "@/utils/algorithms";
+import { tr } from "@faker-js/faker";
 
 const JobListingsTable = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const JobListingsTable = () => {
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>List Of Companies - {totalCount}</h4>
+        <h4>List Of Companies : {totalCount}</h4>
 
         <div className="chosen-outer">
           <Link href={"/employers-dashboard/create-company"} className="theme-btn btn-style-one">
@@ -45,7 +46,7 @@ const JobListingsTable = () => {
             </thead>
 
             <tbody className="w-100">
-              {companies ? companies.map((item) => (
+              {companies && companies.length > 0 ? companies.map((item) => (
                 <tr key={item.id} >
                   <td>
                     {/* <!-- Job Block --> */}
@@ -114,20 +115,26 @@ const JobListingsTable = () => {
                     </div>
                   </td>
                 </tr>
-              )) : (
-                <tr>
-                  <td colSpan={5} className="">
-                    <div className="mx-auto spinner-border text-primary d-flex justify-content-center" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  </td>
-                </tr>
-              )
+              )) :
+                companies && companies.length === 0 ?
+                  <tr>
+                    <td colSpan="3" className="text-center"> No Companies Found. Create a new company to get started.</td>
+                  </tr>
+                  :
+                  (
+                    <tr>
+                      <td colSpan={5} className="">
+                        <div className="mx-auto spinner-border text-primary d-flex justify-content-center" role="status">
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </td>
+                    </tr>
+                  )
               }
             </tbody>
           </table>
         </div>
-        <Pagination />
+        {companies?.length > 0 && <Pagination />}
       </div>
       {/* End table widget content */}
     </div>

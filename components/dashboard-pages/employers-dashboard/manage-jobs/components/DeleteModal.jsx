@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { deleteCompany } from "@/mainData/company/handleRequests";
 import { getAllCompanies } from '@/mainData/company/handleRequests';
+import { setCurrentPage } from '@/mainData/company/companySlice';
 import useToken from "@/utils/useToken";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,14 +13,20 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { requestState ,currentPage} = useSelector((state) => state.companies);
+    const { requestState, currentPage, companies } = useSelector((state) => state.companies);
 
     const handleDelete = () => {
         dispatch(deleteCompany({ id, token })).unwrap().then(
             () => {
                 // Deletion was successful, close the modal
                 handleClose();
-                dispatch(getAllCompanies({ currentPage, token }))
+                if (companies?.length === 1 && currentPage > 1) {
+                    dispatch(setCurrentPage(currentPage - 1))
+                    dispatch(getAllCompanies({ currentPage: currentPage - 1, token }))
+                }
+                else{
+                    dispatch(getAllCompanies({ currentPage, token }))
+                }
             },
             (error) => {
                 // Handle any errors here

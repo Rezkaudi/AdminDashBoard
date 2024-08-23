@@ -13,6 +13,7 @@ import Contact from "@/components/job-single-pages/shared-components/Contact";
 import RelatedJobs3 from "@/components/job-single-pages/related-jobs/RelatedJobs3";
 import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import Image from "next/image";
+import JopApplicants from "@/components/job-single-pages/shared-components/JopApplicants";
 
 
 import { useEffect } from "react";
@@ -78,7 +79,7 @@ const index = ({ id }) => {
                               {company?.time}
                             </li> */}
                             {/* time info */}
-                            {findJop.salaryMin!==null && findJop.salaryMax!==null &&
+                            {findJop.salaryMin !== null && findJop.salaryMax !== null &&
                               <li>
                                 <span className="icon flaticon-money"></span>{" "}
                                 {findJop.salaryMin}-{findJop.salaryMax}
@@ -96,7 +97,9 @@ const index = ({ id }) => {
                   </div>
                   {/* End job-block-outer */}
 
-                  <JobDetailsDescriptions description={findJop.description || "no description"} />
+                  <JobDetailsDescriptions description={findJop.description || "No Description"} />
+                  <JopApplicants applicants={findJop.appliedUsers} />
+
                   {/* End jobdetails content */}
 
                   {/* <div className="other-options">
@@ -203,7 +206,7 @@ const index = ({ id }) => {
       }
       {/* <!-- End Job Detail Section --> */}
 
-      {findJop && <FooterDefault footerStyle="alternate5" />}
+      {/* {findJop && <FooterDefault footerStyle="alternate5" />} */}
       {/* <!-- End Main Footer --> */}
     </>
   );

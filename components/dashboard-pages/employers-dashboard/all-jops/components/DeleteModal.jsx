@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useToken from "@/utils/useToken";
-import { useDispatch,useSelector } from "react-redux";
-import { deleteJop ,filterJops} from "@/mainData/jops/handleRequests";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteJop, filterJops } from "@/mainData/jops/handleRequests";
+import { setCurrentPage } from '@/mainData/jops/jopsSlice';
 
 const DeleteModal = ({ id }) => {
     const [show, setShow] = useState(false);
@@ -11,15 +12,20 @@ const DeleteModal = ({ id }) => {
     const handleShow = () => setShow(true);
     const dispatch = useDispatch()
     const { token } = useToken()
-    const { requestState ,currentPage} = useSelector((state) => state.jops)
+    const { requestState, currentPage,jops } = useSelector((state) => state.jops)
 
     const handleDelete = () => {
         dispatch(deleteJop({ id, token })).unwrap().then(
             () => {
                 // Deletion was successful, close the modal
                 handleClose();
-                dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
-
+                if (jops?.length === 1 && currentPage > 1) {
+                    dispatch(setCurrentPage(currentPage - 1))
+                    dispatch(filterJops({ currentPage: currentPage - 1, token, title: "", skills: "", companyId: "" }))
+                }
+                else {
+                    dispatch(filterJops({ currentPage, token, title: "", skills: "", companyId: "" }))
+                }
             },
             (error) => {
                 // Handle any errors here

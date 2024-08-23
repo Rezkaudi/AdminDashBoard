@@ -22,7 +22,7 @@ const JobListingsTable = () => {
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>List Of Skills - {totalCount}</h4>
+        <h4>List Of Skills : {totalCount}</h4>
 
         <div className="chosen-outer">
           <Link href={"/employers-dashboard/create-skill"} className="theme-btn btn-style-one">
@@ -45,7 +45,7 @@ const JobListingsTable = () => {
             </thead>
 
             <tbody className="w-100">
-              {skills ? skills.map((item) => (
+              {skills && skills.length > 0 ? skills.map((item) => (
                 <tr key={item.id}>
                   <td>
                     {/* <!-- Job Block --> */}
@@ -77,20 +77,25 @@ const JobListingsTable = () => {
                     </div>
                   </td>
                 </tr>
-              )) : (
-                <tr>
-                  <td colSpan={5} className="">
-                    <div className="mx-auto spinner-border text-primary d-flex justify-content-center" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  </td>
-                </tr>
-              )
+              )) :
+                skills && skills.length === 0 ?
+                  <tr>
+                    <td colSpan="3" className="text-center"> No Skill Found. Create a new skill to get started.</td>
+                  </tr>
+                  : (
+                    <tr>
+                      <td colSpan={5} className="">
+                        <div className="mx-auto spinner-border text-primary d-flex justify-content-center" role="status">
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </td>
+                    </tr>
+                  )
               }
             </tbody>
           </table>
         </div>
-        <Pagination />
+        {skills?.length > 0 && <Pagination />}
       </div>
       {/* End table widget content */}
     </div>

@@ -80,7 +80,7 @@ const index = ({ id }) => {
                                             </li>
                                             <li>
                                                 <span className="icon flaticon-clock"></span>
-                                                {`Member Since ${applicant.basicInfo?.createdAt}` || "No value"}
+                                                {`Member Since ${applicant.basicInfo?.createdAt || "No value"}`}
                                             </li>
                                         </ul>
 
@@ -115,11 +115,7 @@ const index = ({ id }) => {
                             <div className="row">
                                 <div className="content-column col-lg-8 col-md-12 col-sm-12">
                                     <div className="job-detail">
-                                        {/* {candidateResume.map((resume) => (
-                                
-                                        ))} */}
-
-
+                                   
                                         {/*education  */}
                                         <div
                                             className={`resume-outer theme-blue`}
@@ -183,37 +179,6 @@ const index = ({ id }) => {
 
                                         </div>
 
-
-                                        {/*Experience  */}
-                                        <div
-                                            className={`resume-outer`}
-                                        >
-                                            <div className="upper-title">
-                                                <h4>Projects</h4>
-                                            </div>
-
-                                            {fullUserInfo.projects.length > 0 ? fullUserInfo.projects.map((item, index) => (
-                                                <div className="resume-block" key={item.id}>
-                                                    <div className="inner">
-                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
-                                                        <div className="title-box">
-                                                            <div className="info-box">
-                                                                <h3>{item.title}</h3>
-                                                                <span>{item.company}</span>
-                                                            </div>
-                                                            <div className="edit-box">
-                                                                <span className="year">{item.startYear} - {item.endYear}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text">{item.summary} in  {item.location}</div>
-                                                    </div>
-                                                </div>
-                                            )) :
-                                                <span className="text px-5">No Projects yet</span>
-                                            }
-
-                                        </div>
-
                                         {/*certificates  */}
                                         <div
                                             className={`resume-outer theme-blue`}
@@ -246,6 +211,37 @@ const index = ({ id }) => {
                                             }
 
                                         </div>
+
+                                          {/*Projects  */}
+                                          <div
+                                            className={`resume-outer`}
+                                        >
+                                            <div className="upper-title">
+                                                <h4>Projects</h4>
+                                            </div>
+
+                                            {fullUserInfo.projects.length > 0 ? fullUserInfo.projects.map((item, index) => (
+                                                <div className="resume-block" key={item.id}>
+                                                    <div className="inner">
+                                                        <span className="name">{String.fromCharCode(65 + index)}</span>
+                                                        <div className="title-box">
+                                                            <div className="info-box">
+                                                                <h3>{item.title}</h3>
+                                                                <span>{item.company}</span>
+                                                            </div>
+                                                            <div className="edit-box">
+                                                                <span className="year">{item.startYear} - {item.endYear}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text">{item.summary} in  {item.location}</div>
+                                                    </div>
+                                                </div>
+                                            )) :
+                                                <span className="text px-5">No Projects yet</span>
+                                            }
+
+                                        </div>
+
                                     </div>
                                 </div>
                                 {/* End .content-column */}
@@ -370,19 +366,10 @@ const index = ({ id }) => {
             }
             {/* <!-- End Job Detail Section --> */}
 
-            {applicant && findUser ? <FooterDefault footerStyle="alternate5" /> : ""}
+            {/* {applicant && findUser ? <FooterDefault footerStyle="alternate5" /> : ""} */}
             {/* <!-- End Main Footer --> */}
         </>
     );
 };
 
 export default index;
-// .icon-Email:before {
-// 	content: "\e854";
-// }
-// .icon-Phone-2:before {
-// 	content: "\eb58";
-// }
-// .icon-Phone-3:before {
-// 	content: "\eb59";
-// }

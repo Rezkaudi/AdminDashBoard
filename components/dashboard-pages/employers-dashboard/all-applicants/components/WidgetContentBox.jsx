@@ -38,8 +38,8 @@ const WidgetContentBox = () => {
 
           <div className="tabs-content">
             <TabPanel>
-              <div className="row">
-                {users ?
+              <div className="row pb-3">
+                {users && users.length > 0 ?
                   users.map((user) => (
                     <div
                       className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
@@ -66,13 +66,16 @@ const WidgetContentBox = () => {
                               {"developer"}
                             </li> */}
                             <li>
-                              <span className="icon flaticon-email"></span>{" "}
+                              <span className="icon flaticon-email"></span>
                               {user.email}
                             </li>
-                            <li>
-                              <span className="icon flaticon-phone"></span>
-                              {user.phone ? user.phone : "0000"}
-                            </li>
+                            {user.phone &&
+                              <li>
+                                <span className="icon flaticon-phone"></span>
+                                {user.phone}
+                              </li>
+                            }
+
                           </ul>
                         </div>
                         {/* End content */}
@@ -101,11 +104,16 @@ const WidgetContentBox = () => {
                         {/* End admin options box */}
                       </div>
                     </div>
-                  )) : (
-                    <div className="spinner-border text-primary mx-auto" role="status">
-                      <span className="sr-only">Loading...</span>
+                  )) :
+                  users && users.length === 0 ?
+                    <div className="text-center">
+                      <span> No Users Found.</span>
                     </div>
-                  )
+                    : (
+                      <div className="spinner-border text-primary mx-auto" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    )
                 }
               </div>
             </TabPanel>
@@ -113,7 +121,7 @@ const WidgetContentBox = () => {
           </div>
         </Tabs>
       </div>
-      <Pagination />
+      {users?.length > 0 && <Pagination />}
     </div>
   );
 };
