@@ -91,7 +91,7 @@ const index = ({ id }) => {
                                         </ul> */}
                                     </div>
 
-                                    <div className="btn-box">
+                                    {/* <div className="btn-box">
                                         <a
                                             className="theme-btn btn-style-one"
                                             href="#"
@@ -102,7 +102,7 @@ const index = ({ id }) => {
                                         <button className="bookmark-btn">
                                             <i className="flaticon-bookmark"></i>
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             {/*  <!-- Candidate block Five --> */}
