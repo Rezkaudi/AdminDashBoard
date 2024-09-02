@@ -146,7 +146,6 @@ export const filterJops = createAsyncThunk(
         url += `&companyId=${companyId}`;
     }      
     
-    console.log(url)
     try {
       const response = await fetch(url,
         {
@@ -157,7 +156,6 @@ export const filterJops = createAsyncThunk(
         }
       );
       const data = await response.json();
-      console.log(data)
 
       if (response.ok) {
         return data;

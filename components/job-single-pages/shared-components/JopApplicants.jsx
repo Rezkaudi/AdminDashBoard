@@ -22,38 +22,38 @@ const JopApplicants = ({ applicants }) => {
               <div className="row pb-3">
                 {applicants && applicants.length > 0 ?
                   applicants.map((user) => (
-                    <div
-                      className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
-                      key={user.id}
-                    >
-                      <div className="inner-box">
-                        <div className="content">
-                            <figure className="image">
-                              <Image
-                                width={90}
-                                height={90}
-                                src={'/images/resource/candidate-1.png'}
-                                alt="candidates"
-                              />
-                            </figure>
-                          <h4 className="name">
-                            <Link href={`/employers-dashboard/user-profile/${user.id}`}>
-                              {user.firstName} {user.lastName}
-                            </Link>
-                          </h4>
+                    <>
+                      {user && <div
+                        className="candidate-block-three col-lg-6 col-md-12 col-sm-12"
+                        key={user.id}
+                      >
+                        <Link href={`/user/${user.id}`}>
+                          <div className="inner-box">
+                            <div className="content">
+                              <figure className="image">
+                                <Image
+                                  width={90}
+                                  height={90}
+                                  src={'/images/resource/candidate-1.png'}
+                                  alt="candidates"
+                                />
+                              </figure>
+                              <h4 className="name">
+                                {user.firstName} {user.lastName}
+                              </h4>
 
-                          <ul className="candidate-info">
-                            <li>
-                              <span className="icon flaticon-email"></span>
-                              {user.email}
-                            </li>
-                          </ul>
-                        </div>
+                              <ul className="candidate-info">
+                                <li>
+                                  <span className="icon flaticon-email"></span>
+                                  {user.email}
+                                </li>
+                              </ul>
+                            </div>
 
-                      </div>
-                    </div>
-
-                    
+                          </div>
+                        </Link>
+                      </div>}
+                    </>
                   )) :
                   applicants && applicants.length === 0 ?
                     <div className="text-center">

@@ -1,24 +1,8 @@
 "use client"
 import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
-import LoginPopup from "../../../common/form/login/LoginPopup";
-import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
-import BreadCrumb from "../../BreadCrumb";
-import MyProfile from "./components/my-profile";
-import SocialNetworkBox from "./components/SocialNetworkBox";
-import ContactInfoBox from "./components/ContactInfoBox";
-import CopyrightFooter from "../../CopyrightFooter";
-import MenuToggler from "../../MenuToggler";
 
-import employersInfo from "@/data/topCompany";
-import FooterDefault from "@/components/footer/common-footer";
-import JobDetailsDescriptions from "@/components/employer-single-pages/shared-components/JobDetailsDescriptions";
-import RelatedJobs from "@/components/employer-single-pages/related-jobs/RelatedJobs";
-import MapJobFinder from "@/components/job-listing-pages/components/MapJobFinder";
-import Social from "@/components/employer-single-pages/social/Social";
-import PrivateMessageBox from "@/components/employer-single-pages/shared-components/PrivateMessageBox";
 import Image from "next/image";
-import { truncateString } from "@/utils/algorithms";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useToken from "@/utils/useToken";
@@ -32,8 +16,6 @@ const index = ({ id }) => {
 
 
     const company = findCompany;
-    const employer =
-        employersInfo.find((item) => item.id == id) || employersInfo[0];
 
     useEffect(() => {
         dispatch(getCompany({ token, id }))

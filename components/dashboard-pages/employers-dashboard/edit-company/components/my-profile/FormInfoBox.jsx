@@ -43,7 +43,7 @@ const FormInfoBox = ({ id }) => {
 
         dispatch(editCompany({ id, token, newData: formData })).unwrap().then(
             () => {
-                router.push("/employers-dashboard/all-companies");
+                router.push("/companies");
             },
             (error) => {
                 // Handle any errors here

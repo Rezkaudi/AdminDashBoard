@@ -44,7 +44,7 @@ const FormInfoBox = ({ id }) => {
         try {
             const resultAction = await dispatch(editUser({ id, token, newData: formData }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/employers-dashboard/all-users");
+            router.push("/users");
         } catch (error) {
             console.error('Edit company failed', error);
         }

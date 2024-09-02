@@ -1,17 +1,10 @@
 "use client"
-import candidates from "@/data/candidates";
-import candidateResume from "@/data/candidateResume";
 import DashboardHeader from "../../../header/DashboardHeader";
-import LoginPopup from "@/components/common/form/login/LoginPopup";
 import FooterDefault from "@/components/footer/common-footer";
-import DefaulHeader from "@/components/header/DefaulHeader";
 import MobileMenu from "@/components/header/MobileMenu";
-import Contact from "@/components/candidates-single-pages/shared-components/Contact";
-import GalleryBox from "@/components/candidates-single-pages/shared-components/GalleryBox";
 import Social from "@/components/candidates-single-pages/social/Social";
 import JobSkills from "@/components/candidates-single-pages/shared-components/JobSkills";
 import Cvs from "@/components/candidates-single-pages/shared-components/Cvs";
-// import AboutVideo from "@/components/candidates-single-pages/shared-components/AboutVideo";
 import Image from "next/image";
 
 
@@ -26,7 +19,6 @@ const index = ({ id }) => {
     const { token } = useToken()
     const { fullUserInfo, findUser } = useSelector(state => state.users)
 
-    const candidate = candidates[0];
     const applicant = fullUserInfo;
 
     useEffect(() => {
@@ -60,7 +52,7 @@ const index = ({ id }) => {
                                             <Image
                                                 width={100}
                                                 height={100}
-                                                src={candidate?.avatar}
+                                                src={"/images/resource/candidate-1.png"}
                                                 alt="avatar"
                                             />
                                         </figure>

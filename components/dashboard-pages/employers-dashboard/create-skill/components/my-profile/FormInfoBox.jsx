@@ -26,7 +26,7 @@ const FormInfoBox = () => {
         try {
             const resultAction = await dispatch(createSkill({ skillData, token }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/employers-dashboard/all-skills");
+            router.push("/skills");
         } catch (error) {
             console.error('Create skill failed', error);
         }

@@ -7,8 +7,6 @@ import Pagination from "./Pagination";
 import DeleteModal from './DeleteModal'
 import { getAllCompanies } from "@/mainData/company/handleRequests";
 import { useEffect } from "react";
-import { truncateString } from "@/utils/algorithms";
-import { tr } from "@faker-js/faker";
 
 const JobListingsTable = () => {
   const dispatch = useDispatch();
@@ -26,7 +24,7 @@ const JobListingsTable = () => {
         <h4>List Of Companies : {totalCount}</h4>
 
         <div className="chosen-outer">
-          <Link href={"/employers-dashboard/create-company"} className="theme-btn btn-style-one">
+          <Link href={"/create-company"} className="theme-btn btn-style-one">
             Create New Company
           </Link>
         </div>
@@ -64,7 +62,7 @@ const JobListingsTable = () => {
                           </span>
                           <h4>
                             <Link
-                              href={`/employers-dashboard/company-profile/${item.id}`}
+                              href={`/company/${item.id}`}
                             >
                               {item.name}
                             </Link>
@@ -95,14 +93,14 @@ const JobListingsTable = () => {
                       <ul className="option-list">
                         <li>
                           <button data-text="View Company Profile">
-                            <Link data-text="View Company Profile" href={`/employers-dashboard/company-profile/${item.id}`}>
+                            <Link data-text="View Company Profile" href={`/company/${item.id}`}>
                               <span className="la la-eye"></span>
                             </Link>
                           </button>
                         </li>
                         <li>
                           <button data-text="Edit Company">
-                            <Link data-text="Edit Company" href={`/employers-dashboard/edit-company/${item.id}`}>
+                            <Link data-text="Edit Company" href={`/edit-company/${item.id}`}>
                               <span className="la la-pencil"></span>
                             </Link>
                           </button>

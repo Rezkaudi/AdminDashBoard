@@ -1,23 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Api from "@/utils/Api";
 import useAuth from "@/utils/useAuth";
-import { useDispatch } from "react-redux";
-import { handleCloseModal } from "@/mainData/loginPopup/loginPopupSlice";
-import Cookies from "js-cookie";
-
+import { useSearchParams } from "next/navigation";
 
 const FormContent = () => {
   const router = useRouter();
   const { login } = useAuth();
-  const dispatch = useDispatch()
-  const handleClose = () => dispatch(handleCloseModal())
 
-
-  // console.log(Cookies.get("prevURL"));
+  // Get the redirect URL from search params
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect") || "/";
 
   const [adminData, setAdminData] = useState({
     email: "",
@@ -38,6 +34,7 @@ const FormContent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log(redirectUrl);
     try {
       const response = await fetch(`${Api}/admin/auth/login`, {
         method: "POST", // Specify method
@@ -49,19 +46,14 @@ const FormContent = () => {
 
       const data = await response.json(); // Parse the response as JSON
 
-      // Assuming the server responds with a status indicating success
       if (response.ok) {
         login(data.data.accessToken, adminData.rememberMe)
-        router.push("/employers-dashboard/dashboard");
-        toast.success(data.message);
-        handleClose()
-
-
+        window.location.href = redirectUrl
+        // router.push("/")
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
       toast.error("Failed to log in.");
     } finally {
       setLoading(false); // Ensure loading is set back to false regardless of outcome

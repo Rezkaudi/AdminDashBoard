@@ -26,7 +26,7 @@ const FormInfoBox = () => {
         try {
             const resultAction = await dispatch(createLanguage({ languageData, token }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/employers-dashboard/all-languages");
+            router.push("/languages");
         } catch (error) {
             console.error('Create language failed', error);
         }

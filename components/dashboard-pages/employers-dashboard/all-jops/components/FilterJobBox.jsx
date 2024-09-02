@@ -1,9 +1,5 @@
 'use client'
 import Link from "next/link";
-import jobs from "../../../../../data/job-featured";
-import ListingShowing from "./ListingShowing";
-import JobSelect from "./JobSelect";
-import { deleteJop } from "@/mainData/jops/handleRequests";
 import useToken from "@/utils/useToken";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -125,7 +121,7 @@ const FilterJobBox = () => {
             <Image width={50} height={49} src={"/images/resource/company-logo/1-1.png"} alt="item brand" />
           </span>
           <h4>
-            <Link href={`/employers-dashboard/jop/${item.id}`}>{item.title}</Link>
+            <Link href={`/job/${item.id}`}>{item.title}</Link>
           </h4>
 
           <ul className="job-info">
@@ -168,11 +164,19 @@ const FilterJobBox = () => {
 
           <ul className="option-list d-flex align-item-center justify-content-end">
             <li>
+              <button data-text="View Jop">
+                <Link data-text="View Jop" href={`/job/${item.id}`}>
+                  <span className="la la-eye"></span>
+                </Link >
+              </button>
+            </li>
+
+            <li>
               <DeleteModal id={item.id} />
             </li>
             <li>
               <button data-text="Edit Jop">
-                <Link data-text="Edit Jop" href={`/employers-dashboard/edit-jop/${item.id}`}>
+                <Link data-text="Edit Jop" href={`/edit-job/${item.id}`}>
                   <span className="la la-pencil"></span>
                 </Link >
               </button>
@@ -219,7 +223,7 @@ const FilterJobBox = () => {
           </div>
 
         </div>
-        <Link href={"/employers-dashboard/create-jop"} className="theme-btn btn-style-one">
+        <Link href={"/create-job"} className="theme-btn btn-style-one">
           Create New Jop
         </Link>
 

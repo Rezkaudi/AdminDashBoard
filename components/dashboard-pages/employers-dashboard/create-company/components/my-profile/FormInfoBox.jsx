@@ -30,7 +30,7 @@ const FormInfoBox = () => {
         try {
             const resultAction = await dispatch(createCompany({ companyData, token }));
             unwrapResult(resultAction); // This will throw an error if the action was rejected
-            router.push("/employers-dashboard/all-companies");
+            router.push("/companies");
         } catch (error) {
             console.error('Create company failed', error); 
         }

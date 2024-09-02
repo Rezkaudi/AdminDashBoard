@@ -25,7 +25,7 @@ const JobListingsTable = () => {
         <h4>List Of Skills : {totalCount}</h4>
 
         <div className="chosen-outer">
-          <Link href={"/employers-dashboard/create-skill"} className="theme-btn btn-style-one">
+          <Link href={"/create-skill"} className="theme-btn btn-style-one">
             Create New Skill
           </Link>
         </div>

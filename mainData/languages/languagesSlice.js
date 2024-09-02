@@ -98,6 +98,7 @@ export const languagesSlice = createSlice({
       })
       .addCase(getLanguagesByName.fulfilled, (state, { payload }) => {
         state.languagesByName = payload.data.list;
+        console.log(payload.data.list)
         // toast.success(payload.message);
       });
     // .addCase(getLanguagesByName.rejected, (state, { payload }) => {

@@ -1,17 +1,17 @@
 import Wrapper from "@/layout/Wrapper";
-import Home from "@/components/home-1";
+import DashboadHome from "@/components/dashboard-pages/employers-dashboard/dashboard";
 
 
 export const metadata = {
-  title: "Home-1 || Superio - Job Borad React NextJS Template",
-  description: "Superio - Job Borad React NextJS Template",
+  title: "Dashboard || Bonzuttner",
+  description: "Bonzuttner",
 };
 
 export default function page() {
 
   return (
     <Wrapper>
-      <Home />
+      <DashboadHome />
     </Wrapper>
   );
 }

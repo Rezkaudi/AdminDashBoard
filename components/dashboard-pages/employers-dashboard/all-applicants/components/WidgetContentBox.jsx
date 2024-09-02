@@ -56,7 +56,7 @@ const WidgetContentBox = () => {
                             />
                           </figure>
                           <h4 className="name">
-                            <Link href={`/employers-dashboard/user-profile/${user.id}`}>
+                            <Link href={`user/${user.id}`}>
                               {user.firstName} {user.lastName}
                             </Link>
                           </h4>
@@ -84,14 +84,14 @@ const WidgetContentBox = () => {
                           <ul className="option-list">
                             <li>
                               <button data-text="View Applicant Profile">
-                                <Link data-text="View Applicant Profile" href={`/employers-dashboard/user-profile/${user.id}`}>
+                                <Link data-text="View Applicant Profile" href={`/user/${user.id}`}>
                                   <span className="la la-eye"></span>
                                 </Link>
                               </button>
                             </li>
                             <li>
                               <button data-text="Edit Applicant">
-                                <Link data-text="Edit Applicant" href={`/employers-dashboard/edit-user/${user.id}`}>
+                                <Link data-text="Edit Applicant" href={`/edit-user/${user.id}`}>
                                   <span className="la la-pencil"></span>
                                 </Link >
                               </button>

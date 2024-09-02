@@ -1,17 +1,10 @@
 "use client"
 import DashboardHeader from "@/components/header/DashboardHeader";
-import jobs from "@/data/job-featured";
 import LoginPopup from "@/components/common/form/login/LoginPopup";
-import FooterDefault from "@/components/footer/common-footer";
-import DefaulHeader from "@/components/header/DefaulHeader";
 import MobileMenu from "@/components/header/MobileMenu";
 import JobOverView from "@/components/job-single-pages/job-overview/JobOverView";
 import JobSkills from "@/components/job-single-pages/shared-components/JobSkills";
-import SocialTwo from "@/components/job-single-pages/social/SocialTwo";
 import JobDetailsDescriptions from "@/components/job-single-pages/shared-components/JobDetailsDescriptions";
-import Contact from "@/components/job-single-pages/shared-components/Contact";
-import RelatedJobs3 from "@/components/job-single-pages/related-jobs/RelatedJobs3";
-import ApplyJobModalContent from "@/components/job-single-pages/shared-components/ApplyJobModalContent";
 import Image from "next/image";
 import JopApplicants from "@/components/job-single-pages/shared-components/JopApplicants";
 
@@ -170,7 +163,7 @@ const index = ({ id }) => {
                             />
                           </div>
                           <h6 className="company-name">{findJop.Company?.email}</h6>
-                          <Link href={`/employers-dashboard/company-profile/${findJop.companyId}`} className="profile-link">
+                          <Link href={`/company/${findJop.companyId}`} className="profile-link">
                             View company profile
                           </Link>
                         </div>

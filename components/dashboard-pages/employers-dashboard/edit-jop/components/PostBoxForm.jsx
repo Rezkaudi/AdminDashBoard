@@ -134,7 +134,7 @@ const PostBoxForm = ({ id }) => {
     try {
       const resultAction = await dispatch(editJop({ id, token, newJopData }));
       unwrapResult(resultAction); // This will throw an error if the action was rejected
-      router.push("/employers-dashboard/all-jobs");
+      router.push("/jobs");
     } catch (error) {
       console.error('Create Jop failed', error);
     }
@@ -162,9 +162,9 @@ const PostBoxForm = ({ id }) => {
   };
 
   const handleInputLanguage = (e) => {
-    const LanguageName = e
-    // console.log(LanguageName);
-    dispatch(getLanguagesByName({ LanguageName, token }));
+    const languageName = e
+    // console.log(languageName);
+    dispatch(getLanguagesByName({ languageName, token }));
   };
 
   const handleChangeCompany = (selectedOption) => {
@@ -216,23 +216,23 @@ const PostBoxForm = ({ id }) => {
             {/* Input */}
             <div className="form-group col-lg-6 col-md-12">
           <label>Min Salary</label>
-          <input type="number" min={0} name="salaryMin" placeholder="Enter Min Salary" value={formData?.salaryMin} onChange={handleChange} />
+          <input type="number" required={!!formData.salaryMin || !!formData.salaryMax} min={0} name="salaryMin" placeholder="Enter Min Salary" value={formData?.salaryMin} onChange={handleChange} />
         </div>
 
         <div className="form-group col-lg-6 col-md-12">
           <label>Max Salary</label>
-          <input type="number" min={0} name="salaryMax" placeholder="Enter Max Salary" value={formData?.salaryMax} onChange={handleChange} />
+          <input type="number" required={!!formData.salaryMin || !!formData.salaryMax} min={Number(formData.salaryMin) + 1 || 0} name="salaryMax" placeholder="Enter Max Salary" value={formData?.salaryMax} onChange={handleChange} />
         </div>
 
 
         <div className="form-group col-lg-6 col-md-12">
           <label>Min Experience</label>
-          <input type="number" min={0} name="experienceMin" placeholder="Enter Min Experience" value={formData?.experienceMin} onChange={handleChange} />
+          <input type="number" required={!!formData.experienceMin || !!formData.experienceMax} min={0} name="experienceMin" placeholder="Enter Min Experience" value={formData?.experienceMin} onChange={handleChange} />
         </div>
 
         <div className="form-group col-lg-6 col-md-12">
           <label>Max Experience</label>
-          <input type="number" min={0} name="experienceMax" placeholder="Enter Max Experience" value={formData?.experienceMax} onChange={handleChange} />
+          <input type="number" required={!!formData.experienceMin || !!formData.experienceMax} min={Number(formData.experienceMin) + 1 || 0} name="experienceMax" placeholder="Enter Max Experience" value={formData?.experienceMax} onChange={handleChange} />
         </div>
 
 

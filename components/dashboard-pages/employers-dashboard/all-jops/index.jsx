@@ -2,10 +2,8 @@ import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
 import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
 import BreadCrumb from "../../BreadCrumb";
-import CopyrightFooter from "../../CopyrightFooter";
 
 import MenuToggler from "../../MenuToggler";
-import Pagination from "./components/Pagination";
 
 import JobSearchForm from "./components/JobSearchForm";
 import FilterJobBox from "./components/FilterJobBox";

@@ -25,7 +25,7 @@ const JobListingsTable = () => {
         <h4>List Of Languages : {totalCount}</h4>
 
         <div className="chosen-outer">
-          <Link href={"/employers-dashboard/create-language"} className="theme-btn btn-style-one">
+          <Link href={"/create-language"} className="theme-btn btn-style-one">
             Create New Language
           </Link>
         </div>

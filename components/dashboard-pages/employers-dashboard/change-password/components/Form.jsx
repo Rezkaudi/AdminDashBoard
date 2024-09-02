@@ -38,7 +38,7 @@ const Form = () => {
     try {
       const resultAction = await dispatch(changePassword({ adminPasswords, token }));
       unwrapResult(resultAction); // This will throw an error if the action was rejected
-      router.push("/employers-dashboard/dashboard");
+      router.push("/");
     } catch (error) {
       console.error('change password failed', error);
     }

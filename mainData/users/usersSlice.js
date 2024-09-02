@@ -116,7 +116,7 @@ export const usersSlice = createSlice({
       })
       .addCase(getAllApplicantInfo.fulfilled, (state, { payload }) => {
         state.fullUserInfo = payload.data;
-        console.log(state.fullUserInfo);
+        // console.log(state.fullUserInfo);
         // toast.success(payload.message);
       })
       .addCase(getAllApplicantInfo.rejected, (state, { payload }) => {
