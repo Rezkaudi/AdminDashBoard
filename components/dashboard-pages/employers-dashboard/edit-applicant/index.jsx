@@ -8,6 +8,7 @@ import SocialNetworkBox from "./components/SocialNetworkBox";
 import ContactInfoBox from "./components/ContactInfoBox";
 import CopyrightFooter from "../../CopyrightFooter";
 import MenuToggler from "../../MenuToggler";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const index = ({id}) => {
     return (
@@ -26,6 +27,7 @@ const index = ({id}) => {
             {/* <!-- Dashboard --> */}
             <section className="user-dashboard">
                 <div className="dashboard-outer">
+                    <Breadcrumb/>
                     <BreadCrumb title="Edit User" />
                     {/* breadCrumb */}
 

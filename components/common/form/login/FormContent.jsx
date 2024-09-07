@@ -49,6 +49,7 @@ const FormContent = () => {
       if (response.ok) {
         login(data.data.accessToken, adminData.rememberMe)
         window.location.href = redirectUrl
+        toast.success(data.message);
         // router.push("/")
       } else {
         toast.error(data.message);

@@ -2,11 +2,12 @@ import MobileMenu from "../../../header/MobileMenu";
 import DashboardHeader from "../../../header/DashboardHeader";
 import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
 import BreadCrumb from "../../BreadCrumb";
-import CopyrightFooter from "../../CopyrightFooter";
+import Breadcrumb from "@/components/common/Breadcrumb";
 import JobListingsTable from "./components/JobListingsTable";
 import MenuToggler from "../../MenuToggler";
 
 const index = () => {
+  
   return (
     <div className="page-wrapper dashboard">
       <span className="header-span"></span>
@@ -27,6 +28,8 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
+
           <BreadCrumb title="All Companies" />
           {/* breadCrumb */}
 

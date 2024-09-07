@@ -6,6 +6,7 @@ import BreadCrumb from "../../BreadCrumb";
 import CopyrightFooter from "../../CopyrightFooter";
 import JobListingsTable from "./components/JobListingsTable";
 import MenuToggler from "../../MenuToggler";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const index = () => {
   return (
@@ -28,6 +29,7 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
           <BreadCrumb title="All Languages" />
           {/* breadCrumb */}
 

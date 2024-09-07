@@ -49,9 +49,14 @@ export const jopsSlice = createSlice({
     },
 
     handleChangeFilters: (state, { payload }) => {
-      state.filterByCompanyId = payload.companyId || null
-      state.filterBySkillId = payload.skillId ||  null
-      state.filterByTitle = payload.title || ""
+      console.log(payload.title)
+      console.log(state.filterByCompanyId)
+      console.log(state.filterBySkillId)
+      console.log(state.filterByTitle )
+
+      state.filterByCompanyId = payload.companyId !== undefined ? payload.companyId  : state.filterByCompanyId 
+      state.filterBySkillId = payload.skillId !== undefined ? payload.skillId  : state.filterBySkillId
+      state.filterByTitle = payload.title !== undefined ? payload.title  : state.filterByTitle
     },
 
   },

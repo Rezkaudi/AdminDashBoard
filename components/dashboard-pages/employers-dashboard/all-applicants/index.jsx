@@ -5,6 +5,7 @@ import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
 import BreadCrumb from "../../BreadCrumb";
 import WidgetContentBox from "./components/WidgetContentBox";
 import MenuToggler from "../../MenuToggler";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const index = () => {
   return (
@@ -27,6 +28,7 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
           <BreadCrumb title="All Users!" />
           {/* breadCrumb */}
 

@@ -9,6 +9,7 @@ import Notification from "./components/Notification";
 import Applicants from "./components/Applicants";
 import CopyrightFooter from "../../CopyrightFooter";
 import MenuToggler from "../../MenuToggler";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const Index = () => {
   return (
@@ -31,6 +32,7 @@ const Index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
           <BreadCrumb title="Dashboard Home!" />
           {/* breadCrumb */}
 

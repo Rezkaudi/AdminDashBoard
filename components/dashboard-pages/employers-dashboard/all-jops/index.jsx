@@ -7,6 +7,7 @@ import MenuToggler from "../../MenuToggler";
 
 import JobSearchForm from "./components/JobSearchForm";
 import FilterJobBox from "./components/FilterJobBox";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const index = () => {
   return (
@@ -29,6 +30,7 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
           <BreadCrumb title="All Jobs!" />
           {/* breadCrumb */}
 

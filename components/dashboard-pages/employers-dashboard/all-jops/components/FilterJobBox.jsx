@@ -127,7 +127,7 @@ const FilterJobBox = () => {
           <ul className="job-info">
             <li>
               <span className="icon flaticon-briefcase"></span>
-              {item.Company?.name}
+              <Link href={`/company/${item.Company.id}`}> {item.Company?.name}</Link>
             </li>
             {/* compnay info */}
 

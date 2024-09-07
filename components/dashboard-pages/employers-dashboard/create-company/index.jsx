@@ -4,9 +4,7 @@ import LoginPopup from "../../../common/form/login/LoginPopup";
 import DashboardEmployerSidebar from "../../../header/DashboardEmployerSidebar";
 import BreadCrumb from "../../BreadCrumb";
 import MyProfile from "./components/my-profile";
-import SocialNetworkBox from "./components/SocialNetworkBox";
-import ContactInfoBox from "./components/ContactInfoBox";
-import CopyrightFooter from "../../CopyrightFooter";
+import Breadcrumb from "@/components/common/Breadcrumb";
 import MenuToggler from "../../MenuToggler";
 
 const index = () => {
@@ -26,6 +24,7 @@ const index = () => {
             {/* <!-- Dashboard --> */}
             <section className="user-dashboard">
                 <div className="dashboard-outer">
+                    <Breadcrumb/>
                     <BreadCrumb title="Create Company" />
                     {/* breadCrumb */}
 

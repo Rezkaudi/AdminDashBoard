@@ -8,6 +8,7 @@ import CopyrightFooter from "../../CopyrightFooter";
 import PostJobSteps from "./components/PostJobSteps";
 import PostBoxForm from "./components/PostBoxForm";
 import MenuToggler from "../../MenuToggler"
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 
 const index = () => {
@@ -33,6 +34,7 @@ const index = () => {
       {/* <!-- Dashboard --> */}
       <section className="user-dashboard">
         <div className="dashboard-outer">
+          <Breadcrumb/>
           <BreadCrumb title="Post a New Job!" />
           {/* breadCrumb */}
 
