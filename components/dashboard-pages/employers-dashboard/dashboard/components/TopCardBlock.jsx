@@ -17,28 +17,28 @@ const TopCardBlock = () => {
   const cardContent = [
     {
       id: 1,
-      icon: "flaticon-briefcase",
+      icon: "la-user",
       countNumber: statistics?.totalUsers || "...",
       metaName: "Total Users",
       uiClass: "ui-blue",
     },
     {
       id: 2,
-      icon: "la-file-invoice",
+      icon: "flaticon-briefcase",
       countNumber: statistics?.totalJobs || "...",
       metaName: "Total Jobs",
       uiClass: "ui-red",
     },
     {
       id: 3,
-      icon: "la-comment-o",
+      icon: "la-user",
       countNumber: statistics?.totalUsersLastMonth || "...",
       metaName: "Total Users Last Month",
       uiClass: "ui-yellow",
     },
     {
       id: 4,
-      icon: "la-language",
+      icon: "flaticon-briefcase",
       countNumber: statistics?.totalJobsLastMonth || "...",
       metaName: "Total Jobs Last Month",
       uiClass: "ui-red",

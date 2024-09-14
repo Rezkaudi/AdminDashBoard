@@ -9,9 +9,10 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarElement
 } from "chart.js";
 import { useSelector } from "react-redux";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 // import { faker } from "@faker-js/faker";
 import { useEffect } from "react";
 
@@ -22,7 +23,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  BarElement
 );
 
 
@@ -70,7 +72,7 @@ const ProfileChart = () => {
   const labels = statistics?.jobsByCompany.map(item =>
     item.companyName
   );
-  const values =statistics?.jobsByCompany.map(item =>
+  const values = statistics?.jobsByCompany.map(item =>
     item.jobCount
   );
 
@@ -110,7 +112,7 @@ const ProfileChart = () => {
       {/* End widget top bar */}
 
       <div className="widget-content">
-        <Line options={options} data={data} />
+        <Bar options={options} data={data} />
       </div>
       {/* End  profile chart */}
     </div>
