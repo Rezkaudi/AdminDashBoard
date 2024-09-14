@@ -10,8 +10,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
+import { useEffect } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -23,9 +25,16 @@ ChartJS.register(
   Legend
 );
 
+
 export const options = {
   responsive: true,
-
+  scales: {
+    y: {
+      ticks: {
+        stepSize: 1
+      }
+    }
+  },
   plugins: {
     legend: {
       display: false,
@@ -50,36 +59,52 @@ export const options = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June"];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset",
-      data: labels.map(() => faker.datatype.number({ min: 100, max: 400 })),
-      borderColor: "#1967d2",
-      backgroundColor: "#1967d2",
-      data: [196, 132, 215, 362, 210, 252],
-      fill: false,
-    },
-  ],
-};
+
+
 
 const ProfileChart = () => {
+
+  const { statistics } = useSelector((state) => state.dashboard);
+
+  const labels = statistics?.jobsByCompany.map(item =>
+    item.companyName
+  );
+  const values =statistics?.jobsByCompany.map(item =>
+    item.jobCount
+  );
+
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Jobs",
+        borderColor: "#1967d2",
+        backgroundColor: "#1967d2",
+        data: values,
+        fill: false,
+      },
+    ],
+  };
+
+  useEffect(() => {
+    console.log(labels)
+  }, [statistics])
+
   return (
     <div className="tabs-box">
       <div className="widget-title">
-        <h4>Your Profile Views</h4>
+        <h4>Jobs By Company</h4>
         <div className="chosen-outer">
           {/* <!--Tabs Box--> */}
-          <select className="chosen-single form-select">
+          {/* <select className="chosen-single form-select">
             <option>Last 6 Months</option>
             <option>Last 12 Months</option>
             <option>Last 16 Months</option>
             <option>Last 24 Months</option>
             <option>Last 5 year</option>
-          </select>
+          </select> */}
         </div>
       </div>
       {/* End widget top bar */}

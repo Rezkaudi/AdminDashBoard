@@ -1,55 +1,59 @@
 "use client"
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getStatistics } from "@/mainData/dashboard/handleRequests";
+import useToken from "@/utils/useToken";
+
 const TopCardBlock = () => {
-  // const { totalCount: usersTotalCount } = useSelector((state) => state.users);
-  // const { totalCount: companiesTotalCount } = useSelector((state) => state.companies);
-  // const { totalCount: jopsTotalCount } = useSelector((state) => state.jops);
-  // const { totalCount: languagesTotalCount } = useSelector((state) => state.languages);
-  // const { totalCount: skillsTotalCount } = useSelector((state) => state.skills);
 
+  const dispatch = useDispatch()
+  const { statistics } = useSelector((state) => state.dashboard);
+  const { token } = useToken();
 
-
+  useEffect(() => {
+    dispatch(getStatistics({ token }))
+  }, [])
 
   const cardContent = [
-    // {
-    //   id: 1,
-    //   icon: "flaticon-briefcase",
-    //   countNumber: usersTotalCount,
-    //   metaName: "Users",
-    //   uiClass: "ui-blue",
-    // },
-    // {
-    //   id: 2,
-    //   icon: "la-file-invoice",
-    //   countNumber: companiesTotalCount,
-    //   metaName: "Companies",
-    //   uiClass: "ui-red",
-    // },
-    // {
-    //   id: 3,
-    //   icon: "la-comment-o",
-    //   countNumber: jopsTotalCount,
-    //   metaName: "Jops",
-    //   uiClass: "ui-yellow",
-    // },
-    // {
-    //   id: 4,
-    //   icon: "la-language",
-    //   countNumber: languagesTotalCount,
-    //   metaName: "Languages",
-    //   uiClass: "ui-red",
-    // },
+    {
+      id: 1,
+      icon: "flaticon-briefcase",
+      countNumber: statistics?.totalUsers || "...",
+      metaName: "Total Users",
+      uiClass: "ui-blue",
+    },
+    {
+      id: 2,
+      icon: "la-file-invoice",
+      countNumber: statistics?.totalJobs || "...",
+      metaName: "Total Jobs",
+      uiClass: "ui-red",
+    },
+    {
+      id: 3,
+      icon: "la-comment-o",
+      countNumber: statistics?.totalUsersLastMonth || "...",
+      metaName: "Total Users Last Month",
+      uiClass: "ui-yellow",
+    },
+    {
+      id: 4,
+      icon: "la-language",
+      countNumber: statistics?.totalJobsLastMonth || "...",
+      metaName: "Total Jobs Last Month",
+      uiClass: "ui-red",
+    },
     // {
     //   id: 5,
     //   icon: "la-bookmark-o",
-    //   countNumber: skillsTotalCount,
+    //   countNumber: statistics? || "...",
     //   metaName: "Skills",
     //   uiClass: "ui-green",
     // },
     // {
     //   id: 4,
     //   icon: "la-bookmark-o",
-    //   countNumber: "32",
+    //   countNumber: statistics? || "...",
     //   metaName: "Shortlist",
     //   uiClass: "ui-green",
     // },

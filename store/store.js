@@ -24,6 +24,7 @@ import authSlice from "@/mainData/auth/authSlice";
 
 import languagesSlice from "@/mainData/languages/languagesSlice";
 import skillsSlice from "@/mainData/skills/skillsSlice";
+import dashboardSlice from "@/mainData/dashboard/dashboardSlice";
 
 export const store = configureStore({
   reducer: {
@@ -44,6 +45,7 @@ export const store = configureStore({
     auth: authSlice,
     languages: languagesSlice,
     skills: skillsSlice,
+    dashboard: dashboardSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });

@@ -45,11 +45,11 @@ const Index = () => {
           {/* End .row top card block */}
 
           <div className="row">
-            {/* <div className="col-xl-7 col-lg-12">
+            <div className="col-xl-7 col-lg-12">
               <div className="graph-widget ls-widget">
                 <ProfileChart />
               </div>
-            </div> */}
+            </div>
             {/* End .col */}
 
             {/* <div className="col-xl-5 col-lg-12">
