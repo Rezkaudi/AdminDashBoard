@@ -6,7 +6,7 @@ import {
   getUser,
   editUser,
   getAllApplicantInfo,
-  getUserCv
+  getUserCv,
 } from "./handleRequests";
 import { toast } from "react-toastify";
 
@@ -16,7 +16,7 @@ const initialState = {
   findUser: null,
   fullUserInfo: null,
   requestState: true,
-  userCv:null,
+  userCv: null,
   totalCount: 0,
   currentPage: 1,
 };
@@ -123,12 +123,12 @@ export const usersSlice = createSlice({
         toast.error(payload);
       });
 
-      builder
+    builder
       .addCase(getUserCv.pending, (state, { payload }) => {
         state.userCv = null;
       })
       .addCase(getUserCv.fulfilled, (state, { payload }) => {
-        state.userCv = payload.data;
+        state.userCv = payload;
         // toast.success(payload.message);
       })
       .addCase(getUserCv.rejected, (state, { payload }) => {
@@ -136,7 +136,6 @@ export const usersSlice = createSlice({
       });
   },
 });
-
 
 export const { updateUser, setCurrentPage } = usersSlice.actions;
 export default usersSlice.reducer;

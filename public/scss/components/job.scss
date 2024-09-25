@@ -473,9 +473,11 @@ Job Section
 .job-block .job-info li a {
   color: #696969;
 }
+
 .job-block .content h4 {
   margin-bottom: 10px;
 }
+
 .job-block .bookmark-btn {
   position: absolute;
   right: 0;
@@ -1697,6 +1699,7 @@ Job Detail Section
 .job-overview li {
   position: relative;
   padding-left: 50px;
+
   &:not(:last-child) {
     margin-bottom: 30px;
   }
@@ -1807,7 +1810,8 @@ Job Detail Section
   margin-bottom: 10px;
 }
 
-.job-skills li a {
+.job-skills li a,
+.job-skills li button {
   padding: 5px 20px;
   display: block;
   font-size: 14px;

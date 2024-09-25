@@ -155,25 +155,17 @@ export const getAllApplicantInfo = createAsyncThunk(
 
 export const getUserCv = createAsyncThunk(
   "user/getUserCv",
-  async ({userId,token }, { rejectWithValue }) => {
-
+  async ({ cvId }, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `${Api}/admin/user/cv/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            auth: token,
-          },
-        }
-      );
-      const data = await response.json();
-      console.log(data)
+      const response = await fetch(`${Api}/admin/user/cv/${cvId}`, {
+        method: "GET",
+      });
 
       if (response.ok) {
-        return data;
+        console.log(response);
+        return response.url;
       } else {
-        return rejectWithValue(data.message);
+        return rejectWithValue("fail to download");
       }
     } catch (error) {
       return rejectWithValue(error.message);

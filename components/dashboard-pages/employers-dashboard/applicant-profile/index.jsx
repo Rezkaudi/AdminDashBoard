@@ -107,7 +107,7 @@ const index = ({ id }) => {
                             <div className="row">
                                 <div className="content-column col-lg-8 col-md-12 col-sm-12">
                                     <div className="job-detail">
-                                   
+
                                         {/*education  */}
                                         <div
                                             className={`resume-outer theme-blue`}
@@ -204,8 +204,8 @@ const index = ({ id }) => {
 
                                         </div>
 
-                                          {/*Projects  */}
-                                          <div
+                                        {/*Projects  */}
+                                        <div
                                             className={`resume-outer`}
                                         >
                                             <div className="upper-title">
@@ -279,7 +279,7 @@ const index = ({ id }) => {
                                                         <i className="icon icon-language"></i>
                                                         <h5>Languages:</h5>
                                                         <span>{fullUserInfo.languages?.length > 0 ? fullUserInfo.languages.map(item =>
-                                                            <>{item.languageName} , </>
+                                                            <span key={item.id}>{item.languageName} , </span>
                                                         ) :
                                                             <span className="text px-3">No Language</span>
                                                         }</span>
