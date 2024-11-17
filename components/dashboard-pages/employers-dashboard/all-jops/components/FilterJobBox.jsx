@@ -164,8 +164,8 @@ const FilterJobBox = () => {
 
           <ul className="option-list d-flex align-item-center justify-content-end">
             <li>
-              <button data-text="View Jop">
-                <Link data-text="View Jop" href={`/job/${item.id}`}>
+              <button data-text="View Job">
+                <Link data-text="View Job" href={`/job/${item.id}`}>
                   <span className="la la-eye"></span>
                 </Link >
               </button>
@@ -175,8 +175,8 @@ const FilterJobBox = () => {
               <DeleteModal id={item.id} />
             </li>
             <li>
-              <button data-text="Edit Jop">
-                <Link data-text="Edit Jop" href={`/edit-job/${item.id}`}>
+              <button data-text="Edit Job">
+                <Link data-text="Edit Job" href={`/edit-job/${item.id}`}>
                   <span className="la la-pencil"></span>
                 </Link >
               </button>
@@ -224,7 +224,7 @@ const FilterJobBox = () => {
 
         </div>
         <Link href={"/create-job"} className="theme-btn btn-style-one">
-          Create New Jop
+          Create New Job
         </Link>
 
         {/* End .showing-result */}
@@ -307,7 +307,7 @@ const FilterJobBox = () => {
         :
         jops && jops.length === 0 ?
           <div className="text-center">
-            <span> No Jops Found. Create a new jop to get started.</span>
+            <span> No Jops Found. Create a new job to get started.</span>
           </div>
           : <div className="d-flex py-5 my-5">
             <div className="spinner-border text-primary mx-auto" role="status">
